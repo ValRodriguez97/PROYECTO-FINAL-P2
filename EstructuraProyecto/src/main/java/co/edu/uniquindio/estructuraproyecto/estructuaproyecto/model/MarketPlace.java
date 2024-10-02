@@ -1,4 +1,4 @@
 package co.edu.uniquindio.estructuraproyecto.estructuaproyecto.model;
 
-public class Empleado {
+public class MarketPlace {
 }
