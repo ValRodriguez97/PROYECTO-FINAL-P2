@@ -1,5 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.builder.PersonaBuilder;
+
 public abstract  class Persona {
     private String nombre;
     private String apellido;

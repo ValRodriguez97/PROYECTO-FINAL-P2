@@ -1,5 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.builder.ProductoBuilder;
+
 import java.time.LocalDate;
 
 public class Producto {
@@ -19,6 +21,10 @@ public class Producto {
         this.precio = precio;
         this.fecha = fecha;
         this.estado = estado;
+    }
+
+    public static ProductoBuilder builder() {
+        return new ProductoBuilder();
     }
 
     public String getNombre() {

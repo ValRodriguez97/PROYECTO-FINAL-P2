@@ -1,5 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,10 @@ public class Vendedor extends  Persona {
         super(nombre, apellido, cedula, direccion, usuario, contraseña);
         muro = new ArrayList<>();
         listProductos = new ArrayList<>();
+    }
+
+    public static VendedorBuilder builder(){
+        return new VendedorBuilder();
     }
 
     public List<Muro> getMuro() {
