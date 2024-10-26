@@ -6,5 +6,4 @@ public record MensajeDto (
         String mensaje,
         LocalDateTime fechaMensaje
 ){
-
 }

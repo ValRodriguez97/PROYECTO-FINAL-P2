@@ -1,5 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.builder.PersonaBuilder;
+
 public class Usuario extends Persona {
 
     public Usuario(String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña) {
@@ -10,4 +12,6 @@ public class Usuario extends Persona {
 
     }
 
+    public static <T> PersonaBuilder<T> builder() {
+    }
 }

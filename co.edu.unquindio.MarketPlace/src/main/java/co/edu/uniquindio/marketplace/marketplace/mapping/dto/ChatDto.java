@@ -6,7 +6,5 @@ import java.util.List;
 
 public record ChatDto(
         List<Mensaje> mensajes
-) {
-
-
+){
 }

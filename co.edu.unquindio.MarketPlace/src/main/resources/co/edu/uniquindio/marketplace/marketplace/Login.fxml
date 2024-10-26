@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.LoginViewController">
+   <children>
+      <AnchorPane layoutX="358.0" prefHeight="474.0" prefWidth="424.0">
+         <children>
+            <Text layoutX="38.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="68.56478881835938">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="43.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="130.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login to your account">
+               <font>
+                  <Font name="Segoe UI Semilight Italic" size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtUsername" layoutX="41.0" layoutY="200.0" onAction="#OnPutYourUsername" prefHeight="27.0" prefWidth="338.0" style="-fx-background-color: #DFE1DB; -fx-border-color: #00FF0000; -fx-border-width: 0px 0px 2px 0px;" />
+            <TextField fx:id="txtPassword" layoutX="41.0" layoutY="280.0" onAction="#onPutPassword" prefHeight="26.0" prefWidth="338.0" style="-fx-background-color: #DFE1DB; -fx-border-color: #00FF0000; -fx-border-width: 0px 0px 2px 0px;" />
+            <CheckBox fx:id="btnRememberMe" layoutX="41.0" layoutY="315.0" mnemonicParsing="false" onAction="#onRememberPassword" style="-fx-background-color: #00FF0000; -fx-border-color: #00FF0000;" text="Remember me">
+               <font>
+                  <Font name="Segoe UI Semilight Italic" size="12.0" />
+               </font></CheckBox>
+            <Button fx:id="btnLogin" layoutX="47.0" layoutY="348.0" mnemonicParsing="false" onAction="#onLoginBtn" prefHeight="26.0" prefWidth="330.0" style="-fx-background-color: #cdbce5;" text="LOGIN">
+               <font>
+                  <Font name="Magneto Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Button>
+            <ImageView fitHeight="86.0" fitWidth="94.0" layoutX="169.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@user.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnForgotYourPassword" layoutX="255.0" layoutY="375.0" mnemonicParsing="false" onAction="#onForgotYourPassword" style="-fx-background-color: #00FF0000; -fx-border-color: #00FF0000;" text="Forgot your password?">
+               <font>
+                  <Font name="Segoe UI Semilight Italic" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCreateAccount" layoutX="155.0" layoutY="421.0" mnemonicParsing="false" onAction="#onCreateAccount" prefHeight="38.0" prefWidth="114.0" style="-fx-background-color: #00FF0000; -fx-border-color: #00FF0000;" text="Create Account" textFill="#4d3373">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="474.0" prefWidth="358.0" style="-fx-background-color: #cdbce5;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="104.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@email.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -5,5 +5,4 @@ public record AdministradorDto (
         String apellido,
         String usuario
 ){
-
 }
