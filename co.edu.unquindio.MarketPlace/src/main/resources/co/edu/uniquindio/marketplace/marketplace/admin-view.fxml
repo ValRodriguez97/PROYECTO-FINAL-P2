@@ -75,7 +75,12 @@
                   <Image url="@../../../../../../../../../../Downloads/user.png" />
                </image>
             </ImageView>
-            <Text layoutX="68.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot your password?" />
+            <Text fx:id="txtForgotPassword" layoutX="68.0" layoutY="441.0" onDragDetected="#onForgotPassword" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot your password?" />
+            <ImageView fitHeight="78.0" fitWidth="87.0" layoutX="230.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@user.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="560.0" prefWidth="390.0" style="-fx-background-color: #cdbce5;">
@@ -86,6 +91,11 @@
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="120.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../../../../../Downloads/email.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="120.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@email.png" />
                </image>
             </ImageView>
          </children>
