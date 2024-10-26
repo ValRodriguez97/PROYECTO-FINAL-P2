@@ -1,12 +1,16 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.LoginController;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -55,10 +59,34 @@ public class LoginViewController {
     }
 
     @FXML
-    void onLoginBtn(ActionEvent event) {
-
+    void onLoginBtn(ActionEvent event)  throws IOException {
+        login();
     }
 
+    public void login() throws IOException {
+        UsuarioDto usuarioDto = buildUsuarioDto();
+        if(loginController.verificarUsuario(usuarioDto)){
+            showStage2(loginController.getUsuarioDto(usuarioDto));
+        }
+    }
+
+    public UsuarioDto buildUsuarioDto() {
+        return new UsuarioDto(
+                null,
+                null,
+                null,
+                null,
+                txtUsername.getText(),
+                txtPassword.getText()
+        );
+    }
+
+    public void showStage2(UsuarioDto usuarioDto) throws IOException {
+        if(usuarioDto instanceof VendedorDto){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass());
+        }
+
+    }
     @FXML
     void onPutPassword(ActionEvent event) {
 

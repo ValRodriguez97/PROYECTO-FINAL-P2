@@ -55,19 +55,19 @@ public class ModelFactory implements IModelFactory {
         if(marketPlace.verificarVendedorExistente(vendedorDto.cedula())){
             Vendedor vendedorActualizado= mapper.vendedorDtoToVendedor(vendedorDto);
 
-            return marketPlace.updateVendedor;
+            return marketPlace.updateVendedor(vendedorActualizado.getIdVendedor(), vendedorActualizado);
         }
         return false;
     }
 
     @Override
     public boolean deleteVendedor(String idVendedor) {
-        return false;
+        return marketPlace.deleteVendedor(idVendedor);
     }
 
     @Override
     public List<UsuarioDto> getUsuariosDto() {
-        return List.of();
+        return mappe.r;
     }
 
     @Override
@@ -137,6 +137,14 @@ public class ModelFactory implements IModelFactory {
 
     @Override
     public boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean admitirUsuario(UsuarioDto usuarioDto){
+        if(marketPlace.verificarContraseñaUsuario(usuarioDto.usuario(), usuarioDto.contrasela())){
+            return true;
+        }
         return false;
     }
 

@@ -7,7 +7,6 @@ public record ProductoDto (
         String imagen,
         String categoria,
         double precio,
-        LocalDate fecha,
         String estado
 ){
 }

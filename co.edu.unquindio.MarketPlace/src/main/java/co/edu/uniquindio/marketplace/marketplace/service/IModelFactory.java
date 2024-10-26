@@ -33,6 +33,6 @@ public interface IModelFactory {
     boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
     boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
 
-
+    public boolean admitirUsuario(UsuarioDto usuarioDto);
 
 }

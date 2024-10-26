@@ -51,4 +51,8 @@ public class Comentario {
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
     }
+
+    public Producto getProducto() {
+        return getProducto();
+    }
 }

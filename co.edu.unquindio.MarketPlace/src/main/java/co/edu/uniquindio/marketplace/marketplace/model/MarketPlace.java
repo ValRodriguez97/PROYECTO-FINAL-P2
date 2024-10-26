@@ -23,7 +23,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public boolean createVendedor(Vendedor vendedor){
-       if(verificarVendedor(vendedor.getIdVendedor())){
+       if(verificarVendedorExistente(vendedor.getIdVendedor())){
            Vendedor newVendedor = Vendedor.builder()
                    .idVendedor(vendedor.getIdVendedor())
                    .nombre(vendedor.getNombre())
@@ -38,12 +38,19 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
        return false;
     }
 
-
     @Override
-    public boolean updateVendedor( Vendedor vendedor) {
-        Vendedor vendedorEXistente = verificarVendedor(vendedor.getIdVendedor());
-        
-
+    public boolean updateVendedor(String idVendedor, Vendedor vendedor){
+        Vendedor vendedorExistente = verificarVendedor(idVendedor);
+        if(vendedorExistente != null){
+            vendedorExistente.setIdVendedor(vendedor.getIdVendedor());
+            vendedorExistente.setNombre(vendedor.getNombre());
+            vendedorExistente.setApellido(vendedor.getApellido());
+            vendedorExistente.setDireccion(vendedor.getDireccion());
+            vendedorExistente.setUsuario(vendedor.getUsuario());
+            vendedorExistente.setContraseña(vendedor.getContraseña());
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -63,16 +70,16 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public boolean verificarVendedorExistente(String idVendedor) {
-        return verificarVendedor(idVendedor);
+        return verificarVendedor(idVendedor) != null;
     }
 
-    public boolean verificarVendedor(String idVendedor) {
+    public Vendedor verificarVendedor(String idVendedor) {
         for (Vendedor vendedor : listVendedores) {
             if (vendedor.getCedula().equals(idVendedor)) {
-                return true;
+                return vendedor;
             }
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -243,6 +250,15 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             }
         }
         return null;
+    }
+
+    public boolean verificarContraseñaUsuario(String usuario, String contraseña){
+        for (Usuario contraseñaValida : listUsuarios){
+            if(contraseñaValida.getUsuario().equals(usuario) && contraseñaValida.getContraseña().equals(contraseña)){
+                return true;
+            }
+        }
+        return false;
     }
 
             public String getNombre () {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICrudVendedor {
     boolean createVendedor(Vendedor vendedor);
-    boolean updateVendedor( Vendedor vendedor);
+    boolean updateVendedor( String idVendedor, Vendedor vendedor);
     boolean deleteVendedor(String idVendedor);
     List<Vendedor> listVendedores();
 
