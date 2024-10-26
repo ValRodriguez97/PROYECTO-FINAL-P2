@@ -4,7 +4,7 @@ import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
 
 public interface ICrudUsuario{
 
-    boolean createUsuario(String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña);
+    boolean createUsuario(Usuario usuario);
     boolean updateUsuario(Usuario usuario);
     boolean deleteUsuario(Usuario usuario);
     Usuario getUsuario(String cedula);

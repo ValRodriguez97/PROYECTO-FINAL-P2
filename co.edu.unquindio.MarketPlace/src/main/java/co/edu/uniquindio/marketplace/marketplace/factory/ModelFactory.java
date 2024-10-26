@@ -1,5 +1,8 @@
 package co.edu.uniquindio.marketplace.marketplace.factory;
 
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.AdministradorDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.PublicacionDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.mappers.MarketPlaceMappingImplt;
 import co.edu.uniquindio.marketplace.marketplace.model.MarketPlace;
@@ -34,42 +37,111 @@ public class ModelFactory implements IModelFactory {
     }
 
     @Override
-    public List<VendedorDto> getVendedores(){
+    public List<VendedorDto> getVendedoresDto() {
         return mapper.getVendedoresDto(marketPlace.getListVendedores());
     }
 
     @Override
-    public boolean addVendedor(VendedorDto vendedorDto){
+    public boolean addVendedor(VendedorDto vendedorDto) {
         if(marketPlace.verificarVendedorExistente(vendedorDto.cedula())){
-            Vendedor vendedor = mapper.vendedorDtoToVendedor(vendedorDto);
-            getMarketPlace().createVendedor(
-                    vendedor.getNombre(),
-                    vendedor.getApellido(),
-                    vendedor.getCedula(),
-                    vendedor.getDireccion(),
-                    vendedor.getUsuario(),
-                    vendedor.getContraseña());
+            Vendedor newVendedor = mapper.vendedorDtoToVendedor(vendedorDto);
+            getMarketPlace().createVendedor(newVendedor);
             return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean updateVendedor(VendedorDto vendedorDto) {
+        if(marketPlace.verificarVendedorExistente(vendedorDto.cedula())){
+            Vendedor vendedorActualizado= mapper.vendedorDtoToVendedor(vendedorDto);
+
+            return marketPlace.updateVendedor;
         }
         return false;
     }
 
     @Override
-    public boolean updateVendedor(VendedorDto vendedorDto){
-        if(marketPlace.verificarVendedorExistente(vendedorDto.cedula())){
-            Vendedor vendedor1 = mapper.vendedorDtoToVendedor(vendedorDto);
-            return true;
-        }
+    public boolean deleteVendedor(String idVendedor) {
         return false;
     }
 
     @Override
-    public boolean deleteVendedor(String cedula){
+    public List<UsuarioDto> getUsuariosDto() {
+        return List.of();
+    }
+
+    @Override
+    public boolean addUsuario(UsuarioDto usuarioDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateUsuario(UsuarioDto usuarioDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteUsuario(String cedula) {
+        return false;
+    }
+
+    @Override
+    public List<AdministradorDto> getAdministradoresDto() {
+        return List.of();
+    }
+
+    @Override
+    public boolean addAdministrador(AdministradorDto administradorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateAdministrador(AdministradorDto administradorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteAdministrador(String cedula) {
+        return false;
+    }
+
+    @Override
+    public boolean verificarRegistro(UsuarioDto usuarioDto) {
+        return false;
+    }
+
+    @Override
+    public boolean verificarRegistro(AdministradorDto administradorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean verificarRegistro(VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public List<PublicacionDto> getPublicacionesDto() {
+        return List.of();
+    }
+
+    @Override
+    public boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
         return false;
     }
 
     public static MarketPlace inicializarDatos(){
-        MarketPlace marketPlace = new MarketPlace();
+        MarketPlace marketPlace = new MarketPlace("");
         Vendedor vendedorA = Vendedor.builder()
                 .nombre("Sofia")
                 .apellido("Suarez")

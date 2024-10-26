@@ -6,8 +6,8 @@ import java.util.List;
 public class Chat {
     private List<Mensaje> mensajes;
 
-    public Chat() {
-        mensajes = new ArrayList<Mensaje>();
+    public Chat(List<Mensaje> mensajes) {
+        this.mensajes = new ArrayList<Mensaje>();
     }
 
     public void añadirMensaje(Mensaje mensaje) {

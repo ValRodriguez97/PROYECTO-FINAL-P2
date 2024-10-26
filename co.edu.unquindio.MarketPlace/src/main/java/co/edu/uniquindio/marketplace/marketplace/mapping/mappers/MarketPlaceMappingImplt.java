@@ -1,6 +1,10 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.mappers;
 
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.AdministradorDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ChatDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
+import co.edu.uniquindio.marketplace.marketplace.model.Administrador;
+import co.edu.uniquindio.marketplace.marketplace.model.Chat;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IMarketPlaceMapping;
 
@@ -9,6 +13,52 @@ import java.util.List;
 
 public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
+
+    @Override
+    public List<AdministradorDto> getAdministradoresDto(List<AdministradorDto> administradores){
+        if (administradores == null){
+            return null;
+        }
+        List<AdministradorDto> administradoresDto = new ArrayList<>(administradores.size());
+        for (Administrador administrador : administradores ){
+            administradoresDto.add(administradorToAdministradorDto(administrador));
+        }
+        return administradoresDto;
+    }
+
+    @Override
+    public AdministradorDto administradorToAdministradorDto(Administrador administrador){
+        return new AdministradorDto(
+                administrador.getNombre(),
+                administrador.getApellido(),
+                administrador.getUsuario());
+    }
+
+    @Override
+    public Administrador administradorDtoToAdministrador(AdministradorDto administradorDto){
+        return Administrador.builder()
+                .nombre(administradorDto.nombre())
+                .apellido(administradorDto.nombre())
+                .usuario(administradorDto.usuario())
+                .build();
+    }
+
+    @Override
+    public ChatDto chatToChatDto(Chat chat){
+        if (chat == null){
+            return null;
+        }
+        return new ChatDto(chat.getMensajes());
+    }
+
+    @Override
+    public Chat chatDtoToChat(ChatDto chatDto){
+        if (chatDto == null){
+            return null;
+        }
+        return new Chat(chatDto.mensajes());
+    }
+    
     @Override
    public  List<VendedorDto> getVendedoresDto(List<Vendedor> listVendedores){
         if (listVendedores == null) {

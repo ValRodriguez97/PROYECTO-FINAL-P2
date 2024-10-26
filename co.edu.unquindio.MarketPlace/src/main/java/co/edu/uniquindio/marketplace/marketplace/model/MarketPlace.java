@@ -22,51 +22,31 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
 
     @Override
-    public boolean createVendedor(String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña) {
-        Vendedor vendedorExistente = verificarVendedor(cedula);
-        if (vendedorExistente == null) {
-            Vendedor vendedor = Vendedor.builder()
-                    .nombre(nombre)
-                    .apellido(apellido)
-                    .cedula(cedula)
-                    .direccion(direccion)
-                    .usuario(usuario)
-                    .contraseña(contraseña)
-                    .build();
-
-            getListVendedores().add(vendedor);
-            return true;
-        }
-        return false;
+    public boolean createVendedor(Vendedor vendedor){
+       if(verificarVendedor(vendedor.getIdVendedor())){
+           Vendedor newVendedor = Vendedor.builder()
+                   .idVendedor(vendedor.getIdVendedor())
+                   .nombre(vendedor.getNombre())
+                   .apellido(vendedor.getApellido())
+                   .cedula(vendedor.getCedula())
+                   .direccion(vendedor.getDireccion())
+                   .usuario(vendedor.getUsuario())
+                   .contraseña(vendedor.getContraseña())
+                   .build();
+           return listVendedores.add(newVendedor);
+       }
+       return false;
     }
 
-    @Override
-    public Vendedor readVendedor(String cedula) {
-        Vendedor vendedorExistente = verificarVendedor(cedula);
-        if (vendedorExistente != null) {
-            return vendedorExistente;
-        }
-        return null;
-    }
 
     @Override
     public boolean updateVendedor(String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña) {
-        Vendedor vendedorExistente = verificarVendedor(cedula);
-        if (vendedorExistente != null) {
-            vendedorExistente.setNombre(nombre);
-            vendedorExistente.setApellido(apellido);
-            vendedorExistente.setCedula(cedula);
-            vendedorExistente.setDireccion(direccion);
-            vendedorExistente.setUsuario(usuario);
-            vendedorExistente.setContraseña(contraseña);
-            return true;
-        }
-        return false;
+        Vendedor vendedorEXistente
     }
 
     @Override
-    public boolean deleteVendedor(String cedula) {
-        Vendedor vendedorExistente = verificarVendedor(cedula);
+    public boolean deleteVendedor(String idVendedor) {
+        Vendedor vendedorExistente = verificarVendedor(idVendedor);
         if (vendedorExistente != null) {
             getListVendedores().remove(vendedorExistente);
             return true;
@@ -76,32 +56,26 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public List<Vendedor> listVendedores() {
-        return List.of();
+        return new ArrayList<>(listVendedores);
     }
 
     @Override
-    public boolean verificarVendedorExistente(String cedula) {
-        if (verificarVendedor(cedula) == null) {
-            return true;
+    public boolean verificarVendedorExistente(String idVendedor) {
+        return verificarVendedor(idVendedor);
+    }
+
+    public boolean verificarVendedor(String idVendedor) {
+        for (Vendedor vendedor : listVendedores) {
+            if (vendedor.getCedula().equals(idVendedor)) {
+                return true;
+            }
         }
         return false;
     }
 
-    public Vendedor verificarVendedor(String cedula) {
-        Vendedor vendedorExistente = null;
-
-        for (Vendedor vendedor : listVendedores) {
-            if (vendedor.getCedula().equals(cedula)) {
-                vendedorExistente = vendedor;
-                break;
-            }
-        }
-        return vendedorExistente;
-    }
-
     @Override
     public boolean createPublicacion(Publicacion publicacion, Vendedor vendedor) {
-        if (verificarPublicacion(publicacion, vendedor)) {
+        if (!verificarPublicacion(publicacion, vendedor)) {
             vendedor.getMuro().añadirPublicacion(publicacion);
             return true;
         }
@@ -149,22 +123,14 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         }
         return false;
     }
-    public boolean verificarAdministradorExiste(String cedula) {
-        return verificarAdministrador(cedula) != null; // Retorna true si existe, false si no
+
+    public boolean verificarAdministradorExiste(String idAdministrador) {
+        return verificarAdministrador(idAdministrador) != null; // Retorna true si existe, false si no
     }
 
-    public Administrador verificarAdministrador(String cedula) {
+    public Administrador verificarAdministrador(String idAdministrador) {
         for (Administrador administrador : listAdministradores) {
-            if (administrador.getCedula().equals(cedula)) {
-                return administrador;
-            }
-        }
-        return null;
-    }
-
-    public Administrador verificarAdministradorPorId(String idAdministrador) {
-        for (Administrador administrador : listAdministradores) {
-            if (administrador.getIdAdminsitrador().equals(idAdministrador)) {
+            if (administrador.getIdAdministrador().equals(idAdministrador)) {
                 return administrador;
             }
         }
@@ -173,102 +139,109 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public boolean createAdministrador(Administrador administrador) {
-        if (verificarAdministradorExiste(administrador.getIdAdminsitrador())) {
-            return false; // El administrador ya existe
+        if (verificarAdministradorExiste(administrador.getIdAdministrador())) {
+            // El administrador ya existe
+            Administrador nuevoAdministrador = Administrador.builder()
+                    .idAdministrador(administrador.getIdAdministrador())
+                    .nombre(administrador.getNombre())
+                    .apellido(administrador.getApellido())
+                    .cedula(administrador.getCedula())
+                    .direccion(administrador.getDireccion())
+                    .usuario(administrador.getUsuario())
+                    .contraseña(administrador.getContraseña())
+                    .build();
+            return true;
         }
+        return false;
+    }
 
-        Administrador nuevoAdministrador = Administrador.builder()
-                .idAdministrador(administrador.getIdAdminsitrador())
-                .nombre(administrador.getNombre())
-                .apellido(administrador.getApellido())
-                .cedula(administrador.getCedula())
-                .direccion(administrador.getDireccion())
-                .usuario(administrador.getUsuario())
-                .contraseña(administrador.getContraseña())
-                .build();
+    @Override
+    public boolean updateAdministrador(String idAdministrador, Administrador administrador) {
+        Administrador administradorExistente = verificarAdministrador(idAdministrador);
 
-        @Override
-        public boolean updateAdministrador(String idAdministrador,Administrador administrador) {
-            Administrador administradorExistente = verificarAdministrador(idAdministrador);
-            if (administradorExistente != null) {
-                administradorExistente.setIdAdminsitrador(administrador.getIdAdministrador);
-                administradorExistente.setNombre(nombre);
-                administradorExistente.setApellido(apellido);
-                administradorExistente.setCedula(cedula);
-                administradorExistente.setDireccion(direccion);
-                administradorExistente.setUsuario(usuario);
-                administradorExistente.setContraseña(contraseña);
-                return true;
-            }
+        if (administradorExistente != null) {
+            administradorExistente.setIdAdministrador(administrador.getIdAdministrador());
+            administradorExistente.setNombre(administrador.getNombre());
+            administradorExistente.setApellido(administrador.getApellido());
+            administradorExistente.setCedula(administrador.getCedula());
+            administradorExistente.setDireccion(administrador.getDireccion());
+            administradorExistente.setUsuario(administrador.getUsuario());
+            administradorExistente.setContraseña(administrador.getContraseña());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteAdministrador(String idAdministrador) {
+        Administrador administradorExistente = verificarAdministrador(idAdministrador);
+        if (administradorExistente != null) {
+            listAdministradores.remove(administradorExistente);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<Administrador> listAdministradores() {
+        return new ArrayList<>(listAdministradores); // Retornar una copia de la lista
+    }
+
+    @Override
+    public Publicacion getPublicacion(Publicacion publicacion) {
+        return null;
+    }
+
+    @Override
+    public boolean verificarUsuarioExistente(String cedula) {
+        return getUsuario(cedula) != null;
+    }
+
+    @Override
+    public boolean createUsuario(Usuario usuario) {
+        if (verificarUsuarioExistente(usuario.getCedula())) {
             return false;
         }
-        @Override
-        public boolean deleteAdministrador(String idAdministrador) {
-            Administrador administradorExistente = verificarAdministrador(idAdministrador);
-            if (administradorExistente != null) {
-                listAdministradores.remove(administradorExistente);
-                return true;
-            }
-            return false;
+
+        listUsuarios.add(usuario);
+        return true;
+    }
+
+    @Override
+    public boolean updateUsuario (Usuario usuarioActualizado){
+        Usuario usuarioExistente = getUsuario(usuarioActualizado.getCedula());
+
+        if (usuarioExistente == null){
+            usuarioExistente.setNombre(usuarioActualizado.getNombre());
+            usuarioExistente.setApellido(usuarioActualizado.getApellido());
+            usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
+            usuarioExistente.setUsuario(usuarioActualizado.getUsuario());
+            usuarioExistente.setContraseña(usuarioActualizado.getContraseña());
+
+            return true;
         }
-        @Override
-        public List<Administrador>listAdministradores() {
-            return new ArrayList<>(listAdministradores); // Retornar una copia de la lista
+
+        return false;
+    }
+
+    @Override
+    public boolean deleteUsuario (Usuario usuario){
+        if (usuario != null && getListUsuarios().contains(usuario)){
+            getListUsuarios().remove(usuario);
+            return true;
         }
+        return false;
+    }
 
-            @Override
-            public Publicacion getPublicacion (Publicacion publicacion){
-                return null;
+    @Override
+    public Usuario getUsuario (String cedula){
+        for (Usuario usuario : getListUsuarios()){
+            if (usuario.getCedula().equals(cedula)){
+                return usuario;
             }
-
-            /**
-             * implementación del CRUD usuario
-             * @param nombre
-             * @param apellido
-             * @param cedula
-             * @param direccion
-             * @param usuario
-             * @param contraseña
-             * @return
-             */
-            @Override
-            public boolean createUsuario (String nombre, String apellido, String cedula, String direccion, String
-            usuario, String contraseña){
-                Usuario usuarioExistente = getUsuario(cedula);
-                if (usuarioExistente == null) {
-                    Usuario nuevoUsuario = Usuario.builder()
-                            .nombre(nombre)
-                            .apellido(apellido)
-                            .cedula(cedula)
-                            .direccion(direccion)
-                            .usuario(usuario)
-                            .contraseña(contraseña)
-                            .build();
-                    listUsuarios.add(nuevoUsuario);
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public boolean updateUsuario (Usuario usuario){
-                return false;
-            }
-
-            @Override
-            public boolean deleteUsuario (Usuario usuario){
-                return false;
-            }
-
-            @Override
-            public Usuario getUsuario (String cedula){
-                return null;
-            }
-
-            @Override
-            public boolean verificarUsuarioExistente (String cedula){
-                return false;
-            }
+        }
+        return null;
+    }
 
             public String getNombre () {
                 return nombre;
@@ -302,6 +275,6 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
                 this.listVendedores = listVendedores;
             }
         }
-    }
+
 
 
