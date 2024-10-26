@@ -2,9 +2,11 @@ package co.edu.uniquindio.marketplace.marketplace.mapping.mappers;
 
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.AdministradorDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ChatDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ComentarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import co.edu.uniquindio.marketplace.marketplace.model.Administrador;
 import co.edu.uniquindio.marketplace.marketplace.model.Chat;
+import co.edu.uniquindio.marketplace.marketplace.model.Comentario;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IMarketPlaceMapping;
 
@@ -58,7 +60,10 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
         }
         return new Chat(chatDto.mensajes());
     }
-    
+
+    @Override
+    public ComentarioDto comentarioToComentarioDto(Comentario comen)
+
     @Override
    public  List<VendedorDto> getVendedoresDto(List<Vendedor> listVendedores){
         if (listVendedores == null) {

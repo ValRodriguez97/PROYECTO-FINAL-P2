@@ -40,8 +40,10 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
 
     @Override
-    public boolean updateVendedor(String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña) {
-        Vendedor vendedorEXistente
+    public boolean updateVendedor( Vendedor vendedor) {
+        Vendedor vendedorEXistente = verificarVendedor(vendedor.getIdVendedor());
+        
+
     }
 
     @Override
