@@ -1,4 +1,9 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
-public class MuroDto {
+import java.util.List;
+
+public record MuroDto (
+        List<PublicacionDto> listPublicaciones,
+        List<ChatDto> listChats
+){
 }

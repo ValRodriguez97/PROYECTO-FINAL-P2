@@ -5,11 +5,19 @@ import java.util.List;
 
 public class Muro {
     private List<Publicacion> listPublicaciones;
-    private List<Chat> listChats;
+    private List<Chat> listChat;
 
     public Muro(){
-        listPublicaciones = new ArrayList<>();
-        listChats = new ArrayList<>();
+        listPublicaciones = new ArrayList<Publicacion>();
+        listChat = new ArrayList<>();
+    }
+
+    public void añadirPublicacion(Publicacion publicacion){
+        listPublicaciones.add(publicacion);
+    }
+
+    public void añadirChat(Chat chat){
+        listChat.add(chat);
     }
 
     public List<Publicacion> getListPublicaciones() {
@@ -20,11 +28,11 @@ public class Muro {
         this.listPublicaciones = listPublicaciones;
     }
 
-    public List<Chat> getListChats() {
-        return listChats;
+    public List<Chat> getListChat() {
+        return listChat;
     }
 
     public void setListChats(List<Chat> listChats) {
-        this.listChats = listChats;
+        this.listChat = listChat;
     }
 }

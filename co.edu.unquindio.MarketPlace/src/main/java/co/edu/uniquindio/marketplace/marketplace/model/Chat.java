@@ -9,4 +9,16 @@ public class Chat {
     public Chat() {
         mensajes = new ArrayList<Mensaje>();
     }
+
+    public void añadirMensaje(Mensaje mensaje) {
+        mensajes.add(mensaje);
+    }
+
+    public List<Mensaje> getMensajes() {
+        return mensajes;
+    }
+
+    public void setMensajes(List<Mensaje> mensajes) {
+        this.mensajes = mensajes;
+    }
 }

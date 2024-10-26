@@ -1,28 +1,39 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Publicacion {
-    private String titulo;
+    private LocalDateTime fechaPublicación;
     private String descripcion;
-    private LocalDate fecha;
-    private List<Producto> listProductos;
+    private Producto producto;
+    private List<Comentario> listComentarios;
+    private List<Vendedor> likes;
 
-    public Publicacion(String titulo, String descripcion, LocalDate fecha) {
-        this.titulo = titulo;
+    public  Publicacion (LocalDateTime fechaPublicacion, String descripcion, Producto producto) {
+        this.fechaPublicación = fechaPublicacion;
         this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.listProductos = new ArrayList<Producto>();
+        this.producto = producto;
+        this.likes = new ArrayList<>();
+        this.listComentarios = new ArrayList<Comentario>();
     }
 
-    public String getTitulo() {
-        return titulo;
+    public void añadirComentario(Comentario comentario) {
+        this.listComentarios.add(comentario);
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void añadirLike(Vendedor vendedor) {
+        this.likes.add(vendedor);
+    }
+
+    public LocalDateTime getFechaPublicación() {
+        return fechaPublicación;
+    }
+
+    public void setFechaPublicación(LocalDateTime fechaPublicación) {
+        this.fechaPublicación = fechaPublicación;
     }
 
     public String getDescripcion() {
@@ -33,19 +44,27 @@ public class Publicacion {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
-    public List<Producto> getListProductos() {
-        return listProductos;
+    public List<Comentario> getListComentarios() {
+        return listComentarios;
     }
 
-    public void setListProductos(List<Producto> listProductos) {
-        this.listProductos = listProductos;
+    public void setListComentarios(List<Comentario> listComentarios) {
+        this.listComentarios = listComentarios;
+    }
+
+    public List<Vendedor> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Vendedor> likes) {
+        this.likes = likes;
     }
 }

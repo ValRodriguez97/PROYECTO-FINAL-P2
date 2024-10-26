@@ -1,4 +1,10 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
-public class ComentarioDto {
+import java.time.LocalDate;
+
+public record ComentarioDto (
+        String comentario,
+        LocalDate fecha,
+        ProductoDto producto
+){
 }

@@ -1,15 +1,39 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Comentario {
+    private Usuario usuario;
+    private LocalDateTime fechaComentario;
     private String comentario;
-    private LocalDate fecha;
-    private Producto producto;
+    private int numLikes;
 
-    public Comentario(String comentario, LocalDate fecha) {
+    public Comentario(Usuario usuario, LocalDateTime fechaComentario, String comentario){
+        this.usuario = usuario;
+        this.fechaComentario = fechaComentario;
         this.comentario = comentario;
-        this.fecha = fecha;
+        this.numLikes = numLikes;
+    }
+
+    public Comentario(){
+
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public LocalDateTime getFechaComentario() {
+        return fechaComentario;
+    }
+
+    public void setFechaComentario(LocalDateTime fechaComentario) {
+        this.fechaComentario = fechaComentario;
     }
 
     public String getComentario() {
@@ -20,19 +44,11 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public int getNumLikes() {
+        return numLikes;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setNumLikes(int numLikes) {
+        this.numLikes = numLikes;
     }
 }

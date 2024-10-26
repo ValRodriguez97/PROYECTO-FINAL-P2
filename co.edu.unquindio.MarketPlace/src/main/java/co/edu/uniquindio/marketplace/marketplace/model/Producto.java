@@ -1,29 +1,30 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import co.edu.uniquindio.marketplace.marketplace.model.builder.ProductoBuilder;
+import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 
 public class Producto {
     private String nombre;
-    private String imagen;
+    private Image imagen;
     private String categoria;
     private double precio;
-    private LocalDate fecha;
     private Estado estado;
-    private Comentario comentario;
-    private Vendedor vendedor;
 
-    public Producto (String nombre, String imagen, String categoria, double precio, LocalDate fecha, Estado estado){
+    public Producto(String nombre, Image imagen, String categoria, double precio, Estado estado) {
         this.nombre = nombre;
-        this.imagen  = imagen;
+        this.imagen = imagen;
         this.categoria = categoria;
         this.precio = precio;
-        this.fecha = fecha;
         this.estado = estado;
     }
 
-    public static ProductoBuilder builder() {
+    public Producto(){
+
+    }
+
+    public static ProductoBuilder builder(){
         return new ProductoBuilder();
     }
 
@@ -35,11 +36,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getImagen() {
+    public Image getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
 
@@ -59,35 +60,11 @@ public class Producto {
         this.precio = precio;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
     public Estado getEstado() {
         return estado;
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
-
-    public Comentario getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
-    }
-
-    public Vendedor getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
     }
 }

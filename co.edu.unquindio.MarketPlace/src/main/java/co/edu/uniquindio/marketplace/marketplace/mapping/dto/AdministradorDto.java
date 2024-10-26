@@ -1,4 +1,9 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
-public class AdministradorDto {
+public record AdministradorDto (
+        String nombre,
+        String apellido,
+        String usuario
+){
+
 }

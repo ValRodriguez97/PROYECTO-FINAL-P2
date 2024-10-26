@@ -1,4 +1,13 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
-public class ProductoDto {
+import java.time.LocalDate;
+
+public record ProductoDto (
+        String nombre,
+        String imagen,
+        String categoria,
+        double precio,
+        LocalDate fecha,
+        String estado
+){
 }

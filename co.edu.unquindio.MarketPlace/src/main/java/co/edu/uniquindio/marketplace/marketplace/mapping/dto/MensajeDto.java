@@ -1,4 +1,10 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
-public class MensajeDto {
+import java.time.LocalDateTime;
+
+public record MensajeDto (
+        String mensaje,
+        LocalDateTime fechaMensaje
+){
+
 }
