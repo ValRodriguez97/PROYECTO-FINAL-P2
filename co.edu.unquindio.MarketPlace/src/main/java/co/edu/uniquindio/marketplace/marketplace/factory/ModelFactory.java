@@ -6,6 +6,7 @@ import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.mappers.MarketPlaceMappingImplt;
 import co.edu.uniquindio.marketplace.marketplace.model.MarketPlace;
+import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IModelFactory;
 
@@ -67,16 +68,32 @@ public class ModelFactory implements IModelFactory {
 
     @Override
     public List<UsuarioDto> getUsuariosDto() {
-        return mappe.r;
+        return mapper.getUsuariosDto(marketPlace.getListUsuarios());
+    }
+
+    @Override
+    public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto){
+        if(verificarRegistro(usuarioDto)){
+            return mapper.usuarioToUsuarioDto(marketPlace.getUsuarioVerificar(usuarioDto.usuario(), usuarioDto.contraseña()));
+        }
+        return null;
     }
 
     @Override
     public boolean addUsuario(UsuarioDto usuarioDto) {
+        if(marketPlace.verificarUsuarioExistente(usuarioDto.cedula())){
+            Usuario usuario = mapper.usuarioDtoToUsuario(usuarioDto);
+            return marketPlace.createUsuario(usuario);
+        }
         return false;
     }
 
     @Override
     public boolean updateUsuario(UsuarioDto usuarioDto) {
+        if(!marketPlace.verificarUsuarioExistente(usuarioDto.cedula())){
+            Usuario usuarioActualizado= mapper.usuarioDtoToUsuario(usuarioDto);
+            return true;
+        }
         return false;
     }
 
@@ -142,7 +159,7 @@ public class ModelFactory implements IModelFactory {
 
     @Override
     public boolean admitirUsuario(UsuarioDto usuarioDto){
-        if(marketPlace.verificarContraseñaUsuario(usuarioDto.usuario(), usuarioDto.contrasela())){
+        if(marketPlace.verificarContraseñaUsuario(usuarioDto.usuario(), usuarioDto.contraseña())){
             return true;
         }
         return false;
@@ -158,6 +175,16 @@ public class ModelFactory implements IModelFactory {
                 .usuario("Sofi")
                 .contraseña("sofia123")
                 .build();
+
+        Usuario usuario = Usuario.builder()
+                .usuario("Sofi")
+                .nombre("Sara")
+                .apellido("Rios")
+                .cedula("123")
+                .direccion("hasd")
+                .contraseña("1234")
+                .build();
+        marketPlace.createUsuario(usuario);
         return marketPlace;
     }
 }

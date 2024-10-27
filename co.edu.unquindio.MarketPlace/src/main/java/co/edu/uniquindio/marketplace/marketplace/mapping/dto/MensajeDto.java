@@ -1,9 +1,12 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
+import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
+
 import java.time.LocalDateTime;
 
 public record MensajeDto (
-        String mensaje,
-        LocalDateTime fechaMensaje
+        Usuario usuario,
+        LocalDateTime fechaMensaje,
+        String mensaje
 ){
 }

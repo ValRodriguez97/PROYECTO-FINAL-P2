@@ -6,7 +6,7 @@ import co.edu.uniquindio.marketplace.marketplace.model.*;
 import java.util.List;
 
 public interface IMarketPlaceMapping {
-     List<AdministradorDto> getAdministradoresDto(List<AdministradorDto> administradores);
+     List<AdministradorDto> getAdministradoresDto(List<Administrador> administradores);
      AdministradorDto administradorToAdministradorDto(Administrador administrador);
      Administrador administradorDtoToAdministrador(AdministradorDto administradorDto);
 
@@ -28,6 +28,7 @@ public interface IMarketPlaceMapping {
      MuroDto muroToMuroDto(Muro muro);
      Muro muroDtoToMuro(MuroDto muroDto);
 
+     List<UsuarioDto> getUsuariosDto(List<Usuario> usuarios);
      UsuarioDto usuarioToUsuarioDto(Usuario usuario);
      Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto);
 

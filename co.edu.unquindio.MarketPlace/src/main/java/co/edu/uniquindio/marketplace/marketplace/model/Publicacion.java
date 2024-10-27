@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Publicacion {
-    private LocalDateTime fechaPublicación;
+    private LocalDateTime fechaPublicacion;
     private String descripcion;
     private Producto producto;
     private List<Comentario> listComentarios;
-    private List<Vendedor> likes;
+    private List<Vendedor> listVendedores;
 
-    public  Publicacion (LocalDateTime fechaPublicacion, String descripcion, Producto producto) {
-        this.fechaPublicación = fechaPublicacion;
+    public Publicacion(LocalDateTime fechaPublicacion, String descripcion, Producto producto, List<Comentario> listComentarios, List<Vendedor> listVendedores) {
+        this.fechaPublicacion = fechaPublicacion;
         this.descripcion = descripcion;
         this.producto = producto;
-        this.likes = new ArrayList<>();
-        this.listComentarios = new ArrayList<Comentario>();
+        this.listComentarios = listComentarios;
+        this.listVendedores = listVendedores;
     }
 
     public void añadirComentario(Comentario comentario) {
@@ -25,15 +25,15 @@ public class Publicacion {
     }
 
     public void añadirLike(Vendedor vendedor) {
-        this.likes.add(vendedor);
+        this.listVendedores.add(vendedor);
     }
 
-    public LocalDateTime getFechaPublicación() {
-        return fechaPublicación;
+    public LocalDateTime getFechaPublicacion() {
+        return fechaPublicacion;
     }
 
     public void setFechaPublicación(LocalDateTime fechaPublicación) {
-        this.fechaPublicación = fechaPublicación;
+        this.fechaPublicacion = fechaPublicación;
     }
 
     public String getDescripcion() {
@@ -60,11 +60,11 @@ public class Publicacion {
         this.listComentarios = listComentarios;
     }
 
-    public List<Vendedor> getLikes() {
-        return likes;
+    public List<Vendedor> getListVendedores() {
+        return listVendedores;
     }
 
-    public void setLikes(List<Vendedor> likes) {
-        this.likes = likes;
+    public void setListVendedores(List<Vendedor> listVendedores) {
+        this.listVendedores = listVendedores;
     }
 }

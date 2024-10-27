@@ -14,6 +14,7 @@ public interface IModelFactory {
     boolean updateVendedor(VendedorDto vendedorDto);
     boolean deleteVendedor(String idVendedor);
 
+    public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto);
     List<UsuarioDto> getUsuariosDto();
     boolean addUsuario(UsuarioDto usuarioDto);
     boolean updateUsuario(UsuarioDto usuarioDto);

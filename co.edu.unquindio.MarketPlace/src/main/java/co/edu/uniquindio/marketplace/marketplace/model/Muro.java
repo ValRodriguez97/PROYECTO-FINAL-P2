@@ -7,9 +7,14 @@ public class Muro {
     private List<Publicacion> listPublicaciones;
     private List<Chat> listChat;
 
-    public Muro(){
-        listPublicaciones = new ArrayList<Publicacion>();
+    public Muro() {
+        listPublicaciones = new ArrayList<>();
         listChat = new ArrayList<>();
+    }
+
+    public Muro(List<Publicacion> listPublicaciones, List<Chat> listChat) {
+        this.listPublicaciones = listPublicaciones;
+        this.listChat = listChat;
     }
 
     public void añadirPublicacion(Publicacion publicacion){

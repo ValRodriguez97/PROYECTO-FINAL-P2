@@ -1,0 +1,65 @@
+1. Patrón Singleton
+Dónde aplicar: En la clase ModelFactory.
+Por qué: El patrón Singleton asegura que una clase tenga una única instancia
+y proporciona un punto de acceso global a ella. En tu caso, ModelFactory se utiliza para crear
+y gestionar instancias de otros objetos (como Usuario, Vendedor, etc.). Al aplicar este patrón,
+te aseguras de que solo haya una instancia de ModelFactory en toda la aplicación, lo que puede
+ayudar a gestionar el estado y la configuración de manera centralizada.
+
+2. Patrón Adapter
+Dónde aplicar: En la clase MarketPlaceMappingImplt.
+Por qué: El patrón Adapter permite que dos interfaces incompatibles trabajen juntas.
+En este caso, se puede usar este patrón para adaptar las clases de DTO (Data Transfer Object)
+a las clases de modelo y viceversa. Esto es útil para desacoplar la lógica de negocio de la lógica
+de presentación, permitiendo que los cambios en una parte no afecten a la otra.
+
+3. Patrón Facade
+Dónde aplicar: En la clase LoginController y VendedorController.
+Por qué: El patrón Facade proporciona una interfaz simplificada a un conjunto de interfaces en un
+subsistema. En tu caso, puedes crear un Facade que combine las operaciones de ModelFactory, MarketPlace,
+y otros controladores para simplificar la interacción con el sistema. Esto hará que el código sea más
+limpio y fácil de usar, ocultando la complejidad del subsistema.
+
+4. Patrón Composite
+Dónde aplicar: En la clase Muro, que contiene listas de Publicacion y Chat.
+Por qué: El patrón Composite permite tratar objetos individuales y compuestos de manera uniforme. En
+este caso, se puede usar este patrón para manejar publicaciones y chats como componentes de un muro.
+Esto permitirá agregar, eliminar y gestionar publicaciones y chats de manera más sencilla, ya que se puede
+tratarlos como un solo objeto.
+
+5. Patrón Builder
+Dónde aplicar: En las clases Usuario, Vendedor, Administrador, y Producto.
+Por qué: El patrón Builder es útil para construir objetos complejos paso a paso. En este caso, ya se está
+utilizando un Builder para crear instancias de Usuario, Vendedor, Administrador, y Producto. Esto mejora la
+legibilidad del código y permite crear objetos de manera más flexible, especialmente cuando hay muchos parámetros opcionales.
+
+6. Patrón Decorator
+Dónde aplicar: En las clases relacionadas con Producto o Publicacion.
+
+Por qué: El patrón Decorator permite agregar funcionalidades a un objeto de manera dinámica. Por ejemplo, si deseas agregar
+características adicionales a un Producto (como un descuento, una etiqueta de "nuevo", o una categoría especial), puedes crear
+decoradores que añadan estas características sin modificar la clase original. Esto es útil para mantener el principio de
+responsabilidad única y para evitar la creación de muchas subclases.
+
+7. Patrón Proxy
+Dónde aplicar: En la clase MarketPlace para gestionar el acceso a los recursos.
+
+Por qué: El patrón Proxy proporciona un sustituto o representante de otro objeto para controlar el acceso a él. En este caso,
+se puede implementar un Proxy para la clase MarketPlace que controle el acceso a las operaciones de CRUD, asegurando que solo
+los usuarios autorizados puedan realizar ciertas acciones (como crear o eliminar publicaciones). Esto puede ser útil para implementar controles de acceso y seguridad.
+
+8. Patrón Bridge
+Dónde aplicar: En la relación entre Usuario, Vendedor, y sus respectivas interfaces de servicio.
+
+Por qué: El patrón Bridge desacopla una abstracción de su implementación, permitiendo que ambas evolucionen de manera independiente.
+En este caso, se puede tener una interfaz de servicio para Usuario y Vendedor, y diferentes implementaciones que manejen la lógica de negocio.
+Esto permitirá cambiar la implementación sin afectar a la interfaz, facilitando la extensión y el mantenimiento del código.
+
+9. Patrón Flyweight
+ Dónde aplicar: En la gestión de Producto y Publicacion.
+ Por qué: El patrón Flyweight es útil para reducir el uso de memoria al compartir objetos similares. Si tienes muchos Producto o
+ Publicacion que comparten características comunes (como categoría, estado, etc.), se puede usar este patrón para almacenar solo una instancia de cada objeto
+ compartido y referenciarlo en lugar de crear nuevas instancias. Esto puede mejorar el rendimiento y reducir el uso de memoria.
+
+10.
+

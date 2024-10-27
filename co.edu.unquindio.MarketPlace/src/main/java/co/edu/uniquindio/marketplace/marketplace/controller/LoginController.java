@@ -13,7 +13,7 @@ public class LoginController implements ILoginControllerService {
 
     @Override
     public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto) {
-        return modelFactory.getUsuariosDto(usuarioDto);
+        return modelFactory.getUsuarioDto(usuarioDto);
 
     }
 

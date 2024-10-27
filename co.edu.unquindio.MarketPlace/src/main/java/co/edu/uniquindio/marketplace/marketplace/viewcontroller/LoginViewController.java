@@ -5,15 +5,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.LoginController;
+import co.edu.uniquindio.marketplace.marketplace.controller.MenuPrincipalController;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginViewController {
     private ModelFactory modelFactory;
@@ -60,7 +63,11 @@ public class LoginViewController {
 
     @FXML
     void onLoginBtn(ActionEvent event)  throws IOException {
-        login();
+        try{
+            login();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void login() throws IOException {
@@ -82,10 +89,18 @@ public class LoginViewController {
     }
 
     public void showStage2(UsuarioDto usuarioDto) throws IOException {
-        if(usuarioDto instanceof VendedorDto){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass());
-        }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 782, 484);
+            Stage stage = new Stage();
 
+            WindowPrincipalViewController menuController = fxmlLoader.getController();
+            menuController.setUsuarioDto(usuarioDto);
+            stage.setScene(scene);
+
+            Stage cerrar = (Stage) btnLogin.getScene().getWindow();
+            cerrar.close();
+
+            stage.show();
     }
     @FXML
     void onPutPassword(ActionEvent event) {

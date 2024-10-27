@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
     @Override
-    public List<AdministradorDto> getAdministradoresDto(List<AdministradorDto> administradores){
-        if (administradores == null){
+    public List<AdministradorDto> getAdministradoresDto(List<Administrador> administradores) {
+        if (administradores == null) {
             return null;
         }
         List<AdministradorDto> administradoresDto = new ArrayList<>(administradores.size());
-        for (Administrador administrador : administradores ){
+        for (Administrador administrador : administradores) {
             administradoresDto.add(administradorToAdministradorDto(administrador));
         }
         return administradoresDto;
@@ -61,9 +61,9 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
             return null;
         }
         return new ComentarioDto(
-                comentario.getComentario(),
+                comentario.getUsuario(),
                 comentario.getFechaComentario(),
-                productoToProductoDto(comentario.getProducto())
+                comentario.getComentario()
         );
     }
 
@@ -73,10 +73,9 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
             return null;
         }
         return new Comentario(
-                comentarioDto.comentario(),
-                comentarioDto.fecha(),
-                productoDtoToProducto(comentarioDto.producto()
-        );
+                comentarioDto.usuario(),
+                comentarioDto.fechaComentario(),
+                comentarioDto.comentario());
     }
 
     @Override
@@ -113,8 +112,9 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
             return null;
         }
         return new MensajeDto(
-                mensaje.getMensaje(),
-                mensaje.getFechaMensaje()
+                mensaje.getUsuario(),
+                mensaje.getFechaMensaje(),
+                mensaje.getMensaje()
         );
     }
 
@@ -124,8 +124,10 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
             return null;
         }
         return new Mensaje(
-                mensajeDto.mensaje(),
-                mensajeDto.fechaMensaje());
+                mensajeDto.usuario(),
+                mensajeDto.fechaMensaje(),
+                mensajeDto.mensaje()
+        );
     }
 
 
@@ -179,7 +181,7 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
                 muro.getListPublicaciones().stream()
                         .map(this::publicacionToPublicacionDto)
                         .collect(Collectors.toList()),
-                muro.getListChats().stream()
+                muro.getListChat().stream()
                         .map(this::chatToChatDto)
                         .collect(Collectors.toList())
         );
@@ -198,6 +200,19 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
                         .map(this::chatDtoToChat)
                         .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public List<UsuarioDto> getUsuariosDto(List<Usuario> listUsuarios){
+        if(listUsuarios==null){
+            return null;
+        }
+
+        List<UsuarioDto> usuarioDtos = new ArrayList<UsuarioDto>(listUsuarios.size());
+        for(Usuario usuario : listUsuarios){
+            usuarioDtos.add(usuarioToUsuarioDto(usuario));
+        }
+        return usuarioDtos;
     }
 
     @Override

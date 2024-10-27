@@ -97,7 +97,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
         for (Publicacion publicacionExistente : listPublicaciones) {
             if (publicacionExistente.equals(publicacion)) {
-                publicacionExistente.setFechaPublicación(publicacion.getFechaPublicación());
+                publicacionExistente.setFechaPublicación(publicacion.getFechaPublicacion());
                 publicacionExistente.setDescripcion(publicacion.getDescripcion());
                 publicacionExistente.setProducto(publicacion.getProducto());
                 return true;
@@ -247,6 +247,17 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         for (Usuario usuario : getListUsuarios()){
             if (usuario.getCedula().equals(cedula)){
                 return usuario;
+            }
+        }
+        return null;
+    }
+
+    public Usuario getUsuarioVerificar(String usuario, String contraseña){
+        if(verificarContraseñaUsuario(usuario, contraseña)){
+            for(Usuario usuario1 : listUsuarios){
+                if(usuario1.getUsuario().equals(usuario) && usuario1.getContraseña().equals(contraseña)){
+                    return usuario1;
+                }
             }
         }
         return null;

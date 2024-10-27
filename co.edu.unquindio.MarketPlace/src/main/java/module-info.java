@@ -5,4 +5,6 @@ module co.edu.uniquindio.marketplace.marketplace {
 
     opens co.edu.uniquindio.marketplace.marketplace to javafx.fxml;
     exports co.edu.uniquindio.marketplace.marketplace;
+    exports co.edu.uniquindio.marketplace.marketplace.viewcontroller;
+    opens co.edu.uniquindio.marketplace.marketplace.viewcontroller to javafx.fxml;
 }

@@ -1,6 +1,5 @@
 package co.edu.uniquindio.marketplace.marketplace;
 
-import co.edu.uniquindio.marketplace.marketplace.controller.LoginController;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.viewcontroller.LoginViewController;
 import javafx.application.Application;
@@ -17,7 +16,7 @@ public class MarketPlaceApplication extends Application {
         ModelFactory modelFactory = ModelFactory.getInstance();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 782, 474);
-        LoginViewController loginViewController = fxmlLoader.getController();
+       LoginViewController loginViewController = fxmlLoader.getController();
         loginViewController.setModelFactory(modelFactory);
         stage.setScene(scene);
         stage.show();
