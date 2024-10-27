@@ -1,3 +1,7 @@
+//Raquel Lopez Aristizabal
+//Leidy Vanesa Muñoz Bolaños
+//Valentina Rodriguez Castro
+
 1. Patrón Singleton
 Dónde aplicar: En la clase ModelFactory.
 Por qué: El patrón Singleton asegura que una clase tenga una única instancia
