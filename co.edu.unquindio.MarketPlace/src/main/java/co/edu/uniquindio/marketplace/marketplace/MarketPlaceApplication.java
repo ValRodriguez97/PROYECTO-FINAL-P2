@@ -22,6 +22,9 @@ public class MarketPlaceApplication extends Application {
         stage.show();
     }
 
+    //usuario : Sofi
+    //contrasela: 1234
+
     public static void main(String[] args) {
         launch(args);
     }
