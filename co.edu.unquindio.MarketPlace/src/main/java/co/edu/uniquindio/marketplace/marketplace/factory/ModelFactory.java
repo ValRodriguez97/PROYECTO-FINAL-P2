@@ -169,7 +169,7 @@ public class ModelFactory implements IModelFactory {
 
     public static MarketPlace inicializarDatos(){
         MarketPlace marketPlace = new MarketPlace("");
-        Vendedor vendedorA = Vendedor.builder()
+        Vendedor vendedorA = Vendedor.Vendedorbuilder()
                 .nombre("Sofia")
                 .apellido("Suarez")
                 .cedula("12345")

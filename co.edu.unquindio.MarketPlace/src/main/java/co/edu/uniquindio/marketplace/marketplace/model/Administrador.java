@@ -6,10 +6,6 @@ import co.edu.uniquindio.marketplace.marketplace.model.builder.AdministradorBuil
 public class Administrador extends  Usuario {
     private String idAdminsitrador;
 
-    public static AdministradorBuilder Adminbuilder() {
-        return new AdministradorBuilder();
-    }
-
     /**
      * Método Constructor del objeto Administrador
      *
@@ -24,6 +20,15 @@ public class Administrador extends  Usuario {
     public Administrador(String idAdministrador,String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña) {
         super(nombre, apellido, cedula, direccion, usuario, contraseña);
         this.idAdminsitrador = idAdminsitrador;
+    }
+
+    /**
+     * Método builder para la clase Administrador
+     *
+     * @return Administrador Builder
+     */
+    public static AdministradorBuilder Adminbuilder() {
+        return new AdministradorBuilder();
     }
 
     /**

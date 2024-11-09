@@ -6,6 +6,7 @@ import co.edu.uniquindio.marketplace.marketplace.service.ICrudUsuario;
 import co.edu.uniquindio.marketplace.marketplace.service.ICrudVendedor;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     private List<Usuario> listUsuarios;
     private List<Administrador> listAdministradores;
     private List<Vendedor> listVendedores;
+    private Usuario usuarioActual;
 
     public MarketPlace(String nombre) {
         this.nombre = nombre;
@@ -23,7 +25,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         this.listAdministradores = new ArrayList<Administrador>();
         this.listVendedores = new ArrayList<Vendedor>();
     }
-
+    
     @Override
     public boolean createVendedor(Vendedor vendedor){
        if(verificarVendedorExistente(vendedor.getIdVendedor())){
@@ -275,6 +277,24 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return false;
     }
 
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
+    
+    public void setUsuarioActual(Usuario usuario) {
+        this.usuarioActual = usuario;
+    }
+    
+    public boolean autenticarUsuario(String nombreUsuario, String contraseña) {
+        for (Usuario usuario : getListUsuarios()) {
+            if (usuario.getUsuario().equals(nombreUsuario) && usuario.getContraseña().equals(contraseña)) {
+                setUsuarioActual(usuario); 
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static void exportarEstadisticos(){
 
         String titulo = "Reporte de estadísticas";
@@ -304,7 +324,13 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
         try (FileWriter writer = new FileWriter(ruta)){
             writer.write("<Título>" + titulo + "\n");
-            writer.write("<Fecha> Fecha:" + fecha +);
+            writer.write("<Fecha> Fecha:" + fecha + "\n");
+            writer.write("<Usuario> Reporte hecho por:" + usuario + "\n\n");
+            writer.write("Información del reporte:\n" + contenido + "\n");
+            writer.write("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
+            System.out.println("Reporte exportado existosamente en" + ruta);
+        } catch (IOException e){
+            System.out.println("Error al exportar el reporte:" + e.getMessage());
         }
     }
 

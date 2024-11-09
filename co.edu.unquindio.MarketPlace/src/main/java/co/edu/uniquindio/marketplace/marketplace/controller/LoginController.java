@@ -25,4 +25,8 @@ public class LoginController implements ILoginControllerService {
         return false;
     }
 
+    public boolean iniciarSesion(String nombre, String contraseña){
+        return modelFactory.getMarketPlace().autenticarUsuario(nombre, contraseña);
+    }
+
 }
