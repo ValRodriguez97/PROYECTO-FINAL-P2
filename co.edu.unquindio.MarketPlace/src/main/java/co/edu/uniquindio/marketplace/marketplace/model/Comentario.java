@@ -9,29 +9,57 @@ public class Comentario {
     private String comentario;
     private int numLikes;
 
+    /**
+     * Método Constructor de la clase Comentario
+     *
+     * @param usuario Usuario que comenta
+     * @param fechaComentario Fecha y hora del comentario
+     * @param comentario Comentario
+     */
     public Comentario(Usuario usuario, LocalDateTime fechaComentario, String comentario){
         this.usuario = usuario;
         this.fechaComentario = fechaComentario;
         this.comentario = comentario;
-        this.numLikes = numLikes;
+        this.numLikes = 0;
     }
 
-    public Comentario(){
+    /**
+     * Método Constructor vacio
+     */
+    public Comentario(){}
 
-    }
-
+    /**
+     * Método para obtener el usuario que comento
+     *
+     * @return Usuario que comento
+     */
     public Usuario getUsuario() {
         return usuario;
     }
 
+    /**
+     * Método para establecer el usuario que comento en una publicación
+     *
+     * @param usuario Nuevo usuario que comento
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * Método para obtener la fecha en la que se hizo un comentario
+     *
+     * @return fecha del comentario
+     */
     public LocalDateTime getFechaComentario() {
         return fechaComentario;
     }
 
+    /**
+     * Método para establecer la fecha de un comentario
+     *
+     * @param fechaComentario Nueva fecha del comentario
+     */
     public void setFechaComentario(LocalDateTime fechaComentario) {
         this.fechaComentario = fechaComentario;
     }
@@ -50,9 +78,5 @@ public class Comentario {
 
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
-    }
-
-    public Producto getProducto() {
-        return getProducto();
     }
 }
