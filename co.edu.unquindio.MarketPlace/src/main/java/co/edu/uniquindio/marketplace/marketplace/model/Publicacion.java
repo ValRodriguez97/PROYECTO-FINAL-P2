@@ -10,61 +10,133 @@ public class Publicacion {
     private String descripcion;
     private Producto producto;
     private List<Comentario> listComentarios;
-    private List<Vendedor> listVendedores;
+    private List<Vendedor> listLikesVendedores;
 
-    public Publicacion(LocalDateTime fechaPublicacion, String descripcion, Producto producto, List<Comentario> listComentarios, List<Vendedor> listVendedores) {
+    /**
+     * Método Constructor de la clase Publicación
+     *
+     * @param fechaPublicacion Fecha en la que se realizó la publicación
+     * @param descripcion Descripción de la Publicación
+     * @param producto Producto agregado a la publicación
+     */
+    public Publicacion(LocalDateTime fechaPublicacion, String descripcion, Producto producto) {
         this.fechaPublicacion = fechaPublicacion;
         this.descripcion = descripcion;
         this.producto = producto;
-        this.listComentarios = listComentarios;
-        this.listVendedores = listVendedores;
+        this.listComentarios =new ArrayList<Comentario>();
+        this.listLikesVendedores = new ArrayList<>();
     }
 
-    public void añadirComentario(Comentario comentario) {
-        this.listComentarios.add(comentario);
+    /**
+     * Método Constructor de la clase Publicación Vacio
+     */
+    public Publicacion (){}
+
+    /**
+     * Método para añadir un comentario a una Publicación
+     *
+     * @param comentario Comentario a añadir
+     */
+    public void añadirComentario(Comentario comentario){
+        listComentarios.add(comentario);
     }
 
-    public void añadirLike(Vendedor vendedor) {
-        this.listVendedores.add(vendedor);
+    /**
+     * Método para añadir un like a una Publicación
+     *
+     * @param vendedor Like a añadir
+     */
+    public void añadirLike(Vendedor vendedor){
+        listLikesVendedores.add(vendedor);
     }
 
+    /**
+     * Método para obtener la fecha de Publicación
+     *
+     * @return Fecha de publicación
+     */
     public LocalDateTime getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicación(LocalDateTime fechaPublicación) {
-        this.fechaPublicacion = fechaPublicación;
+    /**
+     * Método para establecer la fecha de Publicación
+     *
+     * @param fechaPublicacion Nueva fecha de publicación
+     */
+    public void setFechaPublicacion(LocalDateTime fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 
+    /**
+     * Método para obtener la descripcion de una Publicación
+     *
+     * @return Descripción de la Publicación
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * Método para establecer la descripción de una Publicación
+     *
+     * @param descripcion Nueva descripción de la publicación
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Método para obtener el producto de una Publicación
+     *
+     * @return Producto de una publicación
+     */
     public Producto getProducto() {
         return producto;
     }
 
+    /**
+     * Método para establecer el producto de una Publicación
+     *
+     * @param producto Nuevo Producto de la publicación
+     */
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
 
+    /**
+     * Método para obtener la lista de comentarios de una Publicación
+     *
+     * @return Lista de comentarios de una publicación
+     */
     public List<Comentario> getListComentarios() {
         return listComentarios;
     }
 
+    /**
+     * Método para establecer la lista de comentarios de una Publicación
+     *
+     * @param listComentarios Nueva lista de comentarios
+     */
     public void setListComentarios(List<Comentario> listComentarios) {
         this.listComentarios = listComentarios;
     }
 
-    public List<Vendedor> getListVendedores() {
-        return listVendedores;
+    /**
+     * Método para obtener la lista de likes de los vendedores de una Publicación
+     *
+     * @return Lista de Likes de una publicación
+     */
+    public List<Vendedor> getListLikesVendedores() {
+        return listLikesVendedores;
     }
 
-    public void setListVendedores(List<Vendedor> listVendedores) {
-        this.listVendedores = listVendedores;
+    /**
+     * Método para establecer la lista de likes de los vendedores de una Publicación
+     *
+     * @param listLikesVendedores Nueva lista de Likes de la Publicación
+     */
+    public void setListLikesVendedores(List<Vendedor> listLikesVendedores) {
+        this.listLikesVendedores = listLikesVendedores;
     }
 }

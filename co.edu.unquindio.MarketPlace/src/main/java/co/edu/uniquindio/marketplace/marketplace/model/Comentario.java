@@ -64,18 +64,38 @@ public class Comentario {
         this.fechaComentario = fechaComentario;
     }
 
+    /**
+     * Método para obtener el contenido de un comentario
+     *
+     * @return comentario
+     */
     public String getComentario() {
         return comentario;
     }
 
+    /**
+     * Método para establecer el contenido de un comentario
+     *
+     * @param comentario Nuevo contenido del comentario
+     */
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 
+    /**
+     * Método para obtneer el numero de likes de un comentario
+     *
+     * @return numero de likes de un comentario
+     */
     public int getNumLikes() {
         return numLikes;
     }
 
+    /**
+     * Método para establecer el numero de comentarios
+     *
+     * @param numLikes nuevos numeros de likes
+     */
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
     }

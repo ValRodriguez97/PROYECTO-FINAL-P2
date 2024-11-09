@@ -5,7 +5,7 @@
 1. Patrón Singleton
 Dónde aplicar: En la clase ModelFactory.
 Por qué: El patrón Singleton asegura que una clase tenga una única instancia
-y proporciona un punto de acceso global a ella. En tu caso, ModelFactory se utiliza para crear
+y proporciona un punto de acceso global a ella. En este caso, ModelFactory se utiliza para crear
 y gestionar instancias de otros objetos (como Usuario, Vendedor, etc.). Al aplicar este patrón,
 te aseguras de que solo haya una instancia de ModelFactory en toda la aplicación, lo que puede
 ayudar a gestionar el estado y la configuración de manera centralizada.
