@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class ProductoBuilder {
     protected String nombre;
-    protected Image imagen;
+    protected String imagen;
     protected String categoria;
     protected double precio;
 
@@ -19,7 +19,7 @@ public class ProductoBuilder {
         return this;
     }
 
-    public ProductoBuilder imagen(Image imagen){
+    public ProductoBuilder imagen(String  imagen){
         this.imagen = imagen;
         return this;
     }

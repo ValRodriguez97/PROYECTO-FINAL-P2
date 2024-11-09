@@ -165,6 +165,8 @@ public class ModelFactory implements IModelFactory {
         return false;
     }
 
+
+
     public static MarketPlace inicializarDatos(){
         MarketPlace marketPlace = new MarketPlace("");
         Vendedor vendedorA = Vendedor.builder()

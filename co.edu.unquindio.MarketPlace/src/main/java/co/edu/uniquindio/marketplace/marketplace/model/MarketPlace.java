@@ -5,6 +5,9 @@ import co.edu.uniquindio.marketplace.marketplace.service.ICrudPublicacion;
 import co.edu.uniquindio.marketplace.marketplace.service.ICrudUsuario;
 import co.edu.uniquindio.marketplace.marketplace.service.ICrudVendedor;
 
+import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -272,6 +275,39 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return false;
     }
 
+    public static void exportarEstadisticos(){
+
+        String titulo = "Reporte de estadísticas";
+
+        Usuario usuarioActual = marketPlace.getUsuarioActual():
+        String usuario = usuarioActual != null ? usuarioActual.getNombre(): "Desconocido";
+
+        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/mm/yyyy"));
+
+        StringBuilder contenido = new StringBuilder();
+        List<Vendedor> vendedores = marketPlace.getListVendeores();
+        for (Vendedor vendedor : vendedores) {
+            contenido.append("Vendedor:").append(vendedor.getNombre()).append("").append(vendedor.getApellido()).append("\n");
+
+            long productosVendidos = vendedor.getListProductos().stream().filter(p -> p.getEstado() == Estado.VENDIDO).count();
+            long productosPublicados = vendedor.getListProductos().stream().filter(p -> p.getEstado() == Estado.PUBLICADO).count();
+            long productosCancelados = vendedor.getListProductos().stream().filter(p -> p.getEstado() == Estado.CANCELADO).count();
+
+            contenido.append("Total de productos:").append(vendedor.getListProductos().size()).append("\n");
+            contenido.append("Productos vendidos:").append(productosVendidos).append("\n");
+            contenido.append("Productos publicados:").append(productosPublicados).append("\n");
+            contenido.append("Productos cancelados:").append(productosCancelados).append("\n");
+            contenido.append("----------\n");
+        }
+
+        String ruta = "reporte_estadistica.txt";
+
+        try (FileWriter writer = new FileWriter(ruta)){
+            writer.write("<Título>" + titulo + "\n");
+            writer.write("<Fecha> Fecha:" + fecha +);
+        }
+    }
+
             public String getNombre () {
                 return nombre;
             }
@@ -303,6 +339,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             public void setListVendedores (List < Vendedor > listVendedores) {
                 this.listVendedores = listVendedores;
             }
+
         }
 
 
