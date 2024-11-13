@@ -91,18 +91,18 @@ public class LoginViewController {
     }
 
     public void showStage2(UsuarioDto usuarioDto) throws IOException {
-      if(usuarioDto instanceof VendedorDto vendedorDto){
+      if(usuarioDto instanceof VendedorDto){
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
           Scene scene = new Scene(fxmlLoader.load(), 782, 484);
           Stage stage = new Stage();
 
           WindowPrincipalViewController menuController = fxmlLoader.getController();
-            menuController.setVendedorDto(vendedorDto);
+            menuController.inicializarVentana((VendedorDto)  usuarioDto);
+            stage.setScene(scene);
 
           Stage cerrar = (Stage) btnLogin.getScene().getWindow();
           cerrar.close();
 
-          stage.setScene(scene);
           stage.show();
       } else {
           System.out.println("Usuario no encontrado");

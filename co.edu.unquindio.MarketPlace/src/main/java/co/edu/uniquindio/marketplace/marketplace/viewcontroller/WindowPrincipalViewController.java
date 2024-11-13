@@ -1,8 +1,10 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.control.MenuButton;
 
 public class WindowPrincipalViewController{
     VendedorDto vendedorDto;
+    ModelFactory modelFactory;
 
     @FXML
     private ResourceBundle resources;
@@ -83,11 +86,10 @@ public class WindowPrincipalViewController{
 
     }
 
+    public void inicializarVentana(VendedorDto vendedorDto) throws IOException{
+        modelFactory =  ModelFactory.getInstance();
 
-    public void setVendedorDto(VendedorDto vendedorDto){
-        this.vendedorDto = vendedorDto;
     }
-
     @FXML
     void initialize() {
         assert SearchHistory != null : "fx:id=\"SearchHistory\" was not injected: check your FXML file 'MenuPrincipal.fxml'.";

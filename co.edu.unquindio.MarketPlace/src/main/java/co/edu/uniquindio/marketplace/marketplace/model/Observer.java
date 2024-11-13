@@ -12,3 +12,4 @@ public class Observer implements co.edu.uniquindio.marketplace.marketplace.servi
     public void updateObserver(double precio) {
     }
 }
+

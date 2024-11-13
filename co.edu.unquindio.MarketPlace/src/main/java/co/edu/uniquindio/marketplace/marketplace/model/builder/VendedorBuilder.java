@@ -13,6 +13,6 @@ public class VendedorBuilder extends UsuarioBuilder<VendedorBuilder>{
 
     @Override
     public Vendedor build() {
-        return new Vendedor(idVendedor, nombre, apellido, cedula, direccion, usuario, contraseña)
-;    }
+        return new Vendedor(idVendedor, nombre, apellido, cedula, direccion, usuario, contraseña);    }
 }
+
