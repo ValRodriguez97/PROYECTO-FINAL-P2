@@ -33,15 +33,6 @@ public class Usuario {
      */
     public Usuario(){}
 
-    /**
-     * Método builder de la clase Usuario
-     *
-     * @return Usuario Builder
-     */
-    public static UsuarioBuilder builder(){
-        return new UsuarioBuilder();
-    }
-
     public String getNombre() {
         return nombre;
     }

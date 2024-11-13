@@ -11,7 +11,7 @@ public class Chat {
     /**
      * Método Constructor de la clase Chat
      */
-    public Chat() {
+    public Chat(List<Mensaje> mensajes) {
         this.usuarios = new ArrayList<Usuario>();
         this.mensajes = new ArrayList<Mensaje>();
     }

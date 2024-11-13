@@ -178,14 +178,7 @@ public class ModelFactory implements IModelFactory {
                 .contraseña("sofia123")
                 .build();
 
-        Usuario usuario = Usuario.builder()
-                .usuario("Sofi")
-                .nombre("Sara")
-                .apellido("Rios")
-                .cedula("123")
-                .direccion("hasd")
-                .contraseña("1234")
-                .build();
+        Usuario usuario = new Usuario("Sofi", "Sara", "Rios", "123", "hasb", "1234");
         marketPlace.createUsuario(usuario);
         return marketPlace;
     }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
 import co.edu.uniquindio.marketplace.marketplace.service.ICrudAdministrador;
 import co.edu.uniquindio.marketplace.marketplace.service.ICrudPublicacion;
 import co.edu.uniquindio.marketplace.marketplace.service.ICrudUsuario;
@@ -29,7 +30,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     @Override
     public boolean createVendedor(Vendedor vendedor){
        if(verificarVendedorExistente(vendedor.getIdVendedor())){
-           Vendedor newVendedor = Vendedor.builder()
+           Vendedor newVendedor = Vendedor.Vendedorbuilder()
                    .idVendedor(vendedor.getIdVendedor())
                    .nombre(vendedor.getNombre())
                    .apellido(vendedor.getApellido())
@@ -102,7 +103,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
         for (Publicacion publicacionExistente : listPublicaciones) {
             if (publicacionExistente.equals(publicacion)) {
-                publicacionExistente.setFechaPublicación(publicacion.getFechaPublicacion());
+                publicacionExistente.setFechaPublicacion(publicacion.getFechaPublicacion());
                 publicacionExistente.setDescripcion(publicacion.getDescripcion());
                 publicacionExistente.setProducto(publicacion.getProducto());
                 return true;
@@ -155,7 +156,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     public boolean createAdministrador(Administrador administrador) {
         if (verificarAdministradorExiste(administrador.getIdAdministrador())) {
             // El administrador ya existe
-            Administrador nuevoAdministrador = Administrador.builder()
+            Administrador nuevoAdministrador = Administrador.Adminbuilder()
                     .idAdministrador(administrador.getIdAdministrador())
                     .nombre(administrador.getNombre())
                     .apellido(administrador.getApellido())
@@ -295,17 +296,17 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return false;
     }
     
-    public static void exportarEstadisticos(){
+    public static void exportarEstadisticos(MarketPlace marketPlace){
 
         String titulo = "Reporte de estadísticas";
 
-        Usuario usuarioActual = marketPlace.getUsuarioActual():
+        Usuario usuarioActual = marketPlace.getUsuarioActual();
         String usuario = usuarioActual != null ? usuarioActual.getNombre(): "Desconocido";
 
         String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/mm/yyyy"));
 
         StringBuilder contenido = new StringBuilder();
-        List<Vendedor> vendedores = marketPlace.getListVendeores();
+        List<Vendedor> vendedores = marketPlace.getListVendedores();
         for (Vendedor vendedor : vendedores) {
             contenido.append("Vendedor:").append(vendedor.getNombre()).append("").append(vendedor.getApellido()).append("\n");
 

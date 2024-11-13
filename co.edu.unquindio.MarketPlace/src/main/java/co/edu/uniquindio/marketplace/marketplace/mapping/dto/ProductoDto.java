@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 public record ProductoDto (
         String nombre,
-        Image imagen,
+        String imagen,
         String categoria,
         double precio,
         Estado estado

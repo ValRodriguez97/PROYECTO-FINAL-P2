@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Producto {
     private String nombre;
-    private Image imagen;
+    private String imagen;
     private String categoria;
     private double precio;
     private Estado estado;
@@ -23,7 +23,7 @@ public class Producto {
      */
     public Producto(String nombre, String imagen, String categoria, double precio, Estado estado) {
         this.nombre = nombre;
-        this.imagen = new Image(getClass().getResourceAsStream("/images/" + imagen));
+        this.imagen = String.valueOf(new Image(getClass().getResourceAsStream("/images/" + imagen)));
         this.categoria = categoria;
         this.precio = precio;
         this.estado = estado;
@@ -66,7 +66,7 @@ public class Producto {
      *
      * @return Imagen del Producto
      */
-    public Image getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
@@ -75,7 +75,7 @@ public class Producto {
      *
      * @param imagen Nueva imagen del Producto
      */
-    public void setImagen(Image imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

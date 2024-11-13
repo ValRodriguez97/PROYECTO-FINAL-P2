@@ -1,5 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
+import co.edu.uniquindio.marketplace.marketplace.model.Producto;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,14 +11,11 @@ import java.util.List;
  * @param fechaPublicacion Fecha en que se realizó la Publicación
  * @param descripcion Descripción de la Publicación
  * @param productoDto Producto de la Publicación
- * @param listComentarios Lista de Comentarios de la Publicación
- * @param listVendedores Lista de Vendedores de la Publicación
+
  */
 public record PublicacionDto (
         LocalDateTime fechaPublicacion,
         String descripcion,
-        ProductoDto productoDto,
-        List<ComentarioDto> listComentarios,
-        List<VendedorDto> listVendedores
+        Producto producto
 ){
 }

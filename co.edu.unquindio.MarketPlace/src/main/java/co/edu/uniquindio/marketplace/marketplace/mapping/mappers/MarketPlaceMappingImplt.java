@@ -32,7 +32,7 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
     @Override
     public Administrador administradorDtoToAdministrador(AdministradorDto administradorDto){
-        return Administrador.builder()
+        return Administrador.Adminbuilder()
                 .nombre(administradorDto.nombre())
                 .apellido(administradorDto.nombre())
                 .usuario(administradorDto.usuario())
@@ -139,11 +139,7 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
         return new PublicacionDto(
                 publicacion.getFechaPublicacion(),
                 publicacion.getDescripcion(),
-                productoToProductoDto(publicacion.getProducto()),
-                publicacion.getListComentarios().stream()
-                        .map(this::comentarioToComentarioDto)
-                        .collect(Collectors.toList()),
-                getVendedoresDto(publicacion.getListVendedores())
+               publicacion.getProducto()
         );
     }
 
@@ -155,11 +151,7 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
         return new Publicacion(
                 publicacionDto.fechaPublicacion(),
                 publicacionDto.descripcion(),
-                productoDtoToProducto(publicacionDto.productoDto()),
-                publicacionDto.listComentarios().stream()
-                        .map(this::comentarioDtoToComentario)
-                        .collect(Collectors.toList()),
-                listVendedorDtoToVendedor(publicacionDto.listVendedores())
+                publicacionDto.producto()
         );
     }
 
@@ -193,12 +185,6 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
             return null;
         }
         return new Muro(
-                muroDto.listPublicaciones().stream()
-                        .map(this::publicacionDtoToPublicacion)
-                        .collect(Collectors.toList()),
-                muroDto.listChats().stream()
-                        .map(this::chatDtoToChat)
-                        .collect(Collectors.toList())
         );
     }
 
@@ -235,14 +221,8 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
         if (usuarioDto == null) {
             return null;
         }
-        return Usuario.builder()
-                .nombre(usuarioDto.nombre())
-                .apellido(usuarioDto.apellido())
-                .cedula(usuarioDto.cedula())
-                .direccion(usuarioDto.direccion())
-                .usuario(usuarioDto.usuario())
-                .contraseña(usuarioDto.contraseña())
-                .build();
+        return new Usuario(usuarioDto.nombre(), usuarioDto.apellido(), usuarioDto.cedula(), usuarioDto.direccion(), usuarioDto.usuario(), usuarioDto.contraseña());
+
     }
 
     @Override
@@ -271,7 +251,7 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
     @Override
     public Vendedor vendedorDtoToVendedor(VendedorDto vendedorDto){
-        return Vendedor.builder().nombre(vendedorDto.nombre()).apellido(vendedorDto.apellido()).cedula(vendedorDto.cedula()).
+        return Vendedor.Vendedorbuilder().nombre(vendedorDto.nombre()).apellido(vendedorDto.apellido()).cedula(vendedorDto.cedula()).
                 cedula(vendedorDto.cedula()).direccion(vendedorDto.direccion()).usuario(vendedorDto.usuario()).contraseña(vendedorDto.contraseña()).build();
     }
 }

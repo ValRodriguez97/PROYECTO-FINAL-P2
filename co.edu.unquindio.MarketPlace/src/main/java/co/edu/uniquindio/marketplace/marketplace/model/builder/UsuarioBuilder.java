@@ -2,7 +2,7 @@ package co.edu.uniquindio.marketplace.marketplace.model.builder;
 
 import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
 
-public class UsuarioBuilder {
+public class UsuarioBuilder <T extends UsuarioBuilder<T>> {
     protected String nombre;
     protected String apellido;
     protected String cedula;
@@ -10,34 +10,39 @@ public class UsuarioBuilder {
     protected String usuario;
     protected String contraseña;
 
-    public UsuarioBuilder nombre(String nombre){
+    public T nombre(String nombre){
         this.nombre = nombre;
-        return this;
+        return self();
     }
 
-    public UsuarioBuilder apellido(String apellido){
+    public T apellido(String apellido){
         this.apellido = apellido;
-        return this;
+        return self();
     }
 
-    public UsuarioBuilder cedula(String cedula){
+    public T cedula(String cedula){
         this.cedula = cedula;
-        return this;
+        return self();
     }
 
-    public UsuarioBuilder direccion(String direccion){
+    public T direccion(String direccion){
         this.direccion = direccion;
-        return this;
+        return self();
     }
 
-    public UsuarioBuilder usuario(String usuario){
+    public T usuario(String usuario){
         this.usuario = usuario;
-        return this;
+        return self();
     }
 
-    public UsuarioBuilder contraseña(String contraseña){
+    public  T contraseña(String contraseña){
         this.contraseña = contraseña;
-        return this;
+        return self();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected T self(){
+        return (T) this;
     }
 
     public Usuario build(){
