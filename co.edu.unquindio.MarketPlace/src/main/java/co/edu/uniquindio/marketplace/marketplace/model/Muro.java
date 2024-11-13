@@ -11,9 +11,11 @@ public class Muro {
      * Método Constructor de la clase Muro
      */
     public Muro() {
-        listPublicaciones = new ArrayList<Publicacion>();
-        listChat = new ArrayList<Chat>();
+        listPublicaciones = new ArrayList<>();
+        listChat = new ArrayList<>();
     }
+
+
 
     /**
      * Método para añadir una publicación al muro
@@ -57,6 +59,7 @@ public class Muro {
      * @return listas de chats
      */
     public List<Chat> getListChat() {
+
         return listChat;
     }
 

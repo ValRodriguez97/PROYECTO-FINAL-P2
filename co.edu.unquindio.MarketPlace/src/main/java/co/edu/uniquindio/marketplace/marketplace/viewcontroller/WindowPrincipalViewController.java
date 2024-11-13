@@ -4,13 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 
 public class WindowPrincipalViewController{
-    UsuarioDto usuarioDto;
+    VendedorDto vendedorDto;
 
     @FXML
     private ResourceBundle resources;
@@ -82,8 +83,9 @@ public class WindowPrincipalViewController{
 
     }
 
-    public void setUsuarioDto(UsuarioDto usuarioDto) {
-        this.usuarioDto = usuarioDto;
+
+    public void setVendedorDto(VendedorDto vendedorDto){
+        this.vendedorDto = vendedorDto;
     }
 
     @FXML

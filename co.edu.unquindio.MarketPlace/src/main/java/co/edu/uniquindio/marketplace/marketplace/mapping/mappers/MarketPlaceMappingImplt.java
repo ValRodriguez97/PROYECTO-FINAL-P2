@@ -27,7 +27,10 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
         return new AdministradorDto(
                 administrador.getNombre(),
                 administrador.getApellido(),
-                administrador.getUsuario());
+                administrador.getCedula(),
+                administrador.getDireccion(),
+                administrador.getUsuario(),
+                administrador.getContraseña());
     }
 
     @Override
@@ -206,14 +209,7 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
         if (usuario == null) {
             return null;
         }
-        return new UsuarioDto(
-                usuario.getNombre(),
-                usuario.getApellido(),
-                usuario.getCedula(),
-                usuario.getDireccion(),
-                usuario.getUsuario(),
-                usuario.getContraseña()
-        );
+        return  null;
     }
 
     @Override

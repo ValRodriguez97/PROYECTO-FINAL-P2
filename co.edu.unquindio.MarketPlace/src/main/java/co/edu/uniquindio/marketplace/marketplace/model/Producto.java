@@ -3,7 +3,10 @@ package co.edu.uniquindio.marketplace.marketplace.model;
 import co.edu.uniquindio.marketplace.marketplace.model.builder.ProductoBuilder;
 import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Producto {
     private String nombre;
@@ -11,6 +14,7 @@ public class Producto {
     private String categoria;
     private double precio;
     private Estado estado;
+    private List<Observer> listObserver = new ArrayList<>();
 
     /**
      * Método Constructor de la clase Producto
@@ -131,5 +135,13 @@ public class Producto {
      */
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public void addObserver(Observer observer){
+        listObserver.add(observer);
+    }
+
+    public void deleteObserver(Observer observer){
+        listObserver.remove(observer);
     }
 }

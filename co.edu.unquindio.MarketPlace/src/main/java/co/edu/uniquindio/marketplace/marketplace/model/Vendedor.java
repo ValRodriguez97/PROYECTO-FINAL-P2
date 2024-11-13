@@ -58,15 +58,6 @@ public class Vendedor extends Usuario {
      *
      * @return contactoExistente
      */
-    private boolean verificarContactoExistente(Vendedor vendedor){
-        boolean contactoExistente = false;
-        for(Vendedor vendedorA : listContactos){
-            if(vendedorA.getIdVendedor().equals(vendedor.getIdVendedor())){
-                contactoExistente = true;
-            }
-        }
-        return contactoExistente;
-    }
 
     /**
      * Método para añadir un Producto
@@ -165,4 +156,18 @@ public class Vendedor extends Usuario {
     public void setListContactos(List<Vendedor> listContactos) {
         this.listContactos = listContactos;
     }
+
+    public int getContactosMaximos() {
+        return 10; // Puedes ajustar este valor según tus necesidades
+    }
+
+    public boolean verificarContactoExistente(Vendedor nuevoContacto) {
+        for (Vendedor contacto : listContactos) {
+            if (contacto.getIdVendedor().equals(nuevoContacto.getIdVendedor())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

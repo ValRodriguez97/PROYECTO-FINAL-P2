@@ -39,9 +39,44 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
                    .usuario(vendedor.getUsuario())
                    .contraseña(vendedor.getContraseña())
                    .build();
-           return listVendedores.add(newVendedor);
+
+           newVendedor.setMuro(new Muro());
+           newVendedor.setListProductos(new ArrayList<>());
+           newVendedor.setListContactos(new ArrayList<>());
+           listVendedores.add(newVendedor);
+
+           return true;
        }
        return false;
+    }
+
+    public void agregarPublicacion(Vendedor vendedor, Publicacion publicacion){
+        vendedor.getMuro().añadirPublicacion(publicacion);
+    }
+
+    public void agregarComentarioAPublicacion(Vendedor vendedor, Publicacion publicacion, Comentario comentario){
+        if (vendedor.getMuro().getListPublicaciones().contains(publicacion)){
+            publicacion.añadirComentario(comentario);
+        }
+    }
+
+    public boolean añadirContacto(Vendedor vendedor, Vendedor nuevoContacto) {
+        if (!vendedor.verificarContactoExistente(nuevoContacto) &&
+            vendedor.getListContactos().size() < vendedor.getContactosMaximos()){
+            vendedor.añadirContacto(nuevoContacto);
+            return true;
+        }
+        return false;
+    }
+
+    public List <Vendedor> obtenerSugerenciasContactos(Vendedor vendedor){
+        List<Vendedor> sugerencias = new ArrayList<>();
+        for (Vendedor otroVendedor : listVendedores){
+            if (!vendedor.verificarContactoExistente(otroVendedor) && !otroVendedor.equals(vendedor)) {
+                sugerencias.add(otroVendedor);
+            }
+        }
+        return sugerencias;
     }
 
     @Override

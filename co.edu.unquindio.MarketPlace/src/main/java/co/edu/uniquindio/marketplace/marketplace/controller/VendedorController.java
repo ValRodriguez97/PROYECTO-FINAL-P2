@@ -1,10 +1,19 @@
 package co.edu.uniquindio.marketplace.marketplace.controller;
 
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.PublicacionDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
+import co.edu.uniquindio.marketplace.marketplace.model.Producto;
+import co.edu.uniquindio.marketplace.marketplace.model.Publicacion;
+import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IVendedorController;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VendedorController implements IVendedorController {
     ModelFactory modelFactory;
@@ -33,5 +42,35 @@ public class VendedorController implements IVendedorController {
         return false;
     }
 
+    /**
+     * Implementación del requisito RF-007
+      * @param idVendedor
+     * @return
+     */
+    public List<PublicacionDto> obtenerPublicacionesConectados(String idVendedor) {
+        Vendedor vendedor = modelFactory.getMarketPlace().verificarVendedor(idVendedor);
+        List<Publicacion> todasLasPublicaciones = new ArrayList<>();
+        todasLasPublicaciones.addAll(vendedor.getMuro().getListPublicaciones());
 
+        for (Vendedor contacto : vendedor.getListContactos()) {
+            todasLasPublicaciones.addAll(contacto.getMuro().getListPublicaciones());
+        }
+
+        List<Publicacion> publicacionesOrdenadas = todasLasPublicaciones.stream()
+                .sorted(Comparator.comparing(Publicacion::getFechaPublicacion).reversed()) // Ordenar de más reciente a más antiguo
+                .collect(Collectors.toList());
+
+        return publicacionesOrdenadas.stream()
+                .map(this::convertirAPublicacionDto)
+                .collect(Collectors.toList());
+    }
+
+    private PublicacionDto convertirAPublicacionDto(Publicacion publicacion) {
+        return new PublicacionDto(
+                publicacion.getFechaPublicacion(),
+                publicacion.getDescripcion(),
+                publicacion.getProducto() // Asegúrate de que Producto tenga un método para convertir a DTO si es necesario
+        );
+    }
 }
+

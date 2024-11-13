@@ -10,12 +10,12 @@ package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
  * @param usuario Usuario del Vendedor
  * @param contraseña Contrasela del Vendedor
  */
-public record VendedorDto(
+public record VendedorDto (
         String nombre,
         String apellido,
         String cedula,
         String direccion,
         String usuario,
         String contraseña
-){
+) implements UsuarioDto{
 }
