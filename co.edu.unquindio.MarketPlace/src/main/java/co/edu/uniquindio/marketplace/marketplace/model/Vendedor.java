@@ -20,11 +20,11 @@ public class Vendedor extends Usuario {
      * @param apellido Apellido del Vendedor
      * @param cedula Cédula de Ciudadanía del Vendedor
      * @param direccion Dirección del Vendedor
-     * @param usuario Usuario del Vendedor
+     * @param username Usuario del Vendedor
      * @param contraseña Contraseña del Vendedor
      */
-    public Vendedor(String idVendedor,String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña){
-        super(nombre, apellido, cedula, direccion, usuario, contraseña);
+    public Vendedor(String idVendedor,String nombre, String apellido, String cedula, String direccion, String username, String contraseña){
+        super(nombre, apellido, cedula, direccion, username, contraseña);
         this.listProductos = new ArrayList<Producto>();
         this.listContactos = new ArrayList<Vendedor>();
         this.idVendedor = idVendedor;
@@ -36,6 +36,11 @@ public class Vendedor extends Usuario {
      */
     public Vendedor (){}
 
+    /**
+     * Método builder de la clase Vendedor
+     *
+     * @return VendedorBuilder
+     */
     public static VendedorBuilder Vendedorbuilder(){
         return new VendedorBuilder();
     }
@@ -54,10 +59,18 @@ public class Vendedor extends Usuario {
     /**
      * Método para verificar si un contacto ya existe en la lista de contactos del Vendedor
      *
-     * @param vendedor
+     * @param nuevoContacto
      *
-     * @return contactoExistente
+     * @return
      */
+    public boolean verificarContactoExistente(Vendedor nuevoContacto) {
+        for (Vendedor contacto : listContactos) {
+            if (contacto.getIdVendedor().equals(nuevoContacto.getIdVendedor())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Método para añadir un Producto
@@ -66,6 +79,21 @@ public class Vendedor extends Usuario {
      */
     public void añadirProducto(Producto producto){
         listProductos.add(producto);
+    }
+
+    /**
+     * Método para obtener los productos disponibles de un Vendedor
+     *
+     * @return productos disponibles
+     */
+    public List<Producto> getProductosDisponibles(){
+        ArrayList<Producto> productosDisponibles = new ArrayList<>();
+        for (Producto producto : listProductos) {
+            if(producto.getEstado() == Estado.DISPONIBLE){
+                productosDisponibles.add(producto);
+            }
+        }
+        return productosDisponibles;
     }
 
     /**
@@ -155,19 +183,6 @@ public class Vendedor extends Usuario {
      */
     public void setListContactos(List<Vendedor> listContactos) {
         this.listContactos = listContactos;
-    }
-
-    public int getContactosMaximos() {
-        return 10; // Puedes ajustar este valor según tus necesidades
-    }
-
-    public boolean verificarContactoExistente(Vendedor nuevoContacto) {
-        for (Vendedor contacto : listContactos) {
-            if (contacto.getIdVendedor().equals(nuevoContacto.getIdVendedor())) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

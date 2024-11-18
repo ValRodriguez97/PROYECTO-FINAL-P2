@@ -14,11 +14,11 @@ public class Administrador extends  Usuario {
      * @param apellido Apellido del administrador
      * @param cedula Cedula de Ciudadania del administradir
      * @param direccion Dirección del administrador
-     * @param usuario Usuario del perfil del administrador
+     * @param username Usuario del perfil del administrador
      * @param contraseña Contraseña del perfil del administrador
      */
-    public Administrador(String idAdministrador,String nombre, String apellido, String cedula, String direccion, String usuario, String contraseña) {
-        super(nombre, apellido, cedula, direccion, usuario, contraseña);
+    public Administrador(String idAdministrador,String nombre, String apellido, String cedula, String direccion, String username, String contraseña) {
+        super(nombre, apellido, cedula, direccion, username, contraseña);
         this.idAdminsitrador = idAdminsitrador;
     }
 

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Producto {
+    private String idVendedor;
     private String nombre;
-    private String imagen;
+    private Image imagen;
     private String categoria;
     private double precio;
     private Estado estado;
-    private List<Observer> listObserver = new ArrayList<>();
 
     /**
      * Método Constructor de la clase Producto
@@ -27,7 +27,7 @@ public class Producto {
      */
     public Producto(String nombre, String imagen, String categoria, double precio, Estado estado) {
         this.nombre = nombre;
-        this.imagen = String.valueOf(new Image(getClass().getResourceAsStream("/images/" + imagen)));
+        this.imagen = new Image(getClass().getResource(imagen).toString());
         this.categoria = categoria;
         this.precio = precio;
         this.estado = estado;
@@ -66,20 +66,33 @@ public class Producto {
     }
 
     /**
-     * Método para obtener la imagen del producto
+     * Método para obtener la identificacion del Vendedor
      *
-     * @return Imagen del Producto
+     * @return identificación del Vendedor
      */
-    public String getImagen() {
-        return imagen;
+    public String getIdVendedor() {
+        return idVendedor;
     }
 
     /**
-     * Método para establecer la imagen de un Producto
+     * Método para establecer la identificación del Vendedor
      *
-     * @param imagen Nueva imagen del Producto
+     * @param idVendedor Nueva identificación del Vendedor
      */
-    public void setImagen(String imagen) {
+    public void setIdVendedor(String idVendedor) {
+        this.idVendedor = idVendedor;
+    }
+
+    /**
+     * Método para obtener la imagen de una publicación
+     *
+     * @return imagen de una publicación
+     */
+    public Image getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
 
@@ -137,11 +150,4 @@ public class Producto {
         this.estado = estado;
     }
 
-    public void addObserver(Observer observer){
-        listObserver.add(observer);
-    }
-
-    public void deleteObserver(Observer observer){
-        listObserver.remove(observer);
-    }
 }

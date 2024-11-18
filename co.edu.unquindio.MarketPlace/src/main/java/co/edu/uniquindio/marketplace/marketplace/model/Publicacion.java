@@ -1,11 +1,13 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.service.ILike;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Publicacion {
+public class Publicacion implements ILike {
     private LocalDateTime fechaPublicacion;
     private String descripcion;
     private Producto producto;
@@ -48,6 +50,16 @@ public class Publicacion {
      */
     public void añadirLike(Vendedor vendedor){
         listLikesVendedores.add(vendedor);
+    }
+
+    /**
+     * Método para que un vendedor le de Like a una publicación
+     *
+     * @param vendedor
+     */
+    @Override
+    public void addLike(Vendedor vendedor){
+        añadirLike(vendedor);
     }
 
     /**

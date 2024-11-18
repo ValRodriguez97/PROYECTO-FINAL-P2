@@ -54,8 +54,16 @@ public class LoginViewController {
     }
 
     @FXML
-    void onCreateAccount(ActionEvent event) {
+    void onCreateAccount(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/RegistroView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600,400);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Registro");
+        stage.show();
 
+        Stage cerrar = (Stage) btnCreateAccount.getScene().getWindow();
+        cerrar.close();
     }
 
     @FXML

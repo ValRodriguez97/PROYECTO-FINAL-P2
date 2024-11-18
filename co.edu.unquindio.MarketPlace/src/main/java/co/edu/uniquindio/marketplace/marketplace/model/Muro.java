@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Muro {
+    private String idVendedor;
     private List<Publicacion> listPublicaciones;
     private List<Chat> listChat;
 
@@ -14,8 +15,6 @@ public class Muro {
         listPublicaciones = new ArrayList<>();
         listChat = new ArrayList<>();
     }
-
-
 
     /**
      * Método para añadir una publicación al muro

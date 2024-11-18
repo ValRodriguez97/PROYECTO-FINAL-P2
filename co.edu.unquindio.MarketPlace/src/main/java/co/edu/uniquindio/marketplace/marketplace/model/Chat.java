@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Chat {
     private final int maximoUsuariosChat = 2; //Es decir, un chat solo se da con dos personas
-    private List<Usuario> usuarios;
+    private List<Vendedor> vendedores;
     private List<Mensaje> mensajes;
 
     /**
      * Método Constructor de la clase Chat
      */
     public Chat(List<Mensaje> mensajes) {
-        this.usuarios = new ArrayList<Usuario>();
+        this.vendedores = new ArrayList<Vendedor>();
         this.mensajes = new ArrayList<Mensaje>();
     }
 
@@ -28,54 +28,54 @@ public class Chat {
     /**
      * Método para agregar un usuario al chat
      *
-     * @param usuario a agregar
+     * @param vendedor a agregar
      *
      * @return exito del proceso
      */
-   public boolean agregarUsuarioChat(Usuario usuario) {
-        if(usuarios.size() < maximoUsuariosChat) {
-            if(!usuarios.contains(usuario)) {
-                usuarios.add(usuario);
+    public boolean agregarVendedorAlChat(Vendedor vendedor) {
+        if (vendedores.size() < maximoUsuariosChat) {
+            if (vendedores.contains(vendedor)) {
+                vendedores.add(vendedor);
                 return true;
             } else {
-                throw new UnsupportedOperationException();
+                throw new IllegalArgumentException("El vendedor ya se encuentra agregado al chat");
             }
-        } else {
-            throw new UnsupportedOperationException();
+        } else{
+            throw  new IllegalStateException("Maximo de vendedores permitidos, no se puede añadir más");
         }
-   }
+    }
 
     /**
-     * Método para obtener la cantidad máxima de usuarios que hay en un chat
+     * Método para obtener el numero maximo de usuarios que se permite en un chat
      *
-     * @return cantidad máxima de usuarios en un chat
+     * @return maximo usuarios chat
      */
-    public int getMaximoUsuariosChat(){
+    public int getMaximoUsuariosChat() {
         return maximoUsuariosChat;
     }
 
     /**
-     * Método para obtener la lista de usuarios de un chat
+     * Método para  obtener la lista de vendedores
      *
-     * @return lista de usuarios de un chat
+     * @return lsita de vendedores
      */
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public List<Vendedor> getVendedores() {
+        return vendedores;
     }
 
     /**
-     * Método para establecer la lista de usuarios de un chat
+     * Método para establecer la lista de vendedores de un chat
      *
-     * @param usuarios Nueva lista de usuarios
+     * @param vendedores
      */
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setVendedores(List<Vendedor> vendedores) {
+        this.vendedores = vendedores;
     }
 
     /**
      * Método para obtener la lista de mensajes de un chat
      *
-     * @return Lista de mensajes de un chat
+     * @return lista de mensajes
      */
     public List<Mensaje> getMensajes() {
         return mensajes;
@@ -83,8 +83,7 @@ public class Chat {
 
     /**
      * Método para establecer la lista de mensajes de un chat
-     *
-     * @param mensajes Nueva lista de mensajes de un chat
+     * @param mensajes
      */
     public void setMensajes(List<Mensaje> mensajes) {
         this.mensajes = mensajes;
