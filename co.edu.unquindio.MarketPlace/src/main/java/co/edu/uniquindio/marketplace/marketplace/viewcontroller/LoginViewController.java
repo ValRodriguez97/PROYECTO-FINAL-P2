@@ -20,6 +20,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 public class LoginViewController {
     private ModelFactory modelFactory;
     private LoginController loginController;
@@ -50,7 +52,15 @@ public class LoginViewController {
 
     @FXML
     void OnPutYourUsername(ActionEvent event) {
+        String username = txtUsername.getText();
 
+        if (username.isEmpty()) {
+            System.out.println("Debe ingresar un nombre");
+
+        } else if (username.length() < 3) {
+            System.out.println("El nombre de usuario debe tener 3 o más caracteres");
+
+        }
     }
 
     @FXML
