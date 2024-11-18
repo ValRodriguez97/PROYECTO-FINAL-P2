@@ -92,6 +92,11 @@ public class Producto {
         return imagen;
     }
 
+    /**
+     * Método para establecer la imagen de una publicación
+     *
+     * @param imagen Nueva imagen
+     */
     public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
@@ -149,5 +154,4 @@ public class Producto {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-
 }
