@@ -28,8 +28,10 @@ public class VendedorController implements IVendedorController {
     }
 
     @Override
-    public boolean addVendedor(VendedorDto vendedorDto){
-        return modelFactory.addVendedor(vendedorDto);
+    public boolean addVendedor(VendedorDto vendedorDto) {
+        if (vendedorDto != null &&
+            vendedorDto.getIdVendedor() != null && !vendedorDto.getIdVendedor().isEmpty() &&
+            vendedorDto)
     }
 
     @Override
@@ -69,7 +71,7 @@ public class VendedorController implements IVendedorController {
         return new PublicacionDto(
                 publicacion.getFechaPublicacion(),
                 publicacion.getDescripcion(),
-                publicacion.getProducto() // Asegúrate de que Producto tenga un método para convertir a DTO si es necesario
+                publicacion.getProducto()
         );
     }
 }

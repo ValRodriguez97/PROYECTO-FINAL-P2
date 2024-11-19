@@ -12,7 +12,7 @@ public class AdministradorBuilder extends UsuarioBuilder<AdministradorBuilder>{
 
 
    public Administrador build() {
-       return new Administrador(idAdministrador, nombre, apellido, cedula, direccion, usuario, contraseña);
+       return new Administrador(idAdministrador, nombre, apellido, cedula, direccion, username, contraseña);
    }
 }
 

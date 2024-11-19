@@ -12,50 +12,46 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
     @Override
     public List<AdministradorDto> getAdministradoresDto(List<Administrador> administradores) {
-        if (administradores == null) {
-            return null;
-        }
-        List<AdministradorDto> administradoresDto = new ArrayList<>(administradores.size());
-        for (Administrador administrador : administradores) {
-            administradoresDto.add(administradorToAdministradorDto(administrador));
-        }
-        return administradoresDto;
+       if(administradores == null)return null;
+       return administradores.stream().map(this::administradorToAdministradorDto).collect(Collectors.toList());
     }
 
     @Override
     public AdministradorDto administradorToAdministradorDto(Administrador administrador){
-        return new AdministradorDto(
+        if(administrador == null)return null;
+        return new AdministradorDto(administrador.getIdAdministrador(),
                 administrador.getNombre(),
                 administrador.getApellido(),
                 administrador.getCedula(),
                 administrador.getDireccion(),
-                administrador.getUsuario(),
+                administrador.getUsername(),
                 administrador.getContraseña());
     }
 
     @Override
     public Administrador administradorDtoToAdministrador(AdministradorDto administradorDto){
+       if(administradorDto == null) return null;
         return Administrador.Adminbuilder()
-                .nombre(administradorDto.nombre())
-                .apellido(administradorDto.nombre())
-                .usuario(administradorDto.usuario())
+                .idAdministrador(administradorDto.getIdAdministrador())
+                .nombre(administradorDto.getNombre())
+                .apellido(administradorDto.getApellido())
+                .cedula(administradorDto.getCedula())
+                .direccion(administradorDto.getCedula())
+                .username(administradorDto.getUsername())
+                .contraseña(administradorDto.getPassword())
                 .build();
     }
 
     @Override
     public ChatDto chatToChatDto(Chat chat){
-        if (chat == null){
-            return null;
-        }
-        return new ChatDto(chat.getMensajes());
+        if(chat == null) return null;
+        return new ChatDto(chat.getMensajes().stream().map(this::mensajeToMensajeDto).collect(Collectors.toList()));
     }
 
     @Override
     public Chat chatDtoToChat(ChatDto chatDto){
-        if (chatDto == null){
-            return null;
-        }
-        return new Chat(chatDto.mensajes());
+        if(chatDto == null) return null;
+        return new 
     }
 
     @Override

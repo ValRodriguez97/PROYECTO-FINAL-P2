@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
-import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;

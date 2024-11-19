@@ -15,6 +15,7 @@ public class ModelFactory implements IModelFactory {
     MarketPlaceMappingImplt mapper;
     private List<ProductoDto> productos;
     private List<VendedorDto> vendedores;
+    private MarketplaceFacade marketplaceFacade;
 
     public static ModelFactory getInstance() {
         if (instance == null) {
@@ -29,6 +30,7 @@ public class ModelFactory implements IModelFactory {
         aplicarDescuentos();
         this.productos = new ArrayList<>();
         this.vendedores = new ArrayList<>();
+        this.marketplaceFacade= new MarketplaceFacade();
     }
 
     public  List<ProductoDto> getProductosPorNombre(String nombre) {
@@ -248,5 +250,10 @@ public class ModelFactory implements IModelFactory {
             vendedor.setListProductos(productosConDescuento);
         }
     }
+
+    public MarketplaceFacade getMarketplaceFacade(){
+        return marketplaceFacade;
+    }
+
 }
 

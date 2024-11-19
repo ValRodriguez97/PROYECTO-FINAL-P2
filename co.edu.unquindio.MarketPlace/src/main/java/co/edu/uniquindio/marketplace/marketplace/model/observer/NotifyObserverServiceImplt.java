@@ -18,7 +18,8 @@ public class NotifyObserverServiceImplt implements INotifyServiceObserver {
 
     @Override
     public void notifySeguidores(Vendedor vendedor, String mensaje){
-        vendedor.notifySeguidores(mensaje);
+        EventoObserver evento = new EventoObserver("NOTIFICACION", mensaje, null, vendedor);
+        vendedor.notifySeguidores(evento);
     }
 
 }

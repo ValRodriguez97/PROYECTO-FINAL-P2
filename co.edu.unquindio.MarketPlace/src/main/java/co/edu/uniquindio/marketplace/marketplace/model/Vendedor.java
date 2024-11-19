@@ -1,6 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
+import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 
 import java.util.ArrayList;
@@ -84,7 +85,8 @@ public class Vendedor extends Usuario {
      */
     public void añadirProducto(Producto producto){
         listProductos.add(producto);
-        notifySeguidores("Un nuevo producto se ha publicado " + producto.getNombre()); //OBSERVER
+        EventoObserver eventoObserver = new EventoObserver("NUEVO PRODUCTO", "Se ha publicado un nuevo producto " + producto.getNombre(), null, this);
+        notifySeguidores(eventoObserver);
     }
 
     /**
@@ -216,9 +218,9 @@ public class Vendedor extends Usuario {
     }
 
     //OBSERVER
-    public void notifySeguidores(String mensaje){
+    public void notifySeguidores(EventoObserver evento){
         for (IObserver seguidor : seguidores){
-            seguidor.update(mensaje);
+            seguidor.update(evento);
         }
     }
 

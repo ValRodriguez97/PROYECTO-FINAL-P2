@@ -5,20 +5,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.LoginController;
-import co.edu.uniquindio.marketplace.marketplace.controller.MenuPrincipalController;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
-import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDtoImpl;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
-import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 
 public class LoginViewController {
     private ModelFactory modelFactory;

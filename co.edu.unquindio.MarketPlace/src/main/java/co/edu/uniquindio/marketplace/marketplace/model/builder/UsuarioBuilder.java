@@ -7,7 +7,7 @@ public class UsuarioBuilder <T extends UsuarioBuilder<T>> {
     protected String apellido;
     protected String cedula;
     protected String direccion;
-    protected String usuario;
+    protected String username;
     protected String contraseña;
 
     public T nombre(String nombre){
@@ -30,8 +30,8 @@ public class UsuarioBuilder <T extends UsuarioBuilder<T>> {
         return self();
     }
 
-    public T usuario(String usuario){
-        this.usuario = usuario;
+    public T username(String username){
+        this.username = username;
         return self();
     }
 
@@ -46,7 +46,7 @@ public class UsuarioBuilder <T extends UsuarioBuilder<T>> {
     }
 
     public Usuario build(){
-        return new Usuario(nombre, apellido, cedula, direccion, usuario, contraseña);
+        return new Usuario(nombre, apellido, cedula, direccion, username, contraseña);
     }
 
 }

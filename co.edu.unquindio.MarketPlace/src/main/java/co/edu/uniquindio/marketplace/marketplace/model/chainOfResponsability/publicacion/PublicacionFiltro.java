@@ -1,4 +1,4 @@
-package co.edu.uniquindio.marketplace.marketplace.model.chainOfResponsability;
+package co.edu.uniquindio.marketplace.marketplace.model.chainOfResponsability.publicacion;
 
 import co.edu.uniquindio.marketplace.marketplace.model.Publicacion;
 

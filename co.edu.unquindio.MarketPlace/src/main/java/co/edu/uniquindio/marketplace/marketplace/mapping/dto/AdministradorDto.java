@@ -1,18 +1,18 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
-/**
- * Clase DTO (Data Transfer Object para la clase Administrador
- *
- * @param nombre Nombre del Administrador
- * @param apellido Apellido del Administrador
- * @param usuario Usuario del Administrador
- */
-public record AdministradorDto (
-        String nombre,
-        String apellido,
-        String cedula,
-        String direccion,
-        String usuario,
-        String contraseña
-        ) implements  UsuarioDto{
+public class AdministradorDto extends UsuarioDto{
+        private String idAdministrador;
+
+        public AdministradorDto(String idAdministrador, String nombre, String apellido, String cedula, String direccion, String username, String password){
+                super(nombre, apellido, cedula, direccion, username, password);
+                this.idAdministrador = idAdministrador;
+        }
+
+        public String getIdAdministrador() {
+                return idAdministrador;
+        }
+
+        public void setIdAdministrador(String idAdministrador) {
+                this.idAdministrador = idAdministrador;
+        }
 }

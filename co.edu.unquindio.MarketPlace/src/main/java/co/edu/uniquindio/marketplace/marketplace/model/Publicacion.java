@@ -1,6 +1,8 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.ILike;
+import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ public class Publicacion implements ILike {
     private Producto producto;
     private List<Comentario> listComentarios;
     private List<Vendedor> listLikesVendedores;
+    private List<IObserver> observers;
 
     /**
      * Método Constructor de la clase Publicación
@@ -27,6 +30,21 @@ public class Publicacion implements ILike {
         this.producto = producto;
         this.listComentarios =new ArrayList<Comentario>();
         this.listLikesVendedores = new ArrayList<>();
+        this.observers = new ArrayList<>();
+    }
+
+    public void addObserver(IObserver observer) {
+        observers.add(observer);
+    }
+
+    public void deleteObserver(IObserver observer){
+        observers.remove(observer);
+    }
+
+    public void notifyObserver(EventoObserver evento){
+        for(IObserver observer : observers){
+            observer.update(evento);
+        }
     }
 
     /**
@@ -41,7 +59,9 @@ public class Publicacion implements ILike {
      */
     public void añadirComentario(Comentario comentario){
         listComentarios.add(comentario);
-    }
+        EventoObserver evento = new EventoObserver("NUEVO COMENTARIO", "Se ha añadido un nuevo comentario",this,  null);
+        notifyObserver(evento);
+    }//OBSERVER
 
     /**
      * Método para añadir un like a una Publicación
@@ -49,7 +69,11 @@ public class Publicacion implements ILike {
      * @param vendedor Like a añadir
      */
     public void añadirLike(Vendedor vendedor){
-        listLikesVendedores.add(vendedor);
+        if(!listLikesVendedores.contains(vendedor)){
+            listLikesVendedores.add(vendedor);
+            EventoObserver evento = new EventoObserver("NUEVO LIKE","Se ha añadido un nuevo like", this, vendedor);
+            notifyObserver(evento);
+        }//OBSERVER
     }
 
     /**

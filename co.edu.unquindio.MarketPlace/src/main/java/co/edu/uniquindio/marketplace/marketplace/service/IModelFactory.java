@@ -2,9 +2,7 @@ package co.edu.uniquindio.marketplace.marketplace.service;
 
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.AdministradorDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.PublicacionDto;
-import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
-import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
 
 import java.util.List;
 

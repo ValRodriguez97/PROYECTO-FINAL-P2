@@ -1,7 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.controller;
 
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
-import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.service.ILoginControllerService;
 
 public class LoginController implements ILoginControllerService {

@@ -1,11 +1,10 @@
-package co.edu.uniquindio.marketplace.marketplace.model.chainOfResponsability;
+package co.edu.uniquindio.marketplace.marketplace.model.chainOfResponsability.publicacion;
 
 import co.edu.uniquindio.marketplace.marketplace.model.Publicacion;
-import javafx.fxml.FXML;
 //Chain of Responsability
 import java.util.List;
 
-public class FiltroPrecio extends PublicacionFiltro{
+public class FiltroPrecio extends PublicacionFiltro {
     private double minimoPrecio;
     private double maximoPrecio;
 
