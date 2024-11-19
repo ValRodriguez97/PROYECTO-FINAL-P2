@@ -15,9 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -51,15 +49,19 @@ public class LoginViewController {
     private TextField txtUsername;
 
     @FXML
+    private Label lblErrorMessage;
+
+    @FXML
     void OnPutYourUsername(ActionEvent event) {
         String username = txtUsername.getText();
 
         if (username.isEmpty()) {
-            System.out.println("Debe ingresar un nombre");
-
-        } else if (username.length() < 3) {
-            System.out.println("El nombre de usuario debe tener 3 o más caracteres");
-
+            lblErrorMessage.setText("Debe ingresar el nombre del usuario");
+        } else if (username.length() < 8){
+            lblErrorMessage.setText("El nombre de usuario debe tener al menos 8 caracteres");
+        } else {
+            lblErrorMessage.setText("");
+            btnLogin.setDisable(false);
         }
     }
 
@@ -78,7 +80,12 @@ public class LoginViewController {
 
     @FXML
     void onForgotYourPassword(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Recuperación de Contraseña");
+        alert.setHeaderText(null);
+        alert.setContentText("Por favor, contacta al soporte técnico para recuperar tu contraseña");
 
+        alert.showAndWait();
     }
 
     @FXML
@@ -126,14 +133,39 @@ public class LoginViewController {
           System.out.println("Usuario no encontrado");
       }
     }
+
     @FXML
     void onPutPassword(ActionEvent event) {
-
+        try {
+            login();
+        } catch (IOException e) {
+            e.printStackTrace();
+            lblErrorMessage.setText("No se pudo iniciar sesión correctamente. Inténtalo de nuevo");
+        }
     }
 
     @FXML
     void onRememberPassword(ActionEvent event) {
+        if (btnRememberMe.isSelected()) {
+            String username = txtUsername.getText();
+            if (!username.isEmpty()) {
+                saveUsername(username);
+                lblErrorMessage.setText("Nombre de usuario guardado");
+            } else {
+                lblErrorMessage.setText("Por favor, ingresa un nombre de usuario antes de seleccionar la opción de recordar");
+            }
+        } else {
+            removeSavedUsername();
+            lblErrorMessage.setText("Nombre de usuario eliminado");
+        }
+    }
 
+    private void saveUsername(String username) {
+        System.out.println("Guardando nombre de usuario: " +username);
+    }
+
+    private void removeSavedUsername() {
+        System.out.println("Eliminando el nombre de usuario guardado");
     }
 
     @FXML

@@ -29,21 +29,21 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     
     @Override
     public boolean createVendedor(Vendedor vendedor){
-       if(verificarVendedorExistente(vendedor.getIdVendedor())){
+       if(!verificarVendedorExistente(vendedor.getIdVendedor())){
            Vendedor newVendedor = Vendedor.Vendedorbuilder()
                    .idVendedor(vendedor.getIdVendedor())
                    .nombre(vendedor.getNombre())
                    .apellido(vendedor.getApellido())
                    .cedula(vendedor.getCedula())
                    .direccion(vendedor.getDireccion())
-                   .usuario(vendedor.getUsuario())
+                   .usuario(vendedor.getUsername())
                    .contraseña(vendedor.getContraseña())
                    .build();
 
            newVendedor.setMuro(new Muro());
            newVendedor.setListProductos(new ArrayList<>());
            newVendedor.setListContactos(new ArrayList<>());
-           listVendedores.add(newVendedor);
+           add(newVendedor);
 
            return true;
        }
@@ -62,7 +62,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     public boolean añadirContacto(Vendedor vendedor, Vendedor nuevoContacto) {
         if (!vendedor.verificarContactoExistente(nuevoContacto) &&
-            vendedor.getListContactos().size() < vendedor.getContactosMaximos()){
+            vendedor.getListContactos().size() < vendedor.getContactodMaximos()){
             vendedor.añadirContacto(nuevoContacto);
             return true;
         }
@@ -87,7 +87,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             vendedorExistente.setNombre(vendedor.getNombre());
             vendedorExistente.setApellido(vendedor.getApellido());
             vendedorExistente.setDireccion(vendedor.getDireccion());
-            vendedorExistente.setUsuario(vendedor.getUsuario());
+            vendedorExistente.setUsername(vendedor.getUsername());
             vendedorExistente.setContraseña(vendedor.getContraseña());
             return true;
         }
@@ -149,14 +149,8 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public boolean deletePublicacion(Publicacion publicacion, Vendedor vendedor) {
-        List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
-        for (Publicacion publicacionExistente : listPublicaciones) {
-            if (publicacionExistente.equals(publicacion)) {
-                listPublicaciones.remove(publicacion);
-                return true;
-            }
-        }
-        return false;
+       List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
+       return listPublicaciones.remove(publicacion);
     }
 
     @Override
@@ -166,12 +160,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     public boolean verificarPublicacion(Publicacion publicacion, Vendedor vendedor) {
         List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
-        for (Publicacion publicacion1 : listPublicaciones) {
-            if (publicacion1.equals(publicacion)) {
-                return true;
-            }
-        }
-        return false;
+        return listPublicaciones.contains(publicacion);
     }
 
     public boolean verificarAdministradorExiste(String idAdministrador) {
@@ -189,7 +178,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public boolean createAdministrador(Administrador administrador) {
-        if (verificarAdministradorExiste(administrador.getIdAdministrador())) {
+        if (!verificarAdministradorExiste(administrador.getIdAdministrador())) {
             // El administrador ya existe
             Administrador nuevoAdministrador = Administrador.Adminbuilder()
                     .idAdministrador(administrador.getIdAdministrador())
@@ -197,9 +186,10 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
                     .apellido(administrador.getApellido())
                     .cedula(administrador.getCedula())
                     .direccion(administrador.getDireccion())
-                    .usuario(administrador.getUsuario())
+                    .usuario(administrador.getUsername())
                     .contraseña(administrador.getContraseña())
                     .build();
+            add(nuevoAdministrador);
             return true;
         }
         return false;
@@ -215,7 +205,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             administradorExistente.setApellido(administrador.getApellido());
             administradorExistente.setCedula(administrador.getCedula());
             administradorExistente.setDireccion(administrador.getDireccion());
-            administradorExistente.setUsuario(administrador.getUsuario());
+            administradorExistente.setUsername(administrador.getUsername());
             administradorExistente.setContraseña(administrador.getContraseña());
             return true;
         }
@@ -239,6 +229,13 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public Publicacion getPublicacion(Publicacion publicacion) {
+        for(Vendedor vendedor : listVendedores){
+            for (Publicacion publicacion1 : vendedor.getMuro().getListPublicaciones()){
+                if(publicacion.equals(publicacion1)) {
+                    return publicacion1;
+                }
+            }
+        }
         return null;
     }
 
@@ -249,12 +246,12 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public boolean createUsuario(Usuario usuario) {
-        if (verificarUsuarioExistente(usuario.getCedula())) {
-            return false;
+        if (!verificarUsuarioExistente(usuario.getCedula())) {
+            add(usuario);
+            return true;
         }
 
-        listUsuarios.add(usuario);
-        return true;
+        return false;
     }
 
     @Override
@@ -265,12 +262,10 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             usuarioExistente.setNombre(usuarioActualizado.getNombre());
             usuarioExistente.setApellido(usuarioActualizado.getApellido());
             usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
-            usuarioExistente.setUsuario(usuarioActualizado.getUsuario());
+            usuarioExistente.setUsername(usuarioActualizado.getUsername());
             usuarioExistente.setContraseña(usuarioActualizado.getContraseña());
-
             return true;
         }
-
         return false;
     }
 
@@ -296,7 +291,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     public Usuario getUsuarioVerificar(String usuario, String contraseña){
         if(verificarContraseñaUsuario(usuario, contraseña)){
             for(Usuario usuario1 : listUsuarios){
-                if(usuario1.getUsuario().equals(usuario) && usuario1.getContraseña().equals(contraseña)){
+                if(usuario1.getUsername().equals(usuario) && usuario1.getContraseña().equals(contraseña)){
                     return usuario1;
                 }
             }
@@ -306,7 +301,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     public boolean verificarContraseñaUsuario(String usuario, String contraseña){
         for (Usuario contraseñaValida : listUsuarios){
-            if(contraseñaValida.getUsuario().equals(usuario) && contraseñaValida.getContraseña().equals(contraseña)){
+            if(contraseñaValida.getUsername().equals(usuario) && contraseñaValida.getContraseña().equals(contraseña)){
                 return true;
             }
         }
@@ -323,7 +318,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     
     public boolean autenticarUsuario(String nombreUsuario, String contraseña) {
         for (Usuario usuario : getListUsuarios()) {
-            if (usuario.getUsuario().equals(nombreUsuario) && usuario.getContraseña().equals(contraseña)) {
+            if (usuario.getUsername().equals(nombreUsuario) && usuario.getContraseña().equals(contraseña)) {
                 setUsuarioActual(usuario); 
                 return true;
             }
@@ -338,7 +333,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         Usuario usuarioActual = marketPlace.getUsuarioActual();
         String usuario = usuarioActual != null ? usuarioActual.getNombre(): "Desconocido";
 
-        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/mm/yyyy"));
+        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         StringBuilder contenido = new StringBuilder();
         List<Vendedor> vendedores = marketPlace.getListVendedores();
@@ -370,39 +365,53 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         }
     }
 
-            public String getNombre () {
-                return nombre;
-            }
+    public <T> void add(T object){
+        if(object instanceof Usuario usuario){
+            listUsuarios.add(usuario);
 
-            public void setNombre (String nombre){
-                this.nombre = nombre;
+            if(usuario instanceof Administrador administrador){
+                listAdministradores.add(administrador);
+            } else  if(usuario instanceof Vendedor vendedor){
+                listVendedores.add(vendedor);
+            } else {
+                throw new IllegalStateException("No se puede agregar el objeto");
             }
-
-            public List<Usuario> getListUsuarios () {
-                return listUsuarios;
-            }
-
-            public void setListUsuarios (List < Usuario > listUsuarios) {
-                this.listUsuarios = listUsuarios;
-            }
-
-            public List<Administrador> getListAdministradores () {
-                return listAdministradores;
-            }
-
-            public void setListAdministradores (List < Administrador > listAdministradores) {
-                this.listAdministradores = listAdministradores;
-            }
-
-            public List<Vendedor> getListVendedores () {
-                return listVendedores;
-            }
-
-            public void setListVendedores (List < Vendedor > listVendedores) {
-                this.listVendedores = listVendedores;
-            }
-
         }
+    }
+
+    public String getNombre () {
+        return nombre;
+    }
+
+    public void setNombre (String nombre){
+        this.nombre = nombre;
+    }
+
+    public List<Usuario> getListUsuarios () {
+        return listUsuarios;
+    }
+
+    public void setListUsuarios (List < Usuario > listUsuarios) {
+        this.listUsuarios = listUsuarios;
+    }
+
+    public List<Administrador> getListAdministradores () {
+        return listAdministradores;
+    }
+
+    public void setListAdministradores (List < Administrador > listAdministradores) {
+        this.listAdministradores = listAdministradores;
+    }
+
+    public List<Vendedor> getListVendedores () {
+        return listVendedores;
+    }
+
+    public void setListVendedores (List < Vendedor > listVendedores) {
+        this.listVendedores = listVendedores;
+    }
+
+}
 
 
 
