@@ -1,6 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
+import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,9 @@ public class Vendedor extends Usuario {
     private Muro muro;
     private List<Producto> listProductos;
     private List<Vendedor> listContactos;
+    private List<Producto> productosFavoritos;
+    private List<Producto> historialConsultas;
+    private List<IObserver> seguidores; //OBSERVER
 
     /**
      * Método Constructor de la clase Vendedor
@@ -29,6 +33,7 @@ public class Vendedor extends Usuario {
         this.listContactos = new ArrayList<Vendedor>();
         this.idVendedor = idVendedor;
         this.muro = new Muro();
+        this.seguidores = new ArrayList<>(); //OBSERVER
     }
 
     /**
@@ -79,6 +84,7 @@ public class Vendedor extends Usuario {
      */
     public void añadirProducto(Producto producto){
         listProductos.add(producto);
+        notifySeguidores("Un nuevo producto se ha publicado " + producto.getNombre()); //OBSERVER
     }
 
     /**
@@ -184,5 +190,37 @@ public class Vendedor extends Usuario {
     public void setListContactos(List<Vendedor> listContactos) {
         this.listContactos = listContactos;
     }
+
+    public void agregarProductoAFavoritos(Producto producto) {
+        if (!productosFavoritos.contains(producto)) {
+            productosFavoritos.add(producto);
+        }
+    }
+
+    public List<Producto> getProductosFavoritos() {
+        return productosFavoritos;
+    }
+
+    public List<Producto> getHistorialConsultas(){
+        return this.historialConsultas;
+    }
+
+    //OBSERVER
+    public void addSeguidor(IObserver seguidor){
+        seguidores.add(seguidor);
+    }
+
+    //OBSERVER
+    public void deleteSeguidor(IObserver seguidor){
+        seguidores.remove(seguidor);
+    }
+
+    //OBSERVER
+    public void notifySeguidores(String mensaje){
+        for (IObserver seguidor : seguidores){
+            seguidor.update(mensaje);
+        }
+    }
+
 
 }

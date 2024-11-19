@@ -1,8 +1,8 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
-import co.edu.uniquindio.marketplace.marketplace.model.builder.UsuarioBuilder;
+import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 
-public class Usuario {
+public class Usuario implements IObserver {
     private String nombre;
     private String apellido;
     private String cedula;
@@ -141,5 +141,11 @@ public class Usuario {
      */
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    //OBSERVER
+    @Override
+    public void update(String mensaje){
+        System.out.println("Usuario " + username + " recibió una notificación: " + mensaje);
     }
 }

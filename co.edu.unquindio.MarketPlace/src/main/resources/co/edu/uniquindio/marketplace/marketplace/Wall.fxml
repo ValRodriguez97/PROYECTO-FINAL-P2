@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.ListView?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="784.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
@@ -23,6 +24,8 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Circle fx:id="YourProfile" accessibleRole="BUTTON" fill="#e4e7ea" layoutX="67.0" layoutY="91.0" onDragDetected="#OnGoToYourProfile" radius="41.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ListView fx:id="listViewFavoritos" layoutX="20.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0" />
+                  <ListView fx:id="listViewHistorial" layoutX="20.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0" />
                   <SplitMenuButton fx:id="Wall" layoutY="8.0" mnemonicParsing="false" onAction="#OnSearchItemsWall" prefHeight="28.0" prefWidth="164.0" text="Wall">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Log Out" />

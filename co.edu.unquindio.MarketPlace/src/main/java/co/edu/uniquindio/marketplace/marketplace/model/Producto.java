@@ -154,4 +154,9 @@ public class Producto {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %.2f - %s", nombre, precio, categoria);
+    }
 }
