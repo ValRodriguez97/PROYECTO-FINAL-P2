@@ -7,6 +7,7 @@ import co.edu.uniquindio.marketplace.marketplace.service.IModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModelFactory implements IModelFactory {
     private static ModelFactory instance;
@@ -30,7 +31,18 @@ public class ModelFactory implements IModelFactory {
         this.vendedores = new ArrayList<>();
     }
 
-    public  List<ProductoDto> getProductosPorNombre()
+    public  List<ProductoDto> getProductosPorNombre(String nombre) {
+        return productos.stream()
+                .filter(producto -> producto.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<VendedorDto> getVendedoresPorNombre(String nombre) {
+        return vendedores.stream()
+                .filter((vendedor -> vendedor.getNombre().toLowerCase().contains(nombre.toLowerCase())))
+                .collect(Collectors.toList());
+    }
+
     public MarketPlace getMarketPlace() {
         return marketPlace;
     }
@@ -173,7 +185,6 @@ public class ModelFactory implements IModelFactory {
     public static MarketPlace inicializarDatos() {
         MarketPlace marketPlace = new MarketPlace("Mi Marketplace");
 
-        // Crear vendedores
         Vendedor vendedor1 = Vendedor.Vendedorbuilder()
                 .nombre("Sofia")
                 .apellido("Suarez")
@@ -191,12 +202,9 @@ public class ModelFactory implements IModelFactory {
                 .usuario("CarlosG")
                 .contraseña("carlos123")
                 .build();
+        marketPlace.createVendedor(vendedor1);
+        marketPlace.createVendedor(vendedor2);
 
-        // Agregar vendedores al marketplace
-        marketPlace.CreateVendedor(vendedor1);
-        marketPlace.agregarVendedor(vendedor2);
-
-        // Crear productos
         Producto producto1 = Producto.builder()
                 .nombre("Laptop")
                 .imagen("path/to/laptop/image.png") // Asegúrate de que la ruta sea correcta

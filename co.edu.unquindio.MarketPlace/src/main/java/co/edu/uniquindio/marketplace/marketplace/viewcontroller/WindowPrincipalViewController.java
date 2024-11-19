@@ -9,6 +9,7 @@ import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
+import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.model.Producto;
 import javafx.event.ActionEvent;
@@ -16,10 +17,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import java.lang.StringBuilder;
 
 public class WindowPrincipalViewController{
     VendedorDto vendedorDto;
     ModelFactory modelFactory;
+    Usuario usuario;
 
     @FXML
     private ResourceBundle resources;
@@ -121,36 +124,91 @@ public class WindowPrincipalViewController{
 
         alert.showAndWait().ifPresent(response -> {
             if (response == buscarProductosButton) {
-                buscarProductos();
+                onSearchProducts(event);
             } else if (response == buscarVendedoresButton){
-                buscarVendedores();
+                onSearchSellers(event);
             }
         });
     }
 
-    private void buscarProductos(){
+    @FXML
+    void onSearchProducts(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("BuscarProductos");
         dialog.setHeaderText("Ingresa el nombre del producto que deseas buscar:");
         dialog.setContentText("Nombre del producto:");
 
         dialog.showAndWait().ifPresent(nombreProducto -> {
-            List<ProductoDto> productosEncontrados = modelFactory.getPr
+            List<ProductoDto> productosEncontrados = modelFactory.getProductosPorNombre(nombreProducto);
+
+            if (productosEncontrados.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Resultados de la búsqueda");
+                alert.setHeaderText(null);
+                alert.setContentText("No se encontraron productos con ese nombre");
+                alert.showAndWait();
+            } else {
+                StringBuilder resultados = new StringBuilder("Productos encontrados:\n");
+                for (ProductoDto producto : productosEncontrados) {
+                    resultados.append(producto.getNombre()).append("\n");
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Resultados de la búsqueda");
+                alert.setHeaderText(null);
+                alert.setContentText(resultados.toString());
+                alert.showAndWait();
+            }
         });
-    }
-    @FXML
-    void onSearchProducts(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSearchProfileUser(ActionEvent event) {
-
     }
 
     @FXML
     void onSearchSellers(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Buscar vendedores");
+        dialog.setHeaderText("Ingresa el nombre del vendedor que deseas buscar:");
+        dialog.setContentText("Nombre del vendedor:");
 
+        dialog.showAndWait().ifPresent(nombreVendedor -> {
+            List<VendedorDto> vendedoresEncontrados = modelFactory.getVendedoresPorNombre(nombreVendedor);
+
+            if (vendedoresEncontrados.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Resultados de la búsqueda");
+                alert.setHeaderText(null);
+                alert.setContentText("No se encontraron vendedores con ese nombre");
+                alert.showAndWait();
+            } else {
+                StringBuilder resultados = new StringBuilder("Vendedores encontrados:\n");
+                for (VendedorDto vendedor : vendedoresEncontrados) {
+                    resultados.append(vendedor.getNombre()).append("\n");
+                }
+            }
+        });
+    }
+
+    @FXML
+    void onSearchProfileUser(ActionEvent event) {
+        if (usuario == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se ha encontrado información del usuario");
+            alert.setContentText("No se ha encontrado información del usuario. Asegúrate de haber iniciado sesión correctamente");
+            alert.showAndWait();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Perfil del usuario");
+        alert.setHeaderText("Información del usuario");
+
+        StringBuilder contenido = new StringBuilder();
+        contenido.append("Nombre:").append(usuario.getNombre()).append("\n");
+        contenido.append("Apellido: ").append(usuario.getApellido()).append("\n");
+        contenido.append("Cédula: ").append(usuario.getCedula()).append("\n");
+        contenido.append("Dirección: ").append(usuario.getDireccion()).append("\n");
+        contenido.append("Username: ").append(usuario.getUsername()).append("\n");
+
+        alert.setContentText(contenido.toString());
+        alert.showAndWait();
     }
 
     @FXML

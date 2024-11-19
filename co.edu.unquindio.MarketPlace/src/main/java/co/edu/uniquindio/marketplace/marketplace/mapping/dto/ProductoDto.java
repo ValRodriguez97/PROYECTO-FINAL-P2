@@ -21,4 +21,7 @@ public record ProductoDto (
         double precio,
         Estado estado
 ){
+    public String getNombre(){
+        return nombre;
+    }
 }

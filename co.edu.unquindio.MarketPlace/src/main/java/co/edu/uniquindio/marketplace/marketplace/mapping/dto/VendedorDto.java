@@ -18,4 +18,8 @@ public record VendedorDto (
         String usuario,
         String contraseña
 ) implements UsuarioDto{
+
+    public String getNombre(){
+        return nombre;
+    }
 }
