@@ -166,7 +166,6 @@ public class ModelFactory implements IModelFactory {
     }
 
 
-
     public static MarketPlace inicializarDatos(){
         MarketPlace marketPlace = new MarketPlace("");
         Vendedor vendedorA = Vendedor.Vendedorbuilder()

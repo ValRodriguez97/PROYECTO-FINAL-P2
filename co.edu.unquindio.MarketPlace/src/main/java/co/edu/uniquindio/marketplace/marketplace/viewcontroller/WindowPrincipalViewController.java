@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
@@ -114,9 +115,29 @@ public class WindowPrincipalViewController{
 
         ButtonType buscarProductosButton = new ButtonType("Buscar Productos");
         ButtonType buscarVendedoresButton = new ButtonType("Buscar Vendedores");
-        ButtonType cancelarButton = new ButtonType()
+        ButtonType cancelarButton = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buscarProductosButton, buscarVendedoresButton, cancelarButton);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == buscarProductosButton) {
+                buscarProductos();
+            } else if (response == buscarVendedoresButton){
+                buscarVendedores();
+            }
+        });
     }
 
+    private void buscarProductos(){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("BuscarProductos");
+        dialog.setHeaderText("Ingresa el nombre del producto que deseas buscar:");
+        dialog.setContentText("Nombre del producto:");
+
+        dialog.showAndWait().ifPresent(nombreProducto -> {
+            List<ProductoDto> productosEncontrados = model
+        });
+    }
     @FXML
     void onSearchProducts(ActionEvent event) {
 
