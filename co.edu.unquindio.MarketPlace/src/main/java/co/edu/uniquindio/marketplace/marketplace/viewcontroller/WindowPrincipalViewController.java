@@ -135,7 +135,7 @@ public class WindowPrincipalViewController{
         dialog.setContentText("Nombre del producto:");
 
         dialog.showAndWait().ifPresent(nombreProducto -> {
-            List<ProductoDto> productosEncontrados = model
+            List<ProductoDto> productosEncontrados = modelFactory.getPr
         });
     }
     @FXML

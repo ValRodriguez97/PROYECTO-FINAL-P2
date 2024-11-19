@@ -1,21 +1,21 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
-import co.edu.uniquindio.marketplace.marketplace.service.IProducto;
-
 /**
  * Creación de la clase DescuentoDecorator que hereda de la clase abstracta
  * ProductoDecorato hace parte de la implementación del patrón de diseño
  * estructural Decorator
  */
- public class DescuentoDecorator extends ProductoDecorator {
+ public class DescuentoDecorator extends Producto {
 
+    private Producto producto;
     private double porcentajeDescuento;
 
-    public DescuentoDecorator(IProducto producto, double porcentajeDescuento) {
-        super(producto);
-        this.porcentajeDescuento = porcentajeDescuento;
-    }
 
+    public DescuentoDecorator(Producto producto, double porcentajeDescuento) {
+        super(producto.getNombre(), producto.getImagen().getUrl(), producto.getCategoria(), producto.getPrecio(), producto.getEstado());
+        this.producto=producto;
+        this.porcentajeDescuento=porcentajeDescuento;
+    }
     /**
      * Metodología de la aplicación de descuento al producto
      *
@@ -23,7 +23,7 @@ import co.edu.uniquindio.marketplace.marketplace.service.IProducto;
      */
     @Override
     public double getPrecio() {
-        double precioOriginal = IProducto.getPrecio();
+        double precioOriginal = producto.getPrecio();
         return precioOriginal - (precioOriginal * (porcentajeDescuento / 100));
     }
 
@@ -34,7 +34,10 @@ import co.edu.uniquindio.marketplace.marketplace.service.IProducto;
      */
     @Override
     public String getNombre() {
-        return IProducto.getNombre() + "(Descuento del" + porcentajeDescuento + " %)";
-
+        return producto.getNombre() + "(Descuento del" + porcentajeDescuento + " %)";
+    }
+    @Override
+    public String toString() {
+        return String.format("%s - Precio con Descuento: %.2f - %s", producto.getNombre(), getPrecio(), producto.getCategoria());
     }
 }

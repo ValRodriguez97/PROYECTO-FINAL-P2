@@ -1,5 +1,6 @@
-package co.edu.uniquindio.marketplace.marketplace.model;
+package co.edu.uniquindio.marketplace.marketplace.model.observer;
 
+import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.INotifyServiceObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 //OBSERVER
