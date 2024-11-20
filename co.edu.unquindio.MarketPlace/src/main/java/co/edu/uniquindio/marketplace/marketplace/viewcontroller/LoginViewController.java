@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.LoginController;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,7 +100,7 @@ public class LoginViewController {
     }
 
     public UsuarioDto buildUsuarioDto() {
-        return new UsuarioDtoImpl(
+        return new UsuarioDto(
                 null,
                 null,
                 null,

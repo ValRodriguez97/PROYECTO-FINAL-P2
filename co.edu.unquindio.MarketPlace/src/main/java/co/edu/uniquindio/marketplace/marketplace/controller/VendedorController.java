@@ -1,16 +1,13 @@
 package co.edu.uniquindio.marketplace.marketplace.controller;
 
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
-import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.PublicacionDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
-import co.edu.uniquindio.marketplace.marketplace.model.Producto;
 import co.edu.uniquindio.marketplace.marketplace.model.Publicacion;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IVendedorController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,13 +28,52 @@ public class VendedorController implements IVendedorController {
     public boolean addVendedor(VendedorDto vendedorDto) {
         if (vendedorDto != null &&
             vendedorDto.getIdVendedor() != null && !vendedorDto.getIdVendedor().isEmpty() &&
-            vendedorDto)
+            vendedorDto.getNombre() != null && !vendedorDto.getNombre().isEmpty() &&
+                vendedorDto.getApellido() != null && !vendedorDto.getApellido().isEmpty() &&
+                vendedorDto.getDireccion() != null && !vendedorDto.getDireccion().isEmpty() &&
+                vendedorDto.getUsername() != null && !vendedorDto.getUsername().isEmpty() &&
+                vendedorDto.getPassword() != null && !vendedorDto.getPassword().isEmpty()) {
+
+            Vendedor nuevoVendedor = Vendedor.Vendedorbuilder()
+                    .idVendedor(vendedorDto.getIdVendedor())
+                    .nombre(vendedorDto.getNombre())
+                    .apellido(vendedorDto.getApellido())
+                    .direccion(vendedorDto.getDireccion())
+                    .username(vendedorDto.getUsername())
+                    .contraseña(vendedorDto.getPassword())
+                    .build();
+
+            return modelFactory.getMarketPlace().createVendedor(nuevoVendedor);
+        }
+
+        // Retornar false si la validación falla
+        return false;
     }
 
     @Override
+    public boolean updateVendedor(VendedorDto vendedorDto){ return false;}
+
+   /** @Override
     public boolean updateVendedor(VendedorDto vendedorDto){
-        return false;
-    }
+        if (vendedorDto == null ||
+            vendedorDto.getIdVendedor() == null || vendedorDto.getIdVendedor().isEmpty()) {
+            return false;
+        }
+        Vendedor vendedorExistente = modelFactory.getMarketPlace().verificarVendedor(vendedorDto.getIdVendedor());
+        if (vendedorExistente == null) {
+            return false;
+        }
+        Vendedor vendedorActualizado = new Vendedor.Vendedorbuilder()
+                .idVendedor(vendedorDto.getIdVendedor())
+                .nombre(vendedorDto.getNombre())
+                .apellido(vendedorDto.getApellido())
+                .direccion(vendedorDto.getDireccion())
+                .username(vendedorDto.getUsername())
+                .contraseña(vendedorDto.getPassword())
+                .build();
+
+        return crudVendedor.updateVendedor(vendedorDto.getIdVendedor(), vendedorActualizado);
+    } */
 
     @Override
     public boolean deleteVendedor(String cedula){

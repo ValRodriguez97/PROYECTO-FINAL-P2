@@ -5,6 +5,11 @@ import co.edu.uniquindio.marketplace.marketplace.mapping.dto.PublicacionDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.util.List;
 
@@ -16,6 +21,34 @@ public class VendedorViewController {
 
     @FXML
     private TextArea textAreaDetalles;
+
+
+    @FXML
+    private TextField txtIdVendedor;
+
+    @FXML
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtApellido;
+
+    @FXML
+    private TextField txtDireccion;
+
+    @FXML
+    private TextField txtUsername;
+    
+    @FXML
+    private TextField txtPassword;
+
+    @FXML
+    private TextField txtCedula;
+
+    @FXML
+    private Button btnAgregarVendedor;
+
+    @FXML
+    private Button btnActualizarVendedor;
 
     public VendedorViewController() {
         vendedorController = new VendedorController();
@@ -31,7 +64,7 @@ public class VendedorViewController {
         listViewPublicaciones.getItems().clear();
         for (PublicacionDto publicacion : publicaciones) {
             String item = String.format("Fecha: %s - Descripción: %s",
-                    publicacion.fechaPublicacion(), publicacion.descripcion());
+                    publicacion.getFechaPublicacion(), publicacion.getDescripcion());
             listViewPublicaciones.getItems().add(item);
         }
     }
@@ -47,10 +80,67 @@ public class VendedorViewController {
         }
     }
 
+    private void mostrarMensaje(String mensaje) {
+        // Crear un nuevo cuadro de diálogo de alerta
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Información");
+        alert.setHeaderText(null); // Sin encabezado
+        alert.setContentText(mensaje); // Mensaje a mostrar
+
+        // Mostrar el cuadro de diálogo y esperar a que el usuario lo cierre
+        alert.showAndWait();
+    }
+
     @FXML
     void initialize() {
         listViewPublicaciones.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             onPublicacionSeleccionada();
         });
+
+        btnAgregarVendedor.setOnAction(event -> {
+            String idVendedor = txtIdVendedor.getText();
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String direccion = txtDireccion.getText();
+            String username = txtUsername.getText();
+            String password = txtPassword.getText();
+
+            VendedorDto nuevoVendedor = new VendedorDto(idVendedor, nombre, apellido,null, direccion, username, password);
+
+            boolean agregado = vendedorController.addVendedor(nuevoVendedor);
+            if (agregado) {
+                mostrarMensaje("Vendedor agregado exitosamente.");
+                limpiarCampos();
+            } else {
+                mostrarMensaje("Error al agregar el vendedor. Verifique los datos.");
+            }
+        });
+        btnActualizarVendedor.setOnAction(event -> {
+            String idVendedor = txtIdVendedor.getText();
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String direccion = txtDireccion.getText();
+            String username = txtUsername.getText();
+            String password = txtPassword.getText();
+            String cedula = txtCedula.getText();
+
+            VendedorDto vendedorActualizado = new VendedorDto(idVendedor, nombre, apellido, direccion, cedula, username, password);
+
+            boolean actualizado = vendedorController.updateVendedor(vendedorActualizado);
+            if (actualizado) {
+                mostrarMensaje("Vendedor actualizado exitosamente.");
+            } else {
+                mostrarMensaje("Error al actualizar el vendedor. Verifique los datos.");
+            }
+        });
+    }
+
+    private void limpiarCampos() {
+        txtIdVendedor.clear();
+        txtNombre.clear();
+        txtApellido.clear();
+        txtDireccion.clear();
+        txtUsername.clear();
+        txtPassword.clear();
     }
 }

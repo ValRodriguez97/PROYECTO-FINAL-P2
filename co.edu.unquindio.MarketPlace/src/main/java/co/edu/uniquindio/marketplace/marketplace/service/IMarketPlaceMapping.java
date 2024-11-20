@@ -6,33 +6,37 @@ import co.edu.uniquindio.marketplace.marketplace.model.*;
 import java.util.List;
 
 public interface IMarketPlaceMapping {
-     List<AdministradorDto> getAdministradoresDto(List<Administrador> administradores);
-     AdministradorDto administradorToAdministradorDto(Administrador administrador);
-     Administrador administradorDtoToAdministrador(AdministradorDto administradorDto);
 
      ChatDto chatToChatDto(Chat chat);
      Chat chatDtoToChat(ChatDto chatDto);
 
      ComentarioDto comentarioToComentarioDto(Comentario comentario);
      Comentario comentarioDtoToComentario(ComentarioDto comentarioDto);
+     List<ComentarioDto> comentariosToComentarioDto(List<Comentario> comentarios);
+     List<Comentario> comentarioDtosToComentarios(List<ComentarioDto> comentarioDtos);
 
      ProductoDto productoToProductoDto(Producto producto);
      Producto productoDtoToProducto(ProductoDto productoDto);
+     List<ProductoDto> productoDtoListToProductoDtoList(List<Producto> productoList);
+     List<Producto> productoDtoListToProductoList(List<ProductoDto> productoDtoList);
 
      MensajeDto mensajeToMensajeDto(Mensaje mensaje);
      Mensaje mensajeDtoToMensaje(MensajeDto mensajeDto);
+     List<Mensaje> mensajeDtoListToMensajeList(List<MensajeDto> mensajeDtoList);
+     List<MensajeDto> mensajeToMensajeDtoList(List<Mensaje> mensajeList);
 
      PublicacionDto publicacionToPublicacionDto(Publicacion publicacion);
      Publicacion publicacionDtoToPublicacion(PublicacionDto publicacionDto);
+     List<PublicacionDto> publicacionListToPublicacionDtoList(List<Publicacion> publicacionList);
+     List<Publicacion> publicacionDtoListToPublicacionList(List<PublicacionDto> publicacionDtoList);
 
      MuroDto muroToMuroDto(Muro muro);
      Muro muroDtoToMuro(MuroDto muroDto);
 
-     List<UsuarioDto> getUsuariosDto(List<Usuario> usuarios);
      UsuarioDto usuarioToUsuarioDto(Usuario usuario);
      Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto);
+     List<VendedorDto> vendedoresToVendedorDto(List<Vendedor> vendedores);
+     List<Vendedor> VendedorDtoToVendedor(List<VendedorDto> vendedorDtos);
 
-     List<VendedorDto> getVendedoresDto(List<Vendedor> listVendedores);
-     VendedorDto vendedorToVendedorDto(Vendedor vendedor);
-     Vendedor vendedorDtoToVendedor(VendedorDto vendedorDto);
+
 }

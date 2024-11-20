@@ -1,17 +1,20 @@
 package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 
+import co.edu.uniquindio.marketplace.marketplace.model.Chat;
+import co.edu.uniquindio.marketplace.marketplace.model.Publicacion;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MuroDto {
     private String idVendedor;
-    private List<PublicacionDto> listPublicaciones;
-    private List<ChatDto> listChats;
+    private List<Publicacion> listPublicaciones;
+    private List<Chat> listChats;
 
-    public MuroDto(String idVendedor) {
+    public MuroDto(String idVendedor, List<Publicacion> listPublicaciones, List<Chat> listChats) {
         this.idVendedor = idVendedor;
-        this.listPublicaciones = new ArrayList<>();
-        this.listChats = new ArrayList<>();
+        this.listPublicaciones = listPublicaciones;
+        this.listChats = listChats;
     }
 
     public String getIdVendedor() {
@@ -22,19 +25,19 @@ public class MuroDto {
         this.idVendedor = idVendedor;
     }
 
-    public List<PublicacionDto> getListPublicaciones() {
+    public List<Publicacion> getListPublicaciones() {
         return listPublicaciones;
     }
 
-    public void setListPublicaciones(List<PublicacionDto> listPublicaciones) {
+    public void setListPublicaciones(List<Publicacion> listPublicaciones) {
         this.listPublicaciones = listPublicaciones;
     }
 
-    public List<ChatDto> getListChats() {
+    public List<Chat> getListChats() {
         return listChats;
     }
 
-    public void setListChats(List<ChatDto> listChats) {
+    public void setListChats(List<Chat> listChats) {
         this.listChats = listChats;
     }
 }

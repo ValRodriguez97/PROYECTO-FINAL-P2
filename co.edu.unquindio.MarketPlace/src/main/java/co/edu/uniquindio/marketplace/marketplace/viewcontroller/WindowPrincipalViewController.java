@@ -57,7 +57,7 @@ public class WindowPrincipalViewController{
     void onSearchFavorites(ActionEvent event) {
         VendedorDto vendedorDto = this.vendedorDto;
         Vendedor vendedor = modelFactory.getMarketPlace().getListVendedores().stream()
-                .filter(v -> v.getCedula().equals(vendedorDto.cedula()))
+                .filter(v -> v.getCedula().equals(vendedorDto.getCedula()))
                 .findFirst()
                 .orElse(null);
         if (vendedor != null) {
@@ -87,7 +87,7 @@ public class WindowPrincipalViewController{
     @FXML
     void onSearchHistory(ActionEvent event) {
         Vendedor vendedor = modelFactory.getMarketPlace().getListVendedores().stream()
-                .filter(v -> v.getCedula().equals(vendedorDto.cedula()))
+                .filter(v -> v.getCedula().equals(vendedorDto.getCedula()))
                 .findFirst()
                 .orElse(null);
 
@@ -217,7 +217,7 @@ public class WindowPrincipalViewController{
 
     @FXML
     void onSearchWall(ActionEvent event) {
-
+        
     }
 
     public void inicializarVentana(VendedorDto vendedorDto) throws IOException{

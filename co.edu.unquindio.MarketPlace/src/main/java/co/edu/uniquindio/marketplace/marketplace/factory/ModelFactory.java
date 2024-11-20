@@ -3,10 +3,12 @@ package co.edu.uniquindio.marketplace.marketplace.factory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.*;
 import co.edu.uniquindio.marketplace.marketplace.mapping.mappers.MarketPlaceMappingImplt;
 import co.edu.uniquindio.marketplace.marketplace.model.*;
+import co.edu.uniquindio.marketplace.marketplace.service.ICrudVendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ModelFactory implements IModelFactory {
@@ -27,22 +29,9 @@ public class ModelFactory implements IModelFactory {
     private ModelFactory() {
         mapper = new MarketPlaceMappingImplt();
         marketPlace = inicializarDatos();
-        aplicarDescuentos();
         this.productos = new ArrayList<>();
         this.vendedores = new ArrayList<>();
         this.marketplaceFacade= new MarketplaceFacade();
-    }
-
-    public  List<ProductoDto> getProductosPorNombre(String nombre) {
-        return productos.stream()
-                .filter(producto -> producto.getNombre().toLowerCase().contains(nombre.toLowerCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<VendedorDto> getVendedoresPorNombre(String nombre) {
-        return vendedores.stream()
-                .filter((vendedor -> vendedor.getNombre().toLowerCase().contains(nombre.toLowerCase())))
-                .collect(Collectors.toList());
     }
 
     public MarketPlace getMarketPlace() {
@@ -53,6 +42,131 @@ public class ModelFactory implements IModelFactory {
         this.marketPlace = marketPlace;
     }
 
+    @Override
+    public UsuarioDto getUsuario(UsuarioDto usuarioDto) {
+        if(admitirUsuario(usuarioDto)){
+            return mapper.usuarioToUsuarioDto(marketPlace.getUsuarioVerificar(usuarioDto.getUsername(), usuarioDto.getPassword()));
+        }
+        return null;
+    }
+
+    @Override
+    public boolean admitirUsuario(UsuarioDto usuarioDto) {
+        if(marketPlace.verificarContraseñaUsuario(usuarioDto.getUsername(), usuarioDto.getPassword())){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void darLike(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto) {
+
+    }
+
+    @Override
+    public List<ProductoDto> listaProductosDisponibles(UsuarioDto usuarioDto) {
+        return List.of();
+    }
+
+    @Override
+    public List<PublicacionDto> getPublicacionesDto(Muro muro) {
+        return List.of();
+    }
+
+    @Override
+    public boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
+        Vendedor vendedor = marketPlace.verificarVendedor(vendedorDto.getIdVendedor());
+        Publicacion publicacion = new Publicacion(publicacionDto.getFechaPublicacion(),publicacionDto.getDescripcion(), publicacionDto.getProducto());
+        return marketPlace.createPublicacion(publicacion,vendedor);
+    }
+
+
+    @Override
+    public boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
+        Vendedor vendedor = marketPlace.verificarVendedor(vendedorDto.getIdVendedor());
+       // Publicacion publicacion = vendedor.getMuro().getListPublicaciones(publicacionDto.getDescripcion());
+        return false;
+    }
+
+    @Override
+    public boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean addUsuario(UsuarioDto usuarioDto) {
+        if (marketPlace.verificarUsuarioExistente(usuarioDto.getCedula())) {
+            Usuario usuario = mapper.usuarioDtoToUsuario(usuarioDto);
+            return marketPlace.createUsuario(usuario);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUsuario(UsuarioDto usuarioDto) {
+        if(marketPlace.verificarUsuarioExistente(usuarioDto.getCedula())){
+            Usuario usuario = mapper.usuarioDtoToUsuario(usuarioDto);
+            return marketPlace.updateUsuario(usuario);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteUsuario(String cedula) {
+        return false;
+    }
+
+    @Override
+    public boolean addChatMessage(MensajeDto mensajeDto, ChatDto chatDto) {
+        return false;
+    }
+
+    @Override
+    public boolean addComentario(ComentarioDto comentarioDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateComentario(ComentarioDto comentarioDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteComentario(ComentarioDto comentarioDto) {
+        return false;
+    }
+
+    @Override
+    public boolean addMensaje(MensajeDto mensajeDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateMensaje(MensajeDto mensajeDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteMensaje(MensajeDto mensajeDto) {
+        return false;
+    }
+    @Override
+    public void aplicarDescuentos(){
+    }
+
+    public List<ProductoDto> getProductosPorNombre(String nombre){
+        return productos.stream().filter(producto -> producto.getNombre().toLowerCase().contains(nombre.toLowerCase())).collect(Collectors.toList());
+    }
+
+    public List<VendedorDto> getVendedoresPorNombre(String nombre){
+        return vendedores.stream().filter((vendedor -> vendedor.getNombre().toLowerCase().contains(nombre.toLowerCase()))).collect(Collectors.toList());
+    }
+
+   // public ICrudVendedor getCrudVendedor(){
+      //  return this.crudVendedor;
+    //}
+
+    /**
     @Override
     public List<VendedorDto> getVendedoresDto() {
         return mapper.getVendedoresDto(marketPlace.getListVendedores());
@@ -180,7 +294,7 @@ public class ModelFactory implements IModelFactory {
             return true;
         }
         return false;
-    }
+    }**/
 
 
     // Método para inicializar datos de prueba
@@ -192,7 +306,7 @@ public class ModelFactory implements IModelFactory {
                 .apellido("Suarez")
                 .cedula("12345")
                 .direccion("Calle 23")
-                .usuario("Sofi")
+                .username("Sofi")
                 .contraseña("sofia123")
                 .build();
 
@@ -201,7 +315,7 @@ public class ModelFactory implements IModelFactory {
                 .apellido("Gomez")
                 .cedula("67890")
                 .direccion("Calle 45")
-                .usuario("CarlosG")
+                .username("CarlosG")
                 .contraseña("carlos123")
                 .build();
         marketPlace.createVendedor(vendedor1);
@@ -228,31 +342,6 @@ public class ModelFactory implements IModelFactory {
         vendedor2.setListProductos(new ArrayList<>(List.of(producto2)));
 
         return marketPlace;
-    }
-
-    /**
-     * Método para aplicar el descuento al producto
-     */
-
-    private void aplicarDescuentos() {
-        for (Vendedor vendedor : marketPlace.getListVendedores()) {
-            List<Producto> productosConDescuento = new ArrayList<>();
-            for (Producto producto : vendedor.getListProductos()) {
-
-                if (producto.getNombre().equals("Laptop")) {
-                    productosConDescuento.add(new DescuentoDecorator(producto, 10));
-                } else if (producto.getNombre().equals("Teléfono")) {
-                    productosConDescuento.add(new DescuentoDecorator(producto, 15));
-                } else {
-                    productosConDescuento.add(producto);
-                }
-            }
-            vendedor.setListProductos(productosConDescuento);
-        }
-    }
-
-    public MarketplaceFacade getMarketplaceFacade(){
-        return marketplaceFacade;
     }
 
 }

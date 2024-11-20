@@ -1,10 +1,9 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
-import co.edu.uniquindio.marketplace.marketplace.service.ICrudAdministrador;
-import co.edu.uniquindio.marketplace.marketplace.service.ICrudPublicacion;
-import co.edu.uniquindio.marketplace.marketplace.service.ICrudUsuario;
-import co.edu.uniquindio.marketplace.marketplace.service.ICrudVendedor;
+import co.edu.uniquindio.marketplace.marketplace.model.chainOfResponsability.publicacion.PublicacionFiltro;
+import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
+import co.edu.uniquindio.marketplace.marketplace.service.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +17,11 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     private List<Usuario> listUsuarios;
     private List<Administrador> listAdministradores;
     private List<Vendedor> listVendedores;
+    private List<Publicacion> publicaciones;
     private Usuario usuarioActual;
+    private MarketplaceFacade marketplaceFacade;
+    private IStrategyPublicacion estrategiaPublicacion;
+    private IStrategyProducto estrategiaProducto;
 
     public MarketPlace(String nombre) {
         this.nombre = nombre;
@@ -36,7 +39,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
                    .apellido(vendedor.getApellido())
                    .cedula(vendedor.getCedula())
                    .direccion(vendedor.getDireccion())
-                   .usuario(vendedor.getUsername())
+                   .username(vendedor.getUsername())
                    .contraseña(vendedor.getContraseña())
                    .build();
 
@@ -163,6 +166,11 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return listPublicaciones.contains(publicacion);
     }
 
+    //CHAIN OF RESPONSABILITY
+    public List<Publicacion> filtrarPublicaciones(PublicacionFiltro filtro){
+        return filtro.filtrar(publicaciones);
+    }
+
     public boolean verificarAdministradorExiste(String idAdministrador) {
         return verificarAdministrador(idAdministrador) != null; // Retorna true si existe, false si no
     }
@@ -186,7 +194,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
                     .apellido(administrador.getApellido())
                     .cedula(administrador.getCedula())
                     .direccion(administrador.getDireccion())
-                    .usuario(administrador.getUsername())
+                    .username(administrador.getUsername())
                     .contraseña(administrador.getContraseña())
                     .build();
             add(nuevoAdministrador);
@@ -224,7 +232,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
     @Override
     public List<Administrador> listAdministradores() {
-        return new ArrayList<>(listAdministradores); // Retornar una copia de la lista
+        return new ArrayList<>(listAdministradores);
     }
 
     @Override
@@ -410,6 +418,54 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     public void setListVendedores (List < Vendedor > listVendedores) {
         this.listVendedores = listVendedores;
     }
+
+    /**
+     * Método para aplicar el descuento al producto
+     */
+    public void aplicarDescuentos() {
+        for (Vendedor vendedor : listVendedores()) {
+            List<Producto> productosConDescuento = new ArrayList<>();
+            for (Producto producto : vendedor.getListProductos()) {
+
+                if (producto.getNombre().equals("Laptop")) {
+                    productosConDescuento.add(new DescuentoDecorator(producto, 10));
+                } else if (producto.getNombre().equals("Teléfono")) {
+                    productosConDescuento.add(new DescuentoDecorator(producto, 15));
+                } else {
+                    productosConDescuento.add(producto);
+                }
+            }
+            vendedor.setListProductos(productosConDescuento);
+        }
+    }
+
+    public MarketplaceFacade getMarketplaceFacade(){
+        return marketplaceFacade;
+    }
+//STRATEGY
+    public void setEstrategiaProducto(IStrategyProducto estrategiaProducto){
+        this.estrategiaProducto = estrategiaProducto;
+    }
+   public void ordenarProductos(List<Producto> productos){
+        if(estrategiaProducto != null){
+            estrategiaProducto.ordenarProducto(productos);
+        }
+   }
+//STRATEGY
+   public void setEstrategiaPublicacion(IStrategyPublicacion estrategiaPublicacion){
+        this.estrategiaProducto = estrategiaProducto;
+   }
+
+   public void ordenarPublicaciones(){
+        if(estrategiaPublicacion != null){
+            estrategiaPublicacion.ordenarPublicacion(publicaciones);
+        } 
+   }
+
+   public void notificarEvento(Vendedor vendedor, String mensaje){
+       EventoObserver evento = new EventoObserver("NOTIFICACION", mensaje, null , vendedor);
+       vendedor.notifySeguidores(evento);
+   }
 
 }
 

@@ -3,8 +3,6 @@ package co.edu.uniquindio.marketplace.marketplace.mapping.dto;
 import co.edu.uniquindio.marketplace.marketplace.model.Estado;
 import javafx.scene.image.Image;
 
-import java.time.LocalDate;
-
 public class ProductoDto {
     private String idVendedor;
     private String nombre;
@@ -13,10 +11,10 @@ public class ProductoDto {
     private double precio;
     private Estado estado;
 
-    public ProductoDto(String idVendedor, String nombre, String image, String categoria, double precio, Estado estado) {
+    public ProductoDto(String idVendedor, String nombre, Image image, String categoria, double precio, Estado estado) {
         this.idVendedor = idVendedor;
         this.nombre = nombre;
-        this.image = image;
+        this.image = String.valueOf(image);
         this.categoria = categoria;
         this.precio = precio;
         this.estado = estado;

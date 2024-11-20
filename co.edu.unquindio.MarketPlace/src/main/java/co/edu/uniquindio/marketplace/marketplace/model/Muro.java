@@ -70,4 +70,12 @@ public class Muro {
     public void setListChat(List<Chat> listChat) {
         this.listChat = listChat;
     }
+
+    public String getIdVendedor() {
+        return idVendedor;
+    }
+
+    public void setIdVendedor(String idVendedor) {
+        this.idVendedor = idVendedor;
+    }
 }

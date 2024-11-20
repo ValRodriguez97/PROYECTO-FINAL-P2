@@ -10,14 +10,14 @@ import java.util.List;
 public class PublicacionDto {
     private LocalDateTime fechaPublicacion;
     private String descripcion;
-    private ProductoDto productoDto;
+    private Producto producto;
     private List<ComentarioDto> comentarioDtos;
     private  List<Vendedor> likesVendedores;
 
-    public PublicacionDto(LocalDateTime fechaPublicacion, String descripcion, ProductoDto productoDto) {
+    public PublicacionDto(LocalDateTime fechaPublicacion, String descripcion, Producto producto) {
         this.fechaPublicacion = fechaPublicacion;
         this.descripcion = descripcion;
-        this.productoDto = productoDto;
+        this.producto = producto;
         this.comentarioDtos = new ArrayList<>();
         this. likesVendedores = new ArrayList<>();
     }
@@ -38,12 +38,12 @@ public class PublicacionDto {
         this.descripcion = descripcion;
     }
 
-    public ProductoDto getProductoDto() {
-        return productoDto;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setProductoDto(ProductoDto productoDto) {
-        this.productoDto = productoDto;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public List<ComentarioDto> getComentarioDtos() {

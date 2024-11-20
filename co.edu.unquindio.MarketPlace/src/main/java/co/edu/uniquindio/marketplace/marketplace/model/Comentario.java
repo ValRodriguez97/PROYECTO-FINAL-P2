@@ -16,7 +16,7 @@ public class Comentario {
      * @param fechaComentario Fecha y hora del comentario
      * @param comentario Comentario
      */
-    public Comentario(Usuario usuario, LocalDateTime fechaComentario, String comentario){
+    public Comentario(Usuario usuario, LocalDateTime fechaComentario, String comentario, int numLikes) {
         this.usuario = usuario;
         this.fechaComentario = fechaComentario;
         this.comentario = comentario;
@@ -99,4 +99,6 @@ public class Comentario {
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
     }
+
+
 }

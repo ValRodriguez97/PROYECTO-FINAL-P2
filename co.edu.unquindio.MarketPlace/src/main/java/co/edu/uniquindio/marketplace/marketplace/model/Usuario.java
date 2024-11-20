@@ -1,5 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 import co.edu.uniquindio.marketplace.marketplace.model.MarketplaceFacade;
 
@@ -146,26 +147,25 @@ public class Usuario implements IObserver {
 
     //OBSERVER
     @Override
-    public void update(String mensaje){
-        System.out.println("Usuario " + username + " recibió una notificación: " + mensaje);
+    public void update(EventoObserver evento){
+        System.out.println("Usuario " + username + " recibió una notificación: " );
     }
-
     /**
      * Métodos para interactuar con la implementación del patrón Facade
      */
-    public void agregarVendedor(Vendedor vendedor) {
-        MarketplaceFacade.agregarVendedor(vendedor);
+    public void agregarVendedor(Vendedor vendedor, MarketplaceFacade marketplaceFacade) {
+        marketplaceFacade.agregarVendedor(vendedor);
     }
 
-    public void agregarProducto(Vendedor vendedor, Producto producto) {
-        MarketplaceFacade.agregarProducto(vendedor, producto);
+    public void agregarProducto(Vendedor vendedor, Producto producto, MarketplaceFacade marketplaceFacade) {
+        marketplaceFacade.agregarProducto(vendedor, producto);
     }
 
-    public Producto buscarProductoPorNombre(Vendedor vendedor, String nombre) {
+    public Producto buscarProductoPorNombre(Vendedor vendedor, String nombre, MarketplaceFacade marketplaceFacade) {
         return marketplaceFacade.buscarProductoPorNombre(vendedor, nombre);
     }
 
-    public Vendedor buscarVendedorPorCedula(String cedula) {
+    public Vendedor buscarVendedorPorCedula(String cedula, MarketplaceFacade marketplaceFacade) {
         return marketplaceFacade.buscarVendedorPorCedula(cedula);
     }
 }

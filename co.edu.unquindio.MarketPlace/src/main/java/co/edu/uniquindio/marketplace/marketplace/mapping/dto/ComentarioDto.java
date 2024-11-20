@@ -6,23 +6,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ComentarioDto {
-    private String usuario;
+    private Usuario usuario;
     private LocalDateTime fechaComentario;
     private String comentario;
     private int numLikes;
 
-    public ComentarioDto(String usuario, LocalDateTime fechaComentario, String comentario, int numLikes) {
+    public ComentarioDto(Usuario usuario, LocalDateTime fechaComentario, String comentario, int numLikes) {
         this.usuario = usuario;
         this.fechaComentario = fechaComentario;
         this.comentario = comentario;
         this.numLikes = numLikes;
     }
 
-    public String getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
