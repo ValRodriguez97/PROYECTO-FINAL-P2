@@ -15,6 +15,7 @@ import java.util.List;
 
 public class VendedorViewController {
     private VendedorController vendedorController;
+    private VendedorDto vendedorDto;
 
     @FXML
     private ListView<String> listViewPublicaciones;
@@ -52,6 +53,10 @@ public class VendedorViewController {
 
     public VendedorViewController() {
         vendedorController = new VendedorController();
+    }
+
+    public void inicializarVentana(VendedorDto vendedorDto){
+        this.vendedorDto = vendedorDto;
     }
 
     /**

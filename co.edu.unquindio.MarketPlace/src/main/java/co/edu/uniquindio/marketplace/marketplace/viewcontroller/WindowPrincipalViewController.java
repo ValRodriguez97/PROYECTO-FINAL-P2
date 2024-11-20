@@ -13,9 +13,13 @@ import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.model.Producto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.stage.Stage;
+
 import java.lang.StringBuilder;
 
 public class WindowPrincipalViewController{
@@ -216,8 +220,23 @@ public class WindowPrincipalViewController{
     }
 
     @FXML
-    void onSearchWall(ActionEvent event) {
-        
+    void onSearchWall(ActionEvent event) throws IOException {
+        changeWindow();
+    }
+
+    public void changeWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("co.edu.unquindio.MarketPlace/src/main/resources/co/edu/uniquindio/marketplace/marketplace/Wall.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 782, 484);
+        Stage stage = new Stage();
+
+        VendedorViewController controller = fxmlLoader.getController();
+        controller.inicializarVentana(vendedorDto);
+        stage.setScene(scene);
+
+        Stage cerrar = (Stage) btnWall.getScene().getWindow();
+        cerrar.close();
+
+        stage.show();
     }
 
     public void inicializarVentana(VendedorDto vendedorDto) throws IOException{

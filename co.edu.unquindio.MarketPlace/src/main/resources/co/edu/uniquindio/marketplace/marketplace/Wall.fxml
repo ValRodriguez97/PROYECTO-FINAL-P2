@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -14,18 +15,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.web.WebView?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="784.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="784.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.VendedorViewController">
   <tabs>
     <Tab text="Wall">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Circle fx:id="YourProfile" accessibleRole="BUTTON" fill="#e4e7ea" layoutX="67.0" layoutY="91.0" onDragDetected="#OnGoToYourProfile" radius="41.0" stroke="BLACK" strokeType="INSIDE" />
-                  <ListView fx:id="listViewFavoritos" layoutX="20.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0" />
-                  <ListView fx:id="listViewHistorial" layoutX="20.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0" />
                   <SplitMenuButton fx:id="Wall" layoutY="8.0" mnemonicParsing="false" onAction="#OnSearchItemsWall" prefHeight="28.0" prefWidth="164.0" text="Wall">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Log Out" />
@@ -35,7 +33,7 @@
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/menu.png" />
+                              <Image url="menu.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -137,7 +135,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -146,7 +144,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -155,7 +153,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -164,7 +162,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -173,7 +171,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -182,7 +180,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" onDragDetected="#OnShowSeller6" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -191,7 +189,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -200,7 +198,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -209,7 +207,7 @@
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="73.0" onDragDetected="#OnShowSeller9" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/user%20(1).png" />
+                              <Image url="user (1).png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -220,7 +218,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../Downloads/user.png" />
+                                    <Image url="user.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -229,7 +227,7 @@
                            <graphic>
                               <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../Downloads/recycle-bin.png" />
+                                    <Image url="recycle-bin.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -249,5 +247,544 @@
                </children></AnchorPane>
       </content>
     </Tab>
+      <Tab text="Products">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitMenuButton fx:id="ActionsSellers1" mnemonicParsing="false" onAction="#OnActionsWindowSellers" prefHeight="28.0" prefWidth="164.0" text="Products">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Log Out" />
+                        <MenuItem mnemonicParsing="false" text="Your Favorites" />
+                        <MenuItem mnemonicParsing="false" text="Principal Menu" />
+                        <MenuItem mnemonicParsing="false" text="Go to Shopping Cart" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </SplitMenuButton>
+                  <MenuButton fx:id="SearchingOptionsProducts" accessibleRole="SPLIT_MENU_BUTTON" layoutX="164.0" mnemonicParsing="false" onAction="#OnSearchingOptionsProducts" prefHeight="28.0" prefWidth="619.0" style="-fx-background-color: #cdbce5;" text="Searching">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Products" />
+                        <MenuItem mnemonicParsing="false" text="Wall" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@loupe.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+                  <AnchorPane layoutX="637.0" layoutY="29.0" prefHeight="386.0" prefWidth="146.0" style="-fx-background-color: #dedede;">
+                     <children>
+                        <Button fx:id="AddToCart" layoutX="9.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnAddToCart" prefHeight="38.0" prefWidth="126.0" style="-fx-background-color: #cdbce5;" text="Add to cart">
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="add-to-cart.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="DeleteProduct" layoutX="5.0" layoutY="333.0" mnemonicParsing="false" onAction="#OnDeleteProduct" prefHeight="38.0" prefWidth="136.0" style="-fx-background-color: #cdbce5;" text="Delete Product">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="recycle-bin.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <ButtonBar fx:id="ChatSinceWindowProducts" layoutX="2.0" layoutY="309.0" onDragDetected="#OnGoToChat" prefHeight="62.0" prefWidth="138.0">
+                     <buttons>
+                        <Button mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #cdbce5;" text="Chat" />
+                        <ImageView fitHeight="51.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@email.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <Circle fx:id="Cart" fill="WHITE" layoutX="82.0" layoutY="99.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ImageView fitHeight="89.0" fitWidth="92.0" layoutX="38.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@shopping-cart.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="Product1" contentDisplay="GRAPHIC_ONLY" layoutX="156.0" layoutY="61.0" mnemonicParsing="false" onAction="#OnShowProduct1" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <CheckBox fx:id="SelectProductForAdd1" layoutX="273.0" layoutY="68.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts1" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product2" contentDisplay="GRAPHIC_ONLY" layoutX="320.0" layoutY="61.0" mnemonicParsing="false" onAction="#OnShowToṔroduct2" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd2" layoutX="435.0" layoutY="68.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts2" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product3" contentDisplay="GRAPHIC_ONLY" layoutX="474.0" layoutY="61.0" mnemonicParsing="false" onAction="#OnShowToProduct3" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd3" layoutX="589.0" layoutY="69.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts3" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product4" contentDisplay="GRAPHIC_ONLY" layoutX="156.0" layoutY="181.0" mnemonicParsing="false" onAction="#OnShowToProduct4" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd4" layoutX="273.0" layoutY="189.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts4" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product5" contentDisplay="GRAPHIC_ONLY" layoutX="320.0" layoutY="181.0" mnemonicParsing="false" onAction="#OnShowToProduct5" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox layoutX="435.0" layoutY="309.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product6" contentDisplay="GRAPHIC_ONLY" layoutX="474.0" layoutY="181.0" mnemonicParsing="false" onAction="#OnShowToProduct6" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd6" layoutX="589.0" layoutY="189.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts6" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product7" contentDisplay="GRAPHIC_ONLY" layoutX="155.0" layoutY="299.0" mnemonicParsing="false" onAction="#OnShowToProduct7" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd7" layoutX="273.0" layoutY="309.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts7" prefHeight="16.0" prefWidth="27.0" />
+                  <CheckBox fx:id="SelectProductForAdd5" layoutX="435.0" layoutY="189.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts5" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product7" contentDisplay="GRAPHIC_ONLY" layoutX="320.0" layoutY="299.0" mnemonicParsing="false" onAction="#OnShowToProduct7" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fx:id="Product8" fitHeight="92.0" fitWidth="108.0" onDragDetected="#OnShowToProduct8" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd8" layoutX="435.0" layoutY="309.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts8" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="Product9" contentDisplay="GRAPHIC_ONLY" layoutX="474.0" layoutY="299.0" mnemonicParsing="false" onAction="#OnShowToProduct9" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProductForAdd9" layoutX="589.0" layoutY="309.0" mnemonicParsing="false" onAction="#OnSelectProductWProducts9" prefHeight="16.0" prefWidth="27.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Your Profile">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane fx:id="PublicationAndComments" layoutX="219.0" layoutY="78.0" onDragDetected="#OnShowYourPublications" prefHeight="178.0" prefWidth="346.0" style="-fx-background-color: #efe5f3;">
+                     <children>
+                        <Button layoutX="20.0" layoutY="28.0" mnemonicParsing="false" prefHeight="141.0" prefWidth="154.0" style="-fx-background-color: #ffff;" text="Publication" />
+                        <ImageView fitHeight="132.0" fitWidth="138.0" layoutX="31.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="diseno-web.png" />
+                           </image>
+                        </ImageView>
+                        <Button contentDisplay="GRAPHIC_ONLY" layoutX="187.0" layoutY="27.0" mnemonicParsing="false" prefHeight="144.0" prefWidth="144.0" style="-fx-background-color: #ffff;" text="Button" />
+                        <ImageView fitHeight="134.0" fitWidth="152.0" layoutX="192.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="chat.png" />
+                           </image>
+                        </ImageView>
+                        <Label contentDisplay="CENTER" layoutX="60.0" layoutY="5.0" prefHeight="18.0" prefWidth="74.0" text="Publication" />
+                        <Label layoutX="222.0" layoutY="5.0" prefHeight="18.0" prefWidth="74.0" text="Comments" />
+                        <CheckBox fx:id="SelectPublication" layoutX="320.0" layoutY="2.0" mnemonicParsing="false" onAction="#OnSelectPublication" />
+                     </children>
+                  </AnchorPane>
+                  <SplitMenuButton fx:id="ActionsSellers11" mnemonicParsing="false" onAction="#OnActionsWindowSellers" prefHeight="28.0" prefWidth="164.0" text="Your Profile">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Log Out" />
+                        <MenuItem mnemonicParsing="false" text="Your Favorites" />
+                        <MenuItem mnemonicParsing="false" text="Principal Menu" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@group.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </SplitMenuButton>
+                  <MenuButton fx:id="SearchingOptionsSellers11" accessibleRole="SPLIT_MENU_BUTTON" layoutX="164.0" mnemonicParsing="false" onAction="#OnSearchingOptionsSellers" prefHeight="28.0" prefWidth="619.0" style="-fx-background-color: #cdbce5;" text="Searching">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Products" />
+                        <MenuItem mnemonicParsing="false" text="Wall" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@loupe.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+                  <Circle fx:id="YourProfile11" accessibleRole="BUTTON" fill="#e4e7ea" layoutX="71.0" layoutY="83.0" onDragDetected="#OnGotoYourProfile" radius="41.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="41.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@user.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="104.0" layoutY="44.0" text="+1" />
+                  <AnchorPane layoutX="635.0" layoutY="29.0" prefHeight="386.0" prefWidth="158.0" style="-fx-background-color: #dedede;">
+                     <children>
+                        <Button fx:id="DeleteProductYP" layoutX="11.0" layoutY="333.0" mnemonicParsing="false" onAction="#OnDeleteProductYP" prefHeight="38.0" prefWidth="135.0" style="-fx-background-color: #cdbce5;" text="Delete Product">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="recycle-bin.png />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <ButtonBar fx:id="ChatSinceWindowProfile" layoutX="2.0" layoutY="309.0" onDragDetected="#OnGoToChat" prefHeight="62.0" prefWidth="138.0">
+                     <buttons>
+                        <Button mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #cdbce5;" text="Chat" />
+                        <ImageView fitHeight="51.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@email.png" />
+                           </image>
+                        </ImageView>
+                     </buttons>
+                  </ButtonBar>
+                  <Label layoutX="164.0" layoutY="46.0" text="Your Products">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font></Label>
+                  <Button fx:id="EditPublication" layoutX="219.0" layoutY="273.0" mnemonicParsing="false" onAction="#OnEditPublication" prefHeight="28.0" prefWidth="346.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Edit Publication...">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Label>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="AddProduct" layoutX="219.0" layoutY="316.0" mnemonicParsing="false" onAction="#OnAddProductYourProfile" prefHeight="25.0" prefWidth="346.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Add Product...">
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="image-gallery.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic></Button>
+                  <Button fx:id="CreateReport" layoutX="219.0" layoutY="361.0" mnemonicParsing="false" onAction="#OnCreateReport" prefHeight="26.0" prefWidth="346.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Create Report...">
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="add-post.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic></Button>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Shopping Cart">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitMenuButton fx:id="ActionsSellers12" mnemonicParsing="false" onAction="#OnActionsWindowSellers" prefHeight="28.0" prefWidth="164.0" text="Shopping Cart">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Log Out" />
+                        <MenuItem mnemonicParsing="false" text="Your Favorites" />
+                        <MenuItem mnemonicParsing="false" text="Principal Menu" />
+                        <MenuItem mnemonicParsing="false" text="Your Profile" />
+                        <MenuItem mnemonicParsing="false" text="Go to Chat" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@grocery-store.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </SplitMenuButton>
+                  <MenuButton fx:id="SearchingOptionsShoppingCart" accessibleRole="SPLIT_MENU_BUTTON" layoutX="164.0" mnemonicParsing="false" onAction="#OnSearchingOptionsShoppingCart" prefHeight="28.0" prefWidth="619.0" style="-fx-background-color: #cdbce5;" text="Searching">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Products" />
+                        <MenuItem mnemonicParsing="false" text="Wall" />
+                        <MenuItem mnemonicParsing="false" text="Sellers" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@loupe.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+                  <Circle fx:id="circleShoppingCart" fill="WHITE" layoutX="82.0" layoutY="99.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ImageView fx:id="CartShoppingCart" fitHeight="89.0" fitWidth="92.0" layoutX="38.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="add-to-cart.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="ProductAddedToCart1" contentDisplay="GRAPHIC_ONLY" layoutX="156.0" layoutY="61.0" mnemonicParsing="false" onAction="#OnShowProductAddedToCart1" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProduct1" layoutX="273.0" layoutY="68.0" mnemonicParsing="false" onAction="#OnSelectProductShoppingCart1" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="ProductAddedToCart2" contentDisplay="GRAPHIC_ONLY" layoutX="320.0" layoutY="61.0" mnemonicParsing="false" onAction="#OnShowToṔroduct2" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProduct2" layoutX="435.0" layoutY="68.0" mnemonicParsing="false" onAction="#OnSelectProductShoppingCart2" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="ProductAddedToCart3" contentDisplay="GRAPHIC_ONLY" layoutX="474.0" layoutY="61.0" mnemonicParsing="false" onAction="#OnShowToProduct3" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProduct3" layoutX="589.0" layoutY="69.0" mnemonicParsing="false" onAction="#OnSelectProductShoppingCart3" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="ProductAddedToCart4" contentDisplay="GRAPHIC_ONLY" layoutX="156.0" layoutY="225.0" mnemonicParsing="false" onAction="#OnShowToProduct4" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProduct4" layoutX="273.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnSelectProductShoppingCart4" prefHeight="16.0" prefWidth="27.0" />
+                  <Button fx:id="ProductAddedToCart5" contentDisplay="GRAPHIC_ONLY" layoutX="320.0" layoutY="225.0" mnemonicParsing="false" onAction="#OnShowToProduct5" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="ProductAddedToCart6" contentDisplay="GRAPHIC_ONLY" layoutX="474.0" layoutY="225.0" mnemonicParsing="false" onAction="#OnShowToProduct6" prefHeight="82.0" prefWidth="143.0" style="-fx-background-color: #cdbce5;" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="imagen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <CheckBox fx:id="SelectProduct6" layoutX="589.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnSelectProductShoppingCart6" prefHeight="16.0" prefWidth="27.0" />
+                  <CheckBox fx:id="SelectProduct5" layoutX="435.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnSelectProductShoppingCart5" prefHeight="16.0" prefWidth="27.0" />
+                  <AnchorPane layoutX="646.0" layoutY="29.0" prefHeight="387.0" prefWidth="142.0" style="-fx-background-color: #dedede;">
+                     <children>
+                        <Button fx:id="DeleteToCart" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnDeleteToCart" prefHeight="32.0" prefWidth="128.0" style="-fx-background-color: #cdbce5;" text="Delete To Cart">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="recycle-bin.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="TotalPrice" layoutX="11.0" layoutY="269.0" onDragDetected="#OnShowTotalPrice" prefHeight="34.0" prefWidth="120.0" text="Total Price=" />
+                        <Button fx:id="ButtonToBuy" layoutX="14.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnBuy" prefHeight="30.0" prefWidth="114.0" style="-fx-background-color: #cdbce5;">
+                           <graphic>
+                              <Label prefHeight="25.0" prefWidth="85.0" text="To Buy">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="verified.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="ButtonDescuento" layoutX="13.0" layoutY="225.0" mnemonicParsing="false" onAction="#OnAdddiscount" prefHeight="30.0" prefWidth="116.0" style="-fx-background-color: #cdbce5;" text="discount coupon" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="PublicationTime1" layoutX="156.0" layoutY="155.0" text="Publication Time:" />
+                  <Label fx:id="PublicationDate1" layoutX="156.0" layoutY="173.0" text="Publication Date:" />
+                  <Label fx:id="PublicationDate2" layoutX="320.0" layoutY="173.0" text="Publication Date:" />
+                  <Label fx:id="PublicationTime2" layoutX="320.0" layoutY="155.0" text="Publication Time:" />
+                  <Label fx:id="PublicationDate3" layoutX="474.0" layoutY="173.0" text="Publication Date:" />
+                  <Label fx:id="PublicationTime3" layoutX="474.0" layoutY="155.0" text="Publication Time:" />
+                  <Label fx:id="PublicationDate4" layoutX="156.0" layoutY="341.0" text="Publication Date:" />
+                  <Label fx:id="PublicationTime" layoutX="156.0" layoutY="323.0" text="Publication Time:" />
+                  <Label fx:id="PublicationDate5" layoutX="320.0" layoutY="340.0" text="Publication Date:" />
+                  <Label fx:id="PublicationTime5" layoutX="320.0" layoutY="322.0" text="Publication Time:" />
+                  <Label fx:id="PublicationDate6" layoutX="474.0" layoutY="341.0" text="Publication Date:" />
+                  <Label fx:id="PublicationTime6" layoutX="474.0" layoutY="323.0" text="Publication Time:" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Create Report">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitMenuButton fx:id="ActionsCreateReport" mnemonicParsing="false" onAction="#OnActionsWindowCreateReport" prefHeight="28.0" prefWidth="164.0" text="Create Report">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Log Out" />
+                        <MenuItem mnemonicParsing="false" text="Your Favorites" />
+                        <MenuItem mnemonicParsing="false" text="Principal Menu" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="add-post.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </SplitMenuButton>
+                  <MenuButton fx:id="SearchingOptionsSellers111" accessibleRole="SPLIT_MENU_BUTTON" layoutX="164.0" mnemonicParsing="false" onAction="#OnSearchingOptionsSellers" prefHeight="28.0" prefWidth="619.0" style="-fx-background-color: #cdbce5;" text="Searching">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Products" />
+                        <MenuItem mnemonicParsing="false" text="Wall" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@loupe.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+                  <Circle fx:id="YourProfile111" accessibleRole="BUTTON" fill="#e4e7ea" layoutX="71.0" layoutY="83.0" onDragDetected="#OnGotoYourProfile" radius="41.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="41.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="newspaper.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="104.0" layoutY="44.0" text="+1" />
+                  <AnchorPane layoutX="635.0" layoutY="29.0" prefHeight="386.0" prefWidth="158.0" style="-fx-background-color: #dedede;">
+                     <children>
+                        <Button fx:id="DeleteProductYP1" layoutX="11.0" layoutY="333.0" mnemonicParsing="false" onAction="#OnDeleteProductYP" prefHeight="38.0" prefWidth="135.0" style="-fx-background-color: #cdbce5;" text="Delete Product">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="recycle-bin.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="EditPublication1" layoutX="190.0" layoutY="105.0" mnemonicParsing="false" onAction="#OnAddTitle" prefHeight="37.0" prefWidth="348.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Add Title">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="AddProduct1" layoutX="191.0" layoutY="165.0" mnemonicParsing="false" onAction="#OnAddProductYourProfile" prefHeight="37.0" prefWidth="346.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Add Date">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="calendar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="CreateReport1" layoutX="191.0" layoutY="222.0" mnemonicParsing="false" onAction="#OnCreateReport" prefHeight="34.0" prefWidth="346.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Add User">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="agregar-usuario.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="CreateReport11" layoutX="191.0" layoutY="278.0" mnemonicParsing="false" onAction="#OnCreateReport" prefHeight="34.0" prefWidth="346.0" style="-fx-background-color: #cdbce5;">
+                     <graphic>
+                        <Label text="Add User">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="agregar-usuario.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
   </tabs>
 </TabPane>

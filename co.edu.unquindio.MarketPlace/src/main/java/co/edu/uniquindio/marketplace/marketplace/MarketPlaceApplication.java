@@ -23,7 +23,7 @@ public class MarketPlaceApplication extends Application {
     }
 
     //usuario : Sofi
-    //contrasela: 1234
+    //contrasela: sofia123
 
     public static void main(String[] args) {
         launch(args);

@@ -2,7 +2,6 @@ package co.edu.uniquindio.marketplace.marketplace.model;
 
 import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
-import co.edu.uniquindio.marketplace.marketplace.model.MarketplaceFacade;
 
 public class Usuario implements IObserver {
     private String nombre;
@@ -11,6 +10,7 @@ public class Usuario implements IObserver {
     private String direccion;
     private String username;
     private String contraseña;
+    private String hashedPassword;
 
     /**
      * Método Constructor de la clase Usuario
@@ -148,7 +148,7 @@ public class Usuario implements IObserver {
     //OBSERVER
     @Override
     public void update(EventoObserver evento){
-        System.out.println("Usuario " + username + " recibió una notificación: " );
+        System.out.println("Usuario " + username + " recibió una notificación: ");
     }
     /**
      * Métodos para interactuar con la implementación del patrón Facade
@@ -168,4 +168,5 @@ public class Usuario implements IObserver {
     public Vendedor buscarVendedorPorCedula(String cedula, MarketplaceFacade marketplaceFacade) {
         return marketplaceFacade.buscarVendedorPorCedula(cedula);
     }
+
 }
