@@ -46,14 +46,10 @@ public class VendedorController implements IVendedorController {
             return modelFactory.getMarketPlace().createVendedor(nuevoVendedor);
         }
 
-        // Retornar false si la validación falla
         return false;
     }
 
-    @Override
-    public boolean updateVendedor(VendedorDto vendedorDto){ return false;}
-
-   /** @Override
+   @Override
     public boolean updateVendedor(VendedorDto vendedorDto){
         if (vendedorDto == null ||
             vendedorDto.getIdVendedor() == null || vendedorDto.getIdVendedor().isEmpty()) {
@@ -63,7 +59,7 @@ public class VendedorController implements IVendedorController {
         if (vendedorExistente == null) {
             return false;
         }
-        Vendedor vendedorActualizado = new Vendedor.Vendedorbuilder()
+        Vendedor vendedorActualizado = Vendedor.Vendedorbuilder()
                 .idVendedor(vendedorDto.getIdVendedor())
                 .nombre(vendedorDto.getNombre())
                 .apellido(vendedorDto.getApellido())
@@ -72,12 +68,20 @@ public class VendedorController implements IVendedorController {
                 .contraseña(vendedorDto.getPassword())
                 .build();
 
-        return crudVendedor.updateVendedor(vendedorDto.getIdVendedor(), vendedorActualizado);
-    } */
+       return modelFactory.getMarketPlace().updateVendedor(vendedorDto.getIdVendedor(), vendedorActualizado);
+    }
 
     @Override
     public boolean deleteVendedor(String cedula){
-        return false;
+        if (cedula == null || cedula.isEmpty()) {
+            return false;
+        }
+        Vendedor vendedorExistente = modelFactory.getMarketPlace().verificarVendedor(cedula);
+        if (vendedorExistente == null) {
+            return false;
+        }
+        boolean eliminado = modelFactory.getMarketPlace().deleteVendedor(cedula);
+        return eliminado;
     }
 
     /**

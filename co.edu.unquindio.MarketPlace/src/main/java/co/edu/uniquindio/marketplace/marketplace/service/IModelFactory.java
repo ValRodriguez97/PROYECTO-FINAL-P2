@@ -36,7 +36,7 @@ public interface IModelFactory {
 
   public void aplicarDescuentos();
 
-   /** List<VendedorDto> getVendedoresDto();
+   List<VendedorDto> getVendedoresDto();
     boolean addVendedor(VendedorDto vendedorDto);
     boolean updateVendedor(VendedorDto vendedorDto);
     boolean deleteVendedor(String idVendedor);
@@ -52,5 +52,4 @@ public interface IModelFactory {
 
 
     public boolean admitirUsuario(UsuarioDto usuarioDto);
-**/
 }

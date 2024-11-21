@@ -22,7 +22,11 @@ public class Chat {
      * @param mensaje a añadir
      */
     public void añadirMensaje(Mensaje mensaje) {
-        mensajes.add(mensaje);
+        if(vendedores.contains(mensaje.getUsuario())){
+            mensajes.add(mensaje);
+        } else{
+            throw new IllegalArgumentException("El usuario no se encuentra añadido al chat");
+        }
     }
 
     /**

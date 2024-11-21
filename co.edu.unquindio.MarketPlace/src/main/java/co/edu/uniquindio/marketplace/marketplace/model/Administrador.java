@@ -2,7 +2,7 @@ package co.edu.uniquindio.marketplace.marketplace.model;
 
 import co.edu.uniquindio.marketplace.marketplace.model.builder.AdministradorBuilder;
 
-//Clase de tipo Admiistrador encardado de administrar las funciones del MarketPlace
+//Clase de tipo Admiistrador encargado de administrar las funciones del MarketPlace
 public class Administrador extends  Usuario {
     private String idAdminsitrador;
 

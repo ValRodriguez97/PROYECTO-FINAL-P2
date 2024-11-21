@@ -12,6 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La clase MarketPlace es un mercado en línea que gestiona usuarios, administrados, vendedores y publicaciones
+ * Implementa las interfaces de CRUD para usuarios, administradores, vendedores y publicaciones
+ */
 public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuario, ICrudAdministrador {
     private String nombre;
     private List<Usuario> listUsuarios;
@@ -23,13 +27,22 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     private IStrategyPublicacion estrategiaPublicacion;
     private IStrategyProducto estrategiaProducto;
 
+    /**
+     * Método constructor de la clase MarketPlace
+     * @param nombre
+     */
     public MarketPlace(String nombre) {
         this.nombre = nombre;
         this.listUsuarios = new ArrayList<Usuario>();
         this.listAdministradores = new ArrayList<Administrador>();
         this.listVendedores = new ArrayList<Vendedor>();
     }
-    
+
+    /**
+     * Método para crear un nuevo vendedor en el marketplace
+     * @param vendedor
+     * @return
+     */
     @Override
     public boolean createVendedor(Vendedor vendedor){
        if(!verificarVendedorExistente(vendedor.getIdVendedor())){
@@ -53,10 +66,16 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
        return false;
     }
 
+    /**
+     * Método que agrega una publicación al muro de un vendedor
+     * @param vendedor
+     * @param publicacion
+     */
     public void agregarPublicacion(Vendedor vendedor, Publicacion publicacion){
         vendedor.getMuro().añadirPublicacion(publicacion);
     }
 
+    
     public void agregarComentarioAPublicacion(Vendedor vendedor, Publicacion publicacion, Comentario comentario){
         if (vendedor.getMuro().getListPublicaciones().contains(publicacion)){
             publicacion.añadirComentario(comentario);
@@ -118,6 +137,9 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
 
     public Vendedor verificarVendedor(String idVendedor) {
+        if (idVendedor == null) {
+            return null;
+        }
         for (Vendedor vendedor : listVendedores) {
             if (vendedor.getCedula().equals(idVendedor)) {
                 return vendedor;
@@ -420,7 +442,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
 
     /**
-     * Método para aplicar el descuento al producto
+     * Método para la implementación del decorator
      */
     public void aplicarDescuentos() {
         for (Vendedor vendedor : listVendedores()) {
@@ -451,7 +473,8 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             estrategiaProducto.ordenarProducto(productos);
         }
    }
-//STRATEGY
+
+   //STRATEGY
    public void setEstrategiaPublicacion(IStrategyPublicacion estrategiaPublicacion){
         this.estrategiaProducto = estrategiaProducto;
    }
