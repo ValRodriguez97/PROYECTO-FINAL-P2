@@ -75,13 +75,24 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         vendedor.getMuro().añadirPublicacion(publicacion);
     }
 
-    
+    /**
+     * Método que agrega una publicación al muro de un vendedor
+     * @param vendedor
+     * @param publicacion
+     * @param comentario
+     */
     public void agregarComentarioAPublicacion(Vendedor vendedor, Publicacion publicacion, Comentario comentario){
         if (vendedor.getMuro().getListPublicaciones().contains(publicacion)){
             publicacion.añadirComentario(comentario);
         }
     }
 
+    /**
+     * Método que añade un nuevo contacto a la lista de contactos de un vendedor
+     * @param vendedor
+     * @param nuevoContacto
+     * @return
+     */
     public boolean añadirContacto(Vendedor vendedor, Vendedor nuevoContacto) {
         if (!vendedor.verificarContactoExistente(nuevoContacto) &&
             vendedor.getListContactos().size() < vendedor.getContactodMaximos()){
@@ -91,6 +102,11 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return false;
     }
 
+    /**
+     * Método que obtiene una lista de sugerencias de contactos para un vendedor
+     * @param vendedor
+     * @return
+     */
     public List <Vendedor> obtenerSugerenciasContactos(Vendedor vendedor){
         List<Vendedor> sugerencias = new ArrayList<>();
         for (Vendedor otroVendedor : listVendedores){
@@ -100,6 +116,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         }
         return sugerencias;
     }
+
 
     @Override
     public boolean updateVendedor(String idVendedor, Vendedor vendedor){

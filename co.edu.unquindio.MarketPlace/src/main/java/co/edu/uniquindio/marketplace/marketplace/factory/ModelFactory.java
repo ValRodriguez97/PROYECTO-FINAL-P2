@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class ModelFactory implements IModelFactory {
+public  class ModelFactory implements IModelFactory {
     private static ModelFactory instance;
     MarketPlace marketPlace;
     MarketPlaceMappingImplt mapper;
