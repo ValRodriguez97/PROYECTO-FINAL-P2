@@ -100,8 +100,15 @@ public class LoginViewController {
 
     public void login() throws IOException {
         UsuarioDto usuarioDto = buildUsuarioDto();
-        if(loginController.verificarUsuario(usuarioDto)){
-            showStage2(loginController.getUsuarioDto(usuarioDto));
+        if (loginController.verificarUsuario(usuarioDto)) {
+            VendedorDto vendedorDto = (VendedorDto) loginController.getUsuarioDto(usuarioDto);
+            if (vendedorDto != null) {
+                showStage2(vendedorDto);
+            } else {
+                lblErrorMessage.setText("Usuario no encontrado");
+            }
+        } else {
+            lblErrorMessage.setText("Usuario o contraseña incorrectos");
         }
     }
 
@@ -116,7 +123,21 @@ public class LoginViewController {
         );
     }
 
-    public void showStage2(UsuarioDto usuarioDto) throws IOException {
+    public void showStage2(VendedorDto vendedorDto) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 782, 484);
+        Stage stage = new Stage();
+    
+        WindowPrincipalViewController menuController = fxmlLoader.getController();
+        menuController.inicializarVentana(vendedorDto); 
+        stage.setScene(scene);
+    
+        Stage cerrar = (Stage) btnLogin.getScene().getWindow();
+        cerrar.close();
+    
+        stage.show();
+    }
+    /**public void showStage2(UsuarioDto usuarioDto) throws IOException {
       if(usuarioDto instanceof VendedorDto){
           try {
               FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
@@ -140,7 +161,7 @@ public class LoginViewController {
       } else {
           System.out.println("Usuario no encontrado");
       }
-    }
+    } **/
 
     @FXML
     void onPutPassword(ActionEvent event) {
