@@ -23,7 +23,6 @@ public class VendedorViewController {
     @FXML
     private TextArea textAreaDetalles;
 
-
     @FXML
     private TextField txtIdVendedor;
 
@@ -106,13 +105,14 @@ public class VendedorViewController {
             String idVendedor = txtIdVendedor.getText();
             String nombre = txtNombre.getText();
             String apellido = txtApellido.getText();
+            String cedula = txtCedula.getText();
             String direccion = txtDireccion.getText();
             String username = txtUsername.getText();
             String password = txtPassword.getText();
+            VendedorDto vendedor = new VendedorDto(idVendedor,nombre, apellido, cedula, direccion, username, password);
+            vendedorController.addVendedor(vendedor);
 
-            VendedorDto nuevoVendedor = new VendedorDto(idVendedor, nombre, apellido,null, direccion, username, password);
-
-            boolean agregado = vendedorController.addVendedor(nuevoVendedor);
+            boolean agregado = vendedorController.addVendedor(vendedor);
             if (agregado) {
                 mostrarMensaje("Vendedor agregado exitosamente.");
                 limpiarCampos();
@@ -124,10 +124,11 @@ public class VendedorViewController {
             String idVendedor = txtIdVendedor.getText();
             String nombre = txtNombre.getText();
             String apellido = txtApellido.getText();
+            String cedula = txtCedula.getText();
             String direccion = txtDireccion.getText();
             String username = txtUsername.getText();
             String password = txtPassword.getText();
-            String cedula = txtCedula.getText();
+
 
             VendedorDto vendedorActualizado = new VendedorDto(idVendedor, nombre, apellido, direccion, cedula, username, password);
 
@@ -144,6 +145,7 @@ public class VendedorViewController {
         txtIdVendedor.clear();
         txtNombre.clear();
         txtApellido.clear();
+        txtCedula.clear();
         txtDireccion.clear();
         txtUsername.clear();
         txtPassword.clear();

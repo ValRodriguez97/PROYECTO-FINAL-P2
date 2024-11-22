@@ -30,20 +30,12 @@ public class VendedorController implements IVendedorController {
             vendedorDto.getIdVendedor() != null && !vendedorDto.getIdVendedor().isEmpty() &&
             vendedorDto.getNombre() != null && !vendedorDto.getNombre().isEmpty() &&
                 vendedorDto.getApellido() != null && !vendedorDto.getApellido().isEmpty() &&
+                vendedorDto.getCedula() != null && !vendedorDto.getCedula().isEmpty() &&
                 vendedorDto.getDireccion() != null && !vendedorDto.getDireccion().isEmpty() &&
                 vendedorDto.getUsername() != null && !vendedorDto.getUsername().isEmpty() &&
                 vendedorDto.getPassword() != null && !vendedorDto.getPassword().isEmpty()) {
 
-            Vendedor nuevoVendedor = Vendedor.Vendedorbuilder()
-                    .idVendedor(vendedorDto.getIdVendedor())
-                    .nombre(vendedorDto.getNombre())
-                    .apellido(vendedorDto.getApellido())
-                    .direccion(vendedorDto.getDireccion())
-                    .username(vendedorDto.getUsername())
-                    .contraseña(vendedorDto.getPassword())
-                    .build();
-
-            return modelFactory.getMarketPlace().createVendedor(nuevoVendedor);
+            return modelFactory.addUsuario(vendedorDto);
         }
 
         return false;
@@ -51,7 +43,7 @@ public class VendedorController implements IVendedorController {
 
    @Override
     public boolean updateVendedor(VendedorDto vendedorDto){
-        if (vendedorDto == null ||
+      /**  if (vendedorDto == null ||
             vendedorDto.getIdVendedor() == null || vendedorDto.getIdVendedor().isEmpty()) {
             return false;
         }
@@ -59,21 +51,16 @@ public class VendedorController implements IVendedorController {
         if (vendedorExistente == null) {
             return false;
         }
-        Vendedor vendedorActualizado = Vendedor.Vendedorbuilder()
-                .idVendedor(vendedorDto.getIdVendedor())
-                .nombre(vendedorDto.getNombre())
-                .apellido(vendedorDto.getApellido())
-                .direccion(vendedorDto.getDireccion())
-                .username(vendedorDto.getUsername())
-                .contraseña(vendedorDto.getPassword())
-                .build();
+        Vendedor vendedorActualizado = new Vendedor(vendedorDto.getIdVendedor(), vendedorDto.getNombre(), vendedorDto.getApellido(), vendedorDto.getCedula(), vendedorDto.getDireccion(), vendedorDto.getUsername(), vendedorExistente.getContraseña());
 
        return modelFactory.getMarketPlace().updateVendedor(vendedorDto.getIdVendedor(), vendedorActualizado);
+       **/
+      return false;
     }
 
     @Override
     public boolean deleteVendedor(String cedula){
-        if (cedula == null || cedula.isEmpty()) {
+       /** if (cedula == null || cedula.isEmpty()) {
             return false;
         }
         Vendedor vendedorExistente = modelFactory.getMarketPlace().verificarVendedor(cedula);
@@ -81,7 +68,8 @@ public class VendedorController implements IVendedorController {
             return false;
         }
         boolean eliminado = modelFactory.getMarketPlace().deleteVendedor(cedula);
-        return eliminado;
+        return eliminado;**/
+       return false;
     }
 
     /**
@@ -90,7 +78,7 @@ public class VendedorController implements IVendedorController {
      * @return
      */
     public List<PublicacionDto> obtenerPublicacionesConectados(String idVendedor) {
-        Vendedor vendedor = modelFactory.getMarketPlace().verificarVendedor(idVendedor);
+       /** Vendedor vendedor = modelFactory.getMarketPlace().verificarVendedor(idVendedor);
         List<Publicacion> todasLasPublicaciones = new ArrayList<>();
         todasLasPublicaciones.addAll(vendedor.getMuro().getListPublicaciones());
 
@@ -112,7 +100,9 @@ public class VendedorController implements IVendedorController {
                 publicacion.getFechaPublicacion(),
                 publicacion.getDescripcion(),
                 publicacion.getProducto()
-        );
+        );**/
+       return  null;
     }
+
 }
 

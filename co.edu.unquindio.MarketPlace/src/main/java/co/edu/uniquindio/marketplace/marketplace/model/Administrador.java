@@ -1,7 +1,5 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
-import co.edu.uniquindio.marketplace.marketplace.model.builder.AdministradorBuilder;
-
 //Clase de tipo Admiistrador encargado de administrar las funciones del MarketPlace
 public class Administrador extends  Usuario {
     private String idAdminsitrador;
@@ -20,15 +18,6 @@ public class Administrador extends  Usuario {
     public Administrador(String idAdministrador,String nombre, String apellido, String cedula, String direccion, String username, String contraseña) {
         super(nombre, apellido, cedula, direccion, username, contraseña);
         this.idAdminsitrador = idAdminsitrador;
-    }
-
-    /**
-     * Método builder para la clase Administrador
-     *
-     * @return Administrador Builder
-     */
-    public static AdministradorBuilder Adminbuilder() {
-        return new AdministradorBuilder();
     }
 
     /**

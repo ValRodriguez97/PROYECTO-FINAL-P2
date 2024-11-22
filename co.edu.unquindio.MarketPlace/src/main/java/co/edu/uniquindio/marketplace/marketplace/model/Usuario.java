@@ -10,7 +10,6 @@ public class Usuario implements IObserver {
     private String direccion;
     private String username;
     private String contraseña;
-    private String hashedPassword;
 
     /**
      * Método Constructor de la clase Usuario

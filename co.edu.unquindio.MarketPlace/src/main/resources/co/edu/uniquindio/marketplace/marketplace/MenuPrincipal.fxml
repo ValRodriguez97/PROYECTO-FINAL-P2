@@ -31,7 +31,7 @@
       <AnchorPane layoutY="53.0" prefHeight="190.0" prefWidth="51.0" style="-fx-background-color: #cdbce5;" />
       <ImageView fitHeight="130.0" fitWidth="121.0" layoutX="272.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@user (1).png" />
+            <Image url="@user(1).png" />
          </image>
       </ImageView>
       <ImageView fitHeight="130.0" fitWidth="128.0" layoutX="427.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">

@@ -1,6 +1,5 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
-import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
 import co.edu.uniquindio.marketplace.marketplace.model.chainOfResponsability.publicacion.PublicacionFiltro;
 import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.*;
@@ -35,7 +34,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         this.nombre = nombre;
         this.listUsuarios = new ArrayList<Usuario>();
         this.listAdministradores = new ArrayList<Administrador>();
-        this.listVendedores = new ArrayList<Vendedor>();
+        this.listVendedores = new ArrayList<>();
     }
 
     /**
@@ -46,21 +45,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     @Override
     public boolean createVendedor(Vendedor vendedor){
        if(!verificarVendedorExistente(vendedor.getIdVendedor())){
-           Vendedor newVendedor = Vendedor.Vendedorbuilder()
-                   .idVendedor(vendedor.getIdVendedor())
-                   .nombre(vendedor.getNombre())
-                   .apellido(vendedor.getApellido())
-                   .cedula(vendedor.getCedula())
-                   .direccion(vendedor.getDireccion())
-                   .username(vendedor.getUsername())
-                   .contraseña(vendedor.getContraseña())
-                   .build();
-
-           newVendedor.setMuro(new Muro());
-           newVendedor.setListProductos(new ArrayList<>());
-           newVendedor.setListContactos(new ArrayList<>());
-           add(newVendedor);
-
+           listVendedores.add(vendedor);
            return true;
        }
        return false;
@@ -158,7 +143,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
             return null;
         }
         for (Vendedor vendedor : listVendedores) {
-            if (vendedor.getCedula().equals(idVendedor)) {
+            if (vendedor.getIdVendedor().equals(idVendedor)) {
                 return vendedor;
             }
         }
@@ -166,17 +151,21 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
 
     @Override
-    public boolean createPublicacion(Publicacion publicacion, Vendedor vendedor) {
-        if (!verificarPublicacion(publicacion, vendedor)) {
-            vendedor.getMuro().añadirPublicacion(publicacion);
-            return true;
+    public boolean createPublicacion(Publicacion publicacion, String vendedor) {
+        if (!verificarPublicacion(publicacion)) {
+            for(Vendedor vendedor1: listVendedores){
+                if(vendedor1.getIdVendedor().equals(vendedor)){
+                    vendedor1.getMuro().añadirPublicacion(publicacion);
+                    return true;
+                }
+            }
         }
         return false;
     }
 
     @Override
-    public boolean updatePublicacion(Publicacion publicacion, Vendedor vendedor) {
-        List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
+    public boolean updatePublicacion(Publicacion publicacion, String vendedor) {
+        /**List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
 
         for (Publicacion publicacionExistente : listPublicaciones) {
             if (publicacionExistente.equals(publicacion)) {
@@ -185,24 +174,31 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
                 publicacionExistente.setProducto(publicacion.getProducto());
                 return true;
             }
-        }
+        }**/
         return false;
     }
 
     @Override
-    public boolean deletePublicacion(Publicacion publicacion, Vendedor vendedor) {
-       List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
-       return listPublicaciones.remove(publicacion);
+    public boolean deletePublicacion(Publicacion publicacion, String vendedor) {
+       return true;
     }
 
     @Override
-    public boolean verificarPublicacionExistente(Publicacion publicacion, Vendedor vendedor) {
-        return verificarPublicacion(publicacion, vendedor);
+    public boolean verificarPublicacionExistente(Publicacion publicacion) {
+        return verificarPublicacion(publicacion);
     }
 
-    public boolean verificarPublicacion(Publicacion publicacion, Vendedor vendedor) {
-        List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
-        return listPublicaciones.contains(publicacion);
+    public boolean verificarPublicacion(Publicacion publicacion) {
+        List<Publicacion> publicacions = new ArrayList<>();
+        for(Vendedor vendedor : listVendedores){
+            publicacions.addAll(vendedor.getMuro().getListPublicaciones());
+        }
+        for(Publicacion publicacion1 : publicacions){
+            if(publicacion1.getProducto() == publicacion.getProducto()){
+                return true;
+            }
+        }
+        return  false;
     }
 
     //CHAIN OF RESPONSABILITY
@@ -227,16 +223,15 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     public boolean createAdministrador(Administrador administrador) {
         if (!verificarAdministradorExiste(administrador.getIdAdministrador())) {
             // El administrador ya existe
-            Administrador nuevoAdministrador = Administrador.Adminbuilder()
-                    .idAdministrador(administrador.getIdAdministrador())
-                    .nombre(administrador.getNombre())
-                    .apellido(administrador.getApellido())
-                    .cedula(administrador.getCedula())
-                    .direccion(administrador.getDireccion())
-                    .username(administrador.getUsername())
-                    .contraseña(administrador.getContraseña())
-                    .build();
-            add(nuevoAdministrador);
+            Administrador nuevoAdministrador = new Administrador(
+                    administrador.getIdAdministrador(),
+                    administrador.getNombre(),
+                    administrador.getApellido(),
+                    administrador.getCedula(),
+                    administrador.getDireccion(),
+                    administrador.getUsername(),
+                    administrador.getContraseña());
+            listAdministradores.add(nuevoAdministrador);
             return true;
         }
         return false;
@@ -294,7 +289,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     @Override
     public boolean createUsuario(Usuario usuario) {
         if (!verificarUsuarioExistente(usuario.getCedula())) {
-            add(usuario);
+            listUsuarios.add(usuario);
             return true;
         }
 
@@ -412,19 +407,6 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         }
     }
 
-    public <T> void add(T object){
-        if(object instanceof Usuario usuario){
-            listUsuarios.add(usuario);
-
-            if(usuario instanceof Administrador administrador){
-                listAdministradores.add(administrador);
-            } else  if(usuario instanceof Vendedor vendedor){
-                listVendedores.add(vendedor);
-            } else {
-                throw new IllegalStateException("No se puede agregar el objeto");
-            }
-        }
-    }
 
     public String getNombre () {
         return nombre;

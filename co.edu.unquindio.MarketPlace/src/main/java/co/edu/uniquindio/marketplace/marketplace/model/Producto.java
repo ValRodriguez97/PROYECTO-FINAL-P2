@@ -29,16 +29,7 @@ public class Producto {
      */
     public Producto(String nombre, String imagen, String categoria, double precio, Estado estado) {
         this.nombre = nombre;
-        try {
-            var imageUrl = getClass().getResource(imagen);
-            if (imageUrl == null) {
-                throw new IllegalArgumentException("No se encontró la imagen en la ruta: " + imagen);
-            }
-            this.imagen = new Image(imageUrl.toString());
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error al cargar la imagen: " + e.getMessage());
-            this.imagen = null;
-        }
+        this.imagen = new Image(getClass().getResource(imagen).toString());
         this.categoria = categoria;
         this.precio = precio;
         this.estado = estado;

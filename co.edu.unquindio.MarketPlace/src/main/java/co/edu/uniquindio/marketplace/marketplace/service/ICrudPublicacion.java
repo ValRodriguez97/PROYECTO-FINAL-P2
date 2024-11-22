@@ -4,10 +4,10 @@ import co.edu.uniquindio.marketplace.marketplace.model.Publicacion;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 
 public interface ICrudPublicacion {
-    boolean createPublicacion(Publicacion publicacion, Vendedor vendedor);
-    boolean updatePublicacion(Publicacion publicacion, Vendedor vendedor);
-    boolean deletePublicacion(Publicacion publicacion, Vendedor vendedor);
+    boolean createPublicacion(Publicacion publicacion, String vendedor);
+    boolean updatePublicacion(Publicacion publicacion, String vendedor);
+    boolean deletePublicacion(Publicacion publicacion, String vendedor);
     Publicacion getPublicacion(Publicacion publicacion);
 
-    boolean verificarPublicacionExistente(Publicacion publicacion, Vendedor vendedor);
+    boolean verificarPublicacionExistente(Publicacion publicacior);
 }

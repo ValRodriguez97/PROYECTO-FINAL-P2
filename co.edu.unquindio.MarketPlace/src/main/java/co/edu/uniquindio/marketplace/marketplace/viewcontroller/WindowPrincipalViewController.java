@@ -166,7 +166,7 @@ public class WindowPrincipalViewController{
 
     @FXML
     void onSearchSellers(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
+        /**TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Buscar vendedores");
         dialog.setHeaderText("Ingresa el nombre del vendedor que deseas buscar:");
         dialog.setContentText("Nombre del vendedor:");
@@ -186,7 +186,7 @@ public class WindowPrincipalViewController{
                     resultados.append(vendedor.getNombre()).append("\n");
                 }
             }
-        });
+        });**/
     }
 
     @FXML

@@ -1,24 +1,21 @@
 package co.edu.uniquindio.marketplace.marketplace.factory;
 
+import co.edu.uniquindio.marketplace.marketplace.MarketPlaceApplication;
 import co.edu.uniquindio.marketplace.marketplace.controller.VendedorController;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.*;
 import co.edu.uniquindio.marketplace.marketplace.mapping.mappers.MarketPlaceMappingImplt;
 import co.edu.uniquindio.marketplace.marketplace.model.*;
-import co.edu.uniquindio.marketplace.marketplace.service.ICrudVendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.service.IVendedorController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public  class ModelFactory implements IModelFactory {
     private static ModelFactory instance;
     MarketPlace marketPlace;
     MarketPlaceMappingImplt mapper;
-    private List<ProductoDto> productos;
-    private List<VendedorDto> vendedores;
     private MarketplaceFacade marketplaceFacade;
     private IVendedorController vendedorController;
     private UsuarioProxy usuarioProxy;
@@ -32,9 +29,7 @@ public  class ModelFactory implements IModelFactory {
 
     private ModelFactory() {
         mapper = new MarketPlaceMappingImplt();
-        marketPlace = inicializarDatos();
-        this.productos = new ArrayList<>();
-        this.vendedores = new ArrayList<>();
+        inicializarDatos();
         this.marketplaceFacade= new MarketplaceFacade();
         this.vendedorController = new VendedorController();
         usuarioProxy= new UsuarioProxy(marketPlace);
@@ -83,9 +78,9 @@ public  class ModelFactory implements IModelFactory {
 
     @Override
     public boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
-        Vendedor vendedor = marketPlace.verificarVendedor(vendedorDto.getIdVendedor());
-        Publicacion publicacion = new Publicacion(publicacionDto.getFechaPublicacion(),publicacionDto.getDescripcion(), publicacionDto.getProducto());
-        return marketPlace.createPublicacion(publicacion,vendedor);
+        Publicacion publicacion = mapper.publicacionDtoToPublicacion(publicacionDto);
+        Vendedor vendedor = (Vendedor) mapper.usuarioDtoToUsuario( vendedorDto);
+        return marketPlace.createPublicacion(publicacion, vendedor.getIdVendedor());
     }
 
 
@@ -103,13 +98,13 @@ public  class ModelFactory implements IModelFactory {
 
     /**
      * Métodos de Usuario agregar
-     * @param usuarioDto
+     * @param vendedorDto
      * @return
      */
     @Override
-    public boolean addUsuario(UsuarioDto usuarioDto) {
-        if (marketPlace.verificarUsuarioExistente(usuarioDto.getCedula())) {
-            Usuario usuario = mapper.usuarioDtoToUsuario(usuarioDto);
+    public boolean addUsuario(VendedorDto vendedorDto) {
+        if (marketPlace.verificarUsuarioExistente(vendedorDto.getCedula())) {
+            Usuario usuario = mapper.usuarioDtoToUsuario(vendedorDto);
             return marketPlace.createUsuario(usuario);
         }
         return false;
@@ -246,10 +241,10 @@ public  class ModelFactory implements IModelFactory {
         return this.vendedorController;
     }
 
-    public List<VendedorDto> getVendedoresPorNombre(String nombre){
-        return vendedores.stream().filter((vendedor -> vendedor.getNombre().toLowerCase().contains(nombre.toLowerCase()))).collect(Collectors.toList());
+   /** public List<VendedorDto> getVendedoresPorNombre(String nombre){
+        return marketPlace.getListVendedores().stream().filter((vendedor -> vendedor.getNombre().toLowerCase().contains(nombre.toLowerCase()))).collect(Collectors.toList());
 
-    }
+    }**/
 
     //PROXY
     /**
@@ -266,6 +261,57 @@ public  class ModelFactory implements IModelFactory {
     public List<VendedorDto> getVendedoresDto() {
         return mapper.vendedoresToVendedorDto(marketPlace.getListVendedores());
     }
+
+    @Override
+    public boolean addVendedor(VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateVendedor(VendedorDto vendedorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteVendedor(String idVendedor) {
+        return false;
+    }
+
+    @Override
+    public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto) {
+        return null;
+    }
+
+    @Override
+    public List<UsuarioDto> getUsuariosDto() {
+        return List.of();
+    }
+
+    @Override
+    public List<AdministradorDto> getAdministradoresDto() {
+        return List.of();
+    }
+
+    @Override
+    public boolean addAdministrador(AdministradorDto administradorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateAdministrador(AdministradorDto administradorDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteAdministrador(String cedula) {
+        return false;
+    }
+
+    @Override
+    public List<ProductoDto> getProductosPorNombre(String nombreProducto) {
+        return List.of();
+    }
+
 
 
     /**
@@ -389,32 +435,16 @@ public  class ModelFactory implements IModelFactory {
 
 
     // Método para inicializar datos de prueba
-    public static MarketPlace inicializarDatos() {
+    public static void  inicializarDatos() {
         MarketPlace marketPlace = new MarketPlace("Mi Marketplace");
 
-        Vendedor vendedor1 = Vendedor.Vendedorbuilder()
-                .nombre("Sofia")
-                .apellido("Suarez")
-                .cedula("12345")
-                .direccion("Calle 23")
-                .username("Sofi")
-                .contraseña("sofia123")
-                .build();
+        Vendedor vendedor1 = new Vendedor("123","Sofia", "Suarez", "12345", "Calle 23", "Sofi", "sofia123");
+        Vendedor vendedor2 = new Vendedor("242", "Carlos", "Gomez", "67890", "Calle 45", "CarlosG", "carlos123");
 
-        Vendedor vendedor2 = Vendedor.Vendedorbuilder()
-                .nombre("Carlos")
-                .apellido("Gomez")
-                .cedula("67890")
-                .direccion("Calle 45")
-                .username("CarlosG")
-                .contraseña("carlos123")
-                .build();
-        marketPlace.createVendedor(vendedor1);
-        marketPlace.createVendedor(vendedor2);
 
-        Producto producto1 = Producto.builder()
+        /**Producto producto1 = Producto.builder()
                 .nombre("Laptop")
-                .imagen("path/to/laptop/image.png") // Asegúrate de que la ruta sea correcta
+                .imagen("/co/edu/uniquindio/marketplace/marketplace/one-piece-title-manga-art-0k550byvor5oc6nb.jpg") // Asegúrate de que la ruta sea correcta
                 .categoria("Electrónica")
                 .precio(1000.00)
                 .estado(Estado.PUBLICADO)
@@ -422,17 +452,16 @@ public  class ModelFactory implements IModelFactory {
 
         Producto producto2 = Producto.builder()
                 .nombre("Teléfono")
-                .imagen("path/to/phone/image.png") // Asegúrate de que la ruta sea correcta
+                .imagen("/co/edu/uniquindio/marketplace/marketplace/one-piece-title-manga-art-0k550byvor5oc6nb.jpg") // Asegúrate de que la ruta sea correcta
                 .categoria("Electrónica")
                 .precio(500.00)
                 .estado(Estado.PUBLICADO)
                 .build();
-
+**/
         // Agregar productos a los vendedores
-        vendedor1.setListProductos(new ArrayList<>(List.of(producto1)));
-        vendedor2.setListProductos(new ArrayList<>(List.of(producto2)));
+       // vendedor1.setListProductos(new ArrayList<>(List.of(producto1)));
+        //vendedor2.setListProductos(new ArrayList<>(List.of(producto2)));
 
-        return marketPlace;
     }
 
 }

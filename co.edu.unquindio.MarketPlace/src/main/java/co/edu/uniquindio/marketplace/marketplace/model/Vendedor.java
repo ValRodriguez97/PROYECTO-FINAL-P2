@@ -1,6 +1,5 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
-import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
 import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 
@@ -28,28 +27,15 @@ public class Vendedor extends Usuario {
      * @param username Usuario del Vendedor
      * @param contraseña Contraseña del Vendedor
      */
-    public Vendedor(String idVendedor,String nombre, String apellido, String cedula, String direccion, String username, String contraseña){
+    public Vendedor(String nombre, String apellido, String cedula, String direccion, String username, String contraseña, String idVendedor){
         super(nombre, apellido, cedula, direccion, username, contraseña);
-        this.listProductos = new ArrayList<Producto>();
-        this.listContactos = new ArrayList<Vendedor>();
+        this.listProductos = new ArrayList<>();
+        this.listContactos = new ArrayList<>();
         this.idVendedor = idVendedor;
         this.muro = new Muro();
         this.seguidores = new ArrayList<>(); //OBSERVER
     }
 
-    /**
-     * Método Constructor de la clase Vendedor
-     */
-    public Vendedor (){}
-
-    /**
-     * Método builder de la clase Vendedor
-     *
-     * @return VendedorBuilder
-     */
-    public static VendedorBuilder Vendedorbuilder(){
-        return new VendedorBuilder();
-    }
 
     /**
      * Método para añadir un contacto a la lista de Contactos del Vendedor

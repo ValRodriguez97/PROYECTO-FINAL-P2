@@ -3,7 +3,6 @@ package co.edu.uniquindio.marketplace.marketplace.mapping.mappers;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.*;
 import co.edu.uniquindio.marketplace.marketplace.model.*;
-import co.edu.uniquindio.marketplace.marketplace.model.builder.VendedorBuilder;
 import co.edu.uniquindio.marketplace.marketplace.service.IMarketPlaceMapping;
 
 import java.util.ArrayList;

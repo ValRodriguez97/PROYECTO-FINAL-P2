@@ -17,10 +17,11 @@ public interface IModelFactory {
 
   List<PublicacionDto> getPublicacionesDto(Muro muro);
   boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
-  boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
+
+    boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
   boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
 
-  boolean addUsuario(UsuarioDto usuarioDto);
+  boolean addUsuario(VendedorDto vendedorDto);
   boolean updateUsuario(UsuarioDto usuarioDto);
   boolean deleteUsuario(String cedula);
 
@@ -51,5 +52,5 @@ public interface IModelFactory {
     boolean deleteAdministrador(String cedula);
 
 
-    public boolean admitirUsuario(UsuarioDto usuarioDto);
+    List<ProductoDto> getProductosPorNombre(String nombreProducto);
 }
