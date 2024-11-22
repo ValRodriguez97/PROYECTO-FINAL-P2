@@ -63,7 +63,7 @@ public class WindowPrincipalViewController{
         Vendedor vendedor = modelFactory.getMarketPlace().getListVendedores().stream()
                 .filter(v -> v.getCedula().equals(vendedorDto.getCedula()))
                 .findFirst()
-                .orElse(null);
+                .orElse(null);      
         if (vendedor != null) {
             List<Producto> productosFavoritos = vendedor.getProductosFavoritos();
             mostrarProductosFavoritos(productosFavoritos);
@@ -221,28 +221,30 @@ public class WindowPrincipalViewController{
 
     @FXML
     void onSearchWall(ActionEvent event) throws IOException {
-        changeWindow();
+        changeWindow("Wall.fxml");
     }
 
-    public void changeWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("co.edu.unquindio.MarketPlace/src/main/resources/co/edu/uniquindio/marketplace/marketplace/Wall.fxml"));
+    public void changeWindow(String fxmlFile) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/" + fxmlFile));
         Scene scene = new Scene(fxmlLoader.load(), 782, 484);
         Stage stage = new Stage();
-
-        VendedorViewController controller = fxmlLoader.getController();
-        //controller.inicializarVentana(vendedorDto);
+    
+        if (fxmlFile.equals("Wall.fxml")) {
+            VendedorViewController controller = fxmlLoader.getController();
+            controller.inicializarVentana(vendedorDto); 
+        }
+    
         stage.setScene(scene);
-
-        Stage cerrar = (Stage) btnWall.getScene().getWindow();
-        cerrar.close();
-
+        Stage currentStage = (Stage) btnWall.getScene().getWindow();
+        currentStage.close(); 
         stage.show();
     }
-
+    
     public void inicializarVentana(VendedorDto vendedorDto) throws IOException{
         modelFactory =  ModelFactory.getInstance();
 
     }
+
     @FXML
     void initialize() {
         assert SearchHistory != null : "fx:id=\"SearchHistory\" was not injected: check your FXML file 'MenuPrincipal.fxml'.";

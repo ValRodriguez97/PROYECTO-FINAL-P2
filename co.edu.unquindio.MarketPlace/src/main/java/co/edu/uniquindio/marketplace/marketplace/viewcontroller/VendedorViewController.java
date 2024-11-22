@@ -13,6 +13,11 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.List;
 
 public class VendedorViewController {
+    private VendedorDto vendedorDto;
+
+    public void inicializarVentana(VendedorDto vendedorDto){
+        this.vendedorDto = vendedorDto;
+    }
     /**private VendedorController vendedorController;
     private VendedorDto vendedorDto;
 
