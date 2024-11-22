@@ -44,29 +44,35 @@ public  class ModelFactory implements IModelFactory {
         this.marketPlace = marketPlace;
     }
 
-    //MÉTODOS DE PUBLICACIÓN
+    @Override
+    public UsuarioDto getUsuario(UsuarioDto usuarioDto) {
+        if(admitirUsuario(usuarioDto)){
+            return  mapper.usuarioToUsuarioDto(marketPlace.getUsuarioLogin(usuarioDto.getUsername(), usuarioDto.getPassword()));
+        }
+        return null;
+    }
 
+    public UsuarioDto getUserID(String id){
+        return mapper.usuarioToUsuarioDto(marketPlace.getUserId(id));
+    }
 
     @Override
     public void darLikePublicacion(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto) {
-        marketPlace.
+        marketPlace.darLikePublicacion((Vendedor) mapper.usuarioDtoToUsuario(usuarioDto), idVendedor, publicacionDto.getFechaPublicacion());
     }
 
-    /**
-     * Método de listaProductos
-     * @param usuarioDto
-     * @return
-     */
     @Override
     public List<ProductoDto> listaProductosDisponibles(UsuarioDto usuarioDto) {
-        return List.of();
+        Usuario usuario = marketPlace.getUsuarioLogin(usuarioDto.getUsername(), usuarioDto.getPassword()) ;
+        List<ProductoDto> disponible = new ArrayList<>();
+        if( usuario != null){
+            for(Producto producto :((Vendedor) usuario).getProductosDisponibles()){
+                disponible.add(mapper.productoToProductoDto(producto));
+            }
+        }
+        return disponible;
     }
 
-    /**
-     * Método listaPublicaciones
-     * @param muro
-     * @return
-     */
     @Override
     public List<PublicacionDto> getPublicacionesDto(Muro muro) {
         return List.of();
@@ -74,16 +80,16 @@ public  class ModelFactory implements IModelFactory {
 
     @Override
     public boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
-        Publicacion publicacion = mapper.publicacionDtoToPublicacion(publicacionDto);
-        Vendedor vendedor = (Vendedor) mapper.usuarioDtoToUsuario( vendedorDto);
-        return marketPlace.createPublicacion(publicacion, vendedor.getIdVendedor());
-    }
+       Publicacion publicacio1 = mapper.publicacionDtoToPublicacion(publicacionDto);
+       Usuario usuario= mapper.usuarioDtoToUsuario(vendedorDto);
 
+        Publicacion publicacion = new Publicacion(publicacio1.getFechaPublicacion(), publicacio1.getDescripcion(), publicacio1.getProducto());
+        marketPlace.createPublicacion(publicacion, usuario.getCedula());
+        return true;
+    }
 
     @Override
     public boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
-        Vendedor vendedor = marketPlace.verificarVendedor(vendedorDto.getIdVendedor());
-       // Publicacion publicacion = vendedor.getMuro().getListPublicaciones(publicacionDto.getDescripcion());
         return false;
     }
 
@@ -92,32 +98,107 @@ public  class ModelFactory implements IModelFactory {
         return false;
     }
 
-    /**
-     * Métodos de Usuario agregar
-     * @param vendedorDto
-     * @return
-     */
     @Override
     public boolean addUsuario(VendedorDto vendedorDto) {
-        if (marketPlace.verificarUsuarioExistente(vendedorDto.getCedula())) {
-            Usuario usuario = mapper.usuarioDtoToUsuario(vendedorDto);
-            return marketPlace.createUsuario(usuario);
-        }
+       return marketPlace.createUsuario((Vendedor) mapper.usuarioDtoToUsuario(vendedorDto));
+    }
+
+    @Override
+    public boolean updateUsuario(UsuarioDto usuarioDto) {
         return false;
     }
-    //METODOS DE USUARIO
 
-    /**
-     * Método de usuario, obtenerUsuario
-     * @param usuarioDto
-     * @return
-     */
     @Override
-    public UsuarioDto getUsuario(UsuarioDto usuarioDto) {
-        if(admitirUsuario(usuarioDto)){
-            return mapper.usuarioToUsuarioDto(marketPlace.getUsuarioVerificar(usuarioDto.getUsername(), usuarioDto.getPassword()));
-        }
-        return null;
+    public boolean deleteUsuario(String cedula) {
+        return false;
+    }
+
+    @Override
+    public boolean addChatMessage(MensajeDto mensajeDto, ChatDto chatDto) {
+        return marketPlace.addMessage(mapper.mensajeDtoToMensaje(mensajeDto), mapper.chatDtoToChat(chatDto));
+    }
+
+    @Override
+    public ChatDto getChat(VendedorDto vendedorDto, VendedorDto vendedorDto2) {
+        Chat chat = new Chat();
+        chat = marketPlace.getChat((Vendedor) mapper.usuarioDtoToUsuario(vendedorDto), (Vendedor) mapper.usuarioDtoToUsuario(vendedorDto2));
+        return mapper.chatToChatDto(chat);
+    }
+
+    @Override
+    public void darLike(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
+        marketPlace.añadirComentario(mapper.comentarioDtoToComentario(comentarioDto), mapper.publicacionDtoToPublicacion(publicacionDto)
+        );
+    }
+
+    @Override
+    public int getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
+        return marketPlace.getLikesComentarios(mapper.comentarioDtoToComentario(comentarioDto), mapper.publicacionDtoToPublicacion(publicacionDto));
+    }
+
+    @Override
+    public void aplicarDescuentos() {
+
+    }
+
+    @Override
+    public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto) {
+       if(admitirUsuario(usuarioDto)){
+           return mapper.usuarioToUsuarioDto(marketPlace.getUsuarioLogin(usuarioDto.getUsername(), usuarioDto.getPassword()));
+       }
+       return null;
+    }
+
+    @Override
+    public List<ProductoDto> getProductosPorNombre(String nombreProducto) {
+        return mapper.productoDtoListToProductoDtoList(marketPlace.getListaProductos(nombreProducto));
+    }
+
+    @Override
+    public List<VendedorDto> getListContactosDto(String id) {
+        return mapper.vendedoresToVendedorDto(marketPlace.getListContactos(id));
+    }
+
+    @Override
+    public List<Vendedor> getListContactos(String id) {
+        return marketPlace.getListContactos(id);
+    }
+
+    @Override
+    public List<Comentario> getListComentarios(String id, Publicacion publicacion) {
+        return marketPlace.getListComentarios(id);
+    }
+
+    @Override
+    public List<ComentarioDto> getListComentariosDto(String id, PublicacionDto publicacionDto) {
+       return mapper.comentariosToComentarioDto(marketPlace.getListComentarios(id));
+    }
+
+    @Override
+    public List<Vendedor> getListLike(String id, PublicacionDto publicacionDto) {
+        return marketPlace.getListLike(id, mapper.productoDtoToProducto(publicacionDto.getProducto()));
+    }
+
+    @Override
+    public List<VendedorDto> getListLikeDto(String id, PublicacionDto publicacionDto) {
+        return mapper.vendedoresToVendedorDto(marketPlace.getListLike(id, mapper.productoDtoToProducto(publicacionDto.getProducto())));
+    }
+
+    @Override
+    public List<Publicacion> getListPublicaciones(String id) {
+        return marketPlace.getListPublicaciones(id);
+    }
+
+
+
+    @Override
+    public List<MensajeDto> getListMensajesDto(String id) {
+        return mapper.mensajeToMensajeDtoList(marketPlace.getMensajes(id));
+    }
+
+    @Override
+    public List<Mensaje> getListMensajes(String id) {
+        return marketPlace.getMensajes(id);
     }
 
     /**
@@ -132,125 +213,7 @@ public  class ModelFactory implements IModelFactory {
         }
         return false;
     }
-    /**
-     * Método actualizarUsuario
-     * @param usuarioDto
-     * @return
-     */
-    @Override
-    public boolean updateUsuario(UsuarioDto usuarioDto) {
-        if(marketPlace.verificarUsuarioExistente(usuarioDto.getCedula())){
-            Usuario usuario = mapper.usuarioDtoToUsuario(usuarioDto);
-            return marketPlace.updateUsuario(usuario);
-        }
-        return false;
-    }
 
-    /**
-     * Método eliminarUsuario
-     * @param cedula
-     * @return
-     */
-    @Override
-    public boolean deleteUsuario(String cedula) {
-        return false;
-    }
-
-    //MÉTODOS DE CHAT
-
-    /**
-     * Método agregarchatMensaje
-     * @param mensajeDto
-     * @param chatDto
-     * @return
-     */
-    @Override
-    public boolean addChatMessage(MensajeDto mensajeDto, ChatDto chatDto) {
-        return false;
-    }
-
-    /**
-     * Método de comentario, agregarComentario
-     * @param comentarioDto
-     * @return
-     */
-    @Override
-    public boolean addComentario(ComentarioDto comentarioDto) {
-        return false;
-    }
-
-    /**
-     * Método de comentario, actualizarComentario
-     * @param comentarioDto
-     * @return
-     */
-    @Override
-    public boolean updateComentario(ComentarioDto comentarioDto) {
-        return false;
-    }
-
-    /**
-     * Método de comentario, eliminarComentario
-     * @param comentarioDto
-     * @return
-     */
-    @Override
-    public boolean deleteComentario(ComentarioDto comentarioDto) {
-        return false;
-    }
-
-    /**
-     * Método de Mensaje, agregarMensaje
-     * @param mensajeDto
-     * @return
-     */
-    @Override
-    public boolean addMensaje(MensajeDto mensajeDto) {
-        return false;
-    }
-
-    /**
-     * Método de Mensaje, actualizarMensaje
-     * @param mensajeDto
-     * @return
-     */
-    @Override
-    public boolean updateMensaje(MensajeDto mensajeDto) {
-        return false;
-    }
-
-    /**
-     * Método de Mensaje, eliminarMensaje
-     * @param mensajeDto
-     * @return
-     */
-    @Override
-    public boolean deleteMensaje(MensajeDto mensajeDto) {
-        return false;
-    }
-
-    @Override
-    public void darLike(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
-
-    }
-
-    @Override
-    public void getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
-
-    }
-
-    @Override
-    public void aplicarDescuentos(){
-    }
-
-    public IVendedorController getVendedorController() {
-        return this.vendedorController;
-    }
-
-   /** public List<VendedorDto> getVendedoresPorNombre(String nombre){
-        return marketPlace.getListVendedores().stream().filter((vendedor -> vendedor.getNombre().toLowerCase().contains(nombre.toLowerCase()))).collect(Collectors.toList());
-
-    }**/
 
     //PROXY
     /**
@@ -264,66 +227,6 @@ public  class ModelFactory implements IModelFactory {
     }
 
 
-    @Override
-    public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto) {
-        return null;
-    }
-
-
-    @Override
-    public List<ProductoDto> getProductosPorNombre(String nombreProducto) {
-        return List.of();
-    }
-
-    @Override
-    public List<VendedorDto> getListContactosDto(String id) {
-        return List.of();
-    }
-
-    @Override
-    public List<VendedorDto> getListContactos(String id) {
-        return List.of();
-    }
-
-    @Override
-    public List<Comentario> getListComentarios(Publicacion publicacion) {
-        return List.of();
-    }
-
-    @Override
-    public List<ComentarioDto> getListComentariosDto(PublicacionDto publicacionDto) {
-        return List.of();
-    }
-
-    @Override
-    public List<Vendedor> getListLike(String id, PublicacionDto publicacionDto) {
-        return List.of();
-    }
-
-    @Override
-    public List<VendedorDto> getListLikeDto(String id, PublicacionDto publicacionDto) {
-        return List.of();
-    }
-
-    @Override
-    public List<Publicacion> getListPublicaciones(String id) {
-        return List.of();
-    }
-
-    @Override
-    public List<ProductoDto> getListPublicacionesDto(String id) {
-        return List.of();
-    }
-
-    @Override
-    public List<MensajeDto> getListMensajesDto(String id) {
-        return List.of();
-    }
-
-    @Override
-    public List<Mensaje> getListMenajes(String id) {
-        return List.of();
-    }
 
 
     // Método para inicializar datos de prueba

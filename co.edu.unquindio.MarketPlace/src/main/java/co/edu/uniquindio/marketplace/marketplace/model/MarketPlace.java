@@ -16,7 +16,7 @@ import java.util.List;
  * La clase MarketPlace es un mercado en línea que gestiona usuarios, administrados, vendedores y publicaciones
  * Implementa las interfaces de CRUD para usuarios, administradores, vendedores y publicaciones
  */
-public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
+public class MarketPlace implements ICrudPublicacion, ICrudUsuario  {
     private String nombre;
     private List<Usuario> listUsuarios;
     private List<Administrador> listAdministradores;
@@ -44,20 +44,6 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
     //METODOS PARA VENDEDOR /////////////////
 
     /**
-     * Método para crear un nuevo vendedor en el marketplace
-     * @param vendedor
-     * @return
-     */
-    @Override
-    public boolean createVendedor(Vendedor vendedor){
-       if(!verificarVendedorExistente(vendedor.getIdVendedor())){
-           listVendedores.add(vendedor);
-           return true;
-       }
-       return false;
-    }
-
-    /**
      * Método que agrega una publicación al muro de un vendedor
      * @param vendedor
      * @param publicacion
@@ -79,20 +65,6 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
         }
     }
 
-    /**
-     * Método que añade un nuevo contacto a la lista de contactos de un vendedor
-     * @param vendedor
-     * @param nuevoContacto
-     * @return
-     */
-    public boolean añadirContacto(Vendedor vendedor, Vendedor nuevoContacto) {
-        if (!vendedor.verificarContactoExistente(nuevoContacto) &&
-            vendedor.getListContactos().size() < vendedor.getContactodMaximos()){
-            vendedor.añadirContacto(nuevoContacto);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Método que obtiene una lista de sugerencias de contactos para un vendedor
@@ -217,6 +189,26 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
         return false;
     }
 
+    public Usuario getUsuarioLogin(String username, String password){
+        if(verificarContraseñaUsuario(username,password)){
+            for(Usuario user : listUsuarios){
+                if(user.getUsername().equals(username) && user.getContraseña().equals(password)){
+                    return user;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Usuario getUserId(String id){
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                return  vendedor;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean updateUsuario (Usuario usuarioActualizado){
         Usuario usuarioExistente = getUsuario(usuarioActualizado.getCedula());
@@ -273,7 +265,7 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
     }
     
     public boolean autenticarUsuario(String nombreUsuario, String contraseña) {
-        for (Usuario usuario : getListUsuarios()) {
+        for (Usuario usuario : listUsuarios) {
             if (usuario.getUsername().equals(nombreUsuario) && usuario.getContraseña().equals(contraseña)) {
                 setUsuarioActual(usuario); 
                 return true;
@@ -330,35 +322,11 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
         this.nombre = nombre;
     }
 
-    public List<Usuario> getListUsuarios () {
-        return listUsuarios;
-    }
-
-    public void setListUsuarios (List < Usuario > listUsuarios) {
-        this.listUsuarios = listUsuarios;
-    }
-
-    public List<Administrador> getListAdministradores () {
-        return listAdministradores;
-    }
-
-    public void setListAdministradores (List < Administrador > listAdministradores) {
-        this.listAdministradores = listAdministradores;
-    }
-
-    public List<Vendedor> getListVendedores () {
-        return listVendedores;
-    }
-
-    public void setListVendedores (List < Vendedor > listVendedores) {
-        this.listVendedores = listVendedores;
-    }
-
     /**
      * Método para la implementación del decorator
      */
     public void aplicarDescuentos() {
-        for (Vendedor vendedor : listVendedores()) {
+        for (Vendedor vendedor : listVendedores) {
             List<Producto> productosConDescuento = new ArrayList<>();
             for (Producto producto : vendedor.getListProductos()) {
 
@@ -374,9 +342,6 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
         }
     }
 
-    public MarketplaceFacade getMarketplaceFacade(){
-        return marketplaceFacade;
-    }
 //STRATEGY
     public void setEstrategiaProducto(IStrategyProducto estrategiaProducto){
         this.estrategiaProducto = estrategiaProducto;
@@ -414,6 +379,203 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
         return null;
    }
 
+   public Chat getChat(Vendedor vendedor, Vendedor contacto){
+        for(Vendedor vendedor1 : listVendedores){
+            if(vendedor1.getIdVendedor().equals(vendedor.getIdVendedor())){
+                for(Chat chat : vendedor1.getMuro().getListChat()){
+                    if(chat.getVendedor1().getIdVendedor().equals(vendedor.getIdVendedor()) && chat.getVendedor2().getIdVendedor().equals(contacto.getIdVendedor())|| chat.getVendedor1().getIdVendedor().equals(contacto.getIdVendedor())&& chat.getVendedor2().getIdVendedor().equals(vendedor.getIdVendedor())){
+                            return chat;
+                    }
+                }
+            }
+        }
+        return null;
+   }
+
+   public List<Producto> getListaProductos(String id){
+        List<Producto> productos = new ArrayList<>();
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                productos = vendedor.getListProductos();
+            }
+        }
+        return productos;
+   }
+
+   public List<Vendedor> getListContactos(String id){
+        List<Vendedor> contactos = new ArrayList<>();
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                contactos = vendedor.getListContactos();
+            }
+        }
+        return contactos;
+   }
+
+   public List<Comentario> getListComentarios(String id){
+        List<Comentario> comentarios = new ArrayList<>();
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                for(Publicacion publicacion : vendedor.getMuro().getListPublicaciones()){
+                    if(publicacion.getIdVendedor().equals(id)){
+                        comentarios.addAll(publicacion.getListComentarios());
+                    }
+                }
+            }
+        }
+        return comentarios;
+   }
+
+   public List<Comentario> getComentario(String id, LocalDateTime fecha){
+        List<Comentario> comentarios = new ArrayList<>();
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                for(Publicacion publicacion : vendedor.getMuro().getListPublicaciones()){
+                    if(publicacion.getFechaPublicacion() == fecha ){
+                        comentarios = publicacion.getListComentarios();
+                        break;
+                    }
+                }
+            }
+        }
+        return comentarios;
+   }
+
+   public List<Vendedor> getListLike(String id, Producto producto){
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                for(Publicacion publicacion : vendedor.getMuro().getListPublicaciones()){
+                    if(publicacion.getProducto().getImagen() == producto.getImagen()){
+                        return publicacion.getListLikesVendedores();
+                    }
+                }
+            }
+        }
+        return null;
+   }
+
+   public List<Publicacion> getListPublicaciones(String id){
+        List<Publicacion> publicaciones = new ArrayList<>();
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(id)){
+                for(Publicacion publicacion : vendedor.getMuro().getListPublicaciones()){
+                    if(publicacion.getIdVendedor().equals(id)){
+                        publicaciones.add(publicacion);
+                    }
+                }
+            }
+        }
+        return publicaciones;
+   }
+
+   public void darLikePublicacion(Vendedor vendedor, String id, LocalDateTime fecha){
+        for(Vendedor vendedor1 : listVendedores){
+            if(vendedor1.getIdVendedor().equals(id)){
+                for(Publicacion publicacion : vendedor1.getMuro().getListPublicaciones()){
+                    if(publicacion.getFechaPublicacion().equals(fecha)){
+                        publicacion.añadirLike(vendedor);
+                        break;
+                    }
+                }
+            }
+        }
+   }
+
+   public void añadirContacto(Vendedor vendedor1, Vendedor vendedor2){
+        vendedor1.añadirContacto(vendedor2);
+        vendedor2.añadirContacto(vendedor1);
+   }
+
+   public boolean addMessage(Mensaje mensaje, Chat chat){
+        for(Vendedor vendedor : listVendedores){
+            for(Chat chat1: vendedor.getMuro().getListChat()){
+                if(chat1.getIdChat().equals(chat.getIdChat())){
+                    chat.enviarMensaje(mensaje);
+                    return true;
+                }
+            }
+        }
+        return false;
+   }
+
+   public boolean añadirComentario(Comentario comentario, Publicacion publicacion){
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(publicacion.getIdVendedor())){
+                for(Publicacion publicacion1 : vendedor.getMuro().getListPublicaciones()){
+                    if(publicacion1.getFechaPublicacion().equals(publicacion.getFechaPublicacion())){
+                        publicacion1.añadirComentario(comentario);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+   }
+
+   public void likeComentario(Comentario comentario, Publicacion publicacion){
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(publicacion.getIdVendedor())){
+                for(Publicacion publicacion1 : vendedor.getMuro().getListPublicaciones()){
+                    if (publicacion1.getFechaPublicacion().equals(publicacion.getFechaPublicacion())) {
+                        for(Comentario comentario1 : publicacion.getListComentarios()){
+                            if(comentario1.getFechaComentario().equals(comentario.getFechaComentario())){
+                                comentario1.setNumLikes(comentario1.getNumLikes()+1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+   }
+
+   public int getLikesComentarios(Comentario comentario, Publicacion publicacion){
+        for(Vendedor vendedor : listVendedores){
+            if(vendedor.getIdVendedor().equals(publicacion.getIdVendedor())){
+                for(Publicacion publicacion1 : vendedor.getMuro().getListPublicaciones()){
+                    if (publicacion1.getFechaPublicacion().equals(publicacion.getFechaPublicacion())) {
+                        for(Comentario comentario1 : publicacion.getListComentarios()){
+                            if(comentario1.getFechaComentario().equals(comentario.getFechaComentario())){
+                                return comentario1.getNumLikes();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+   }
+
+    public List<Usuario> getListUsuarios() {
+        return listUsuarios;
+    }
+
+    public void setListUsuarios(List<Usuario> listUsuarios) {
+        this.listUsuarios = listUsuarios;
+    }
+
+    public List<Administrador> getListAdministradores() {
+        return listAdministradores;
+    }
+
+    public void setListAdministradores(List<Administrador> listAdministradores) {
+        this.listAdministradores = listAdministradores;
+    }
+
+    public List<Vendedor> getListVendedores() {
+        return listVendedores;
+    }
+
+    public void setListVendedores(List<Vendedor> listVendedores) {
+        this.listVendedores = listVendedores;
+    }
+
+    public List<Publicacion> getPublicaciones() {
+        return publicaciones;
+    }
+
+    public void setPublicaciones(List<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
+    }
 }
 
 

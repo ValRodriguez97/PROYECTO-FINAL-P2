@@ -47,7 +47,7 @@ public class CreateAccountViewController {
     @FXML
     void OnCreateAccount(ActionEvent event) {
         VendedorDto vendedorDto = buildVendedorDto();
-        usuarioController.registrarVendedor();
+        usuarioController.createUsuario(vendedorDto);
     }
 
     public VendedorDto buildVendedorDto(){
@@ -58,8 +58,8 @@ public class CreateAccountViewController {
                 txtAddYourCedula.getText(),
                 txtAddYourAdress.getText(),
                 txtAddYourUsername.getText(),
-                txtAddYourPassword.getText();
-        )
+                txtAddYourPassword.getText()
+        );
     }
 
     @FXML

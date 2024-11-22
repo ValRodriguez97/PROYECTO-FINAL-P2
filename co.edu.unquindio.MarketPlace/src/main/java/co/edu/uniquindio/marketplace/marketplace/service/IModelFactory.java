@@ -11,7 +11,7 @@ import java.util.List;
 public interface IModelFactory {
   public UsuarioDto getUsuario(UsuarioDto usuarioDto);
   public boolean admitirUsuario(UsuarioDto usuarioDto);
-  public void darLikePublicacion(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto)
+  public void darLikePublicacion(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto);
   public List<ProductoDto> listaProductosDisponibles(UsuarioDto usuarioDto);
 
   List<PublicacionDto> getPublicacionesDto(Muro muro);
@@ -25,17 +25,10 @@ public interface IModelFactory {
 
   boolean addChatMessage(MensajeDto mensajeDto, ChatDto chatDto);
 
-  boolean addComentario(ComentarioDto comentarioDto);
-  boolean updateComentario(ComentarioDto comentarioDto);
-  boolean deleteComentario(ComentarioDto comentarioDto);
-
-  boolean addMensaje(MensajeDto mensajeDto);
-  boolean updateMensaje(MensajeDto mensajeDto);
-  boolean deleteMensaje(MensajeDto mensajeDto);
+ChatDto getChat(VendedorDto vendedorDto, VendedorDto vendedorDto2);
 
   void darLike(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
-  void getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
-
+  int getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
   public void aplicarDescuentos();
 
     public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto);
@@ -43,18 +36,17 @@ public interface IModelFactory {
     List<ProductoDto> getProductosPorNombre(String nombreProducto);
 
     List<VendedorDto> getListContactosDto(String id);
-    List<VendedorDto> getListContactos(String id);
+    List<Vendedor> getListContactos(String id);
 
-    List<Comentario> getListComentarios(Publicacion publicacion);
-    List<ComentarioDto> getListComentariosDto(PublicacionDto publicacionDto);
+    List<Comentario> getListComentarios(String id, Publicacion publicacion);
+    List<ComentarioDto> getListComentariosDto(String id,PublicacionDto publicacionDto);
 
     List<Vendedor> getListLike(String id, PublicacionDto publicacionDto);
     List<VendedorDto> getListLikeDto(String id, PublicacionDto publicacionDto);
 
     List<Publicacion> getListPublicaciones(String id);
-    List<ProductoDto> getListPublicacionesDto(String id);
 
     List<MensajeDto> getListMensajesDto(String id);
-    List<Mensaje> getListMenajes(String id);
+    List<Mensaje> getListMensajes(String id);
     }
 

@@ -14,14 +14,21 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
     @Override
     public ChatDto chatToChatDto(Chat chat) {
-        if(chat == null) return null;
-        return new ChatDto();
+        ChatDto chatDto = new ChatDto();
+        chatDto.setId(chat.getIdChat());
+        chatDto.setVendedorDto1((VendedorDto) usuarioToUsuarioDto(chat.getVendedor1()));
+        chatDto.setVendedorDto2((VendedorDto) usuarioToUsuarioDto(chat.getVendedor2()));
+        return chatDto;
     }
 
     @Override
     public Chat chatDtoToChat(ChatDto chatDto) {
-        if(chatDto == null) return null;
-        return new Chat(chatDto.getMensajes().stream().map(this::mensajeDtoToMensaje).collect(Collectors.toList()));
+        Chat chat = new Chat();
+        chat.setIdChat(chatDto.getId());
+        chat.setMensajes(modelFactory.getListMensajes(chatDto.getId()));
+        chat.setVendedor1((Vendedor) usuarioDtoToUsuario(chatDto.getVendedorDto1()));
+        chat.setVendedor2((Vendedor) usuarioDtoToUsuario(chatDto.getVendedorDto2()));
+        return chat;
     }
 
     @Override
@@ -160,53 +167,51 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
 
     @Override
     public PublicacionDto publicacionToPublicacionDto(Publicacion publicacion) {
-        if(publicacion == null) return null;
-        return new PublicacionDto(
-                publicacion.getFechaPublicacion(),
-                publicacion.getDescripcion(),
-                publicacion.getProducto()
-        );
+        PublicacionDto dto = new PublicacionDto();
+        dto.setDescripcion(publicacion.getDescripcion());
+        dto.setFechaPublicacion(publicacion.getFechaPublicacion());
+        dto.setProducto(productoToProductoDto(publicacion.getProducto()));
+        dto.setIdVendedor(publicacion.getIdVendedor());
+        return dto;
     }
 
     @Override
     public Publicacion publicacionDtoToPublicacion(PublicacionDto publicacionDto) {
-        if(publicacionDto == null) return null;
-        return new Publicacion(
-                publicacionDto.getFechaPublicacion(),
-                publicacionDto.getDescripcion(),
-                publicacionDto.getProducto()
-        );
+        Publicacion publi = new Publicacion();
+        publi.setDescripcion(publicacionDto.getDescripcion());
+        publi.setFechaPublicacion(publicacionDto.getFechaPublicacion());
+        publi.setProducto(productoDtoToProducto(publicacionDto.getProducto()));
+        publi.setIdVendedor(publicacionDto.getIdVendedor());
+
+        publi.setListComentarios(modelFactory.getListComentarios(publicacionDto.getIdVendedor(), publicacionDtoToPublicacion(publicacionDto)));
+        publi.setListLikesVendedores(modelFactory.getListLike((publicacionDto.getIdVendedor()), publicacionDto));
+
+        return publi;
     }
 
     @Override
     public List<PublicacionDto> publicacionListToPublicacionDtoList(List<Publicacion> publicacionList) {
-        if(publicacionList == null) return new ArrayList<>();
-
-        List<PublicacionDto> publicacionDtos = new ArrayList<>();
-        for(Publicacion publicacion : publicacionList){
-            publicacionDtos.add(publicacionToPublicacionDto(publicacion));
+        List<PublicacionDto> dtos = new ArrayList<>();
+        for (Publicacion p : publicacionList) {
+            dtos.add(publicacionToPublicacionDto(p));
         }
-        return publicacionDtos;
+        return dtos;
     }
 
     @Override
     public List<Publicacion> publicacionDtoListToPublicacionList(List<PublicacionDto> publicacionDtoList) {
-        if(publicacionDtoList == null) return new ArrayList<>();
-
         List<Publicacion> publicaciones = new ArrayList<>();
-        for(PublicacionDto publicacionDto : publicacionDtoList){
-            publicaciones.add(publicacionDtoToPublicacion(publicacionDto));
+        for (PublicacionDto p : publicacionDtoList) {
+            publicaciones.add(publicacionDtoToPublicacion(p));
         }
         return publicaciones;
     }
 
     @Override
     public MuroDto muroToMuroDto(Muro muro) {
-        if(muro == null) return null;
-        return new MuroDto(
-                muro.getListPublicaciones(),
-                muro.getListChat()
-        );
+        MuroDto muroDto = new MuroDto();
+        muroDto.setId(muro.getIdVendedor());
+        return muroDto;
     }
 
     @Override

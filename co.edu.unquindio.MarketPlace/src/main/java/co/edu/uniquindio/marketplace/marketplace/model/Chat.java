@@ -17,6 +17,7 @@ public class Chat {
         this.idChat = idChat;
         this.mensajes = new ArrayList<Mensaje>();
     }
+    public Chat(){}
 
 
     /**
@@ -26,6 +27,10 @@ public class Chat {
      */
     public int getMaximoUsuariosChat() {
         return maximoUsuariosChat;
+    }
+
+    public void enviarMensaje(Mensaje mensaje){
+        mensajes.add(mensaje);
     }
 
 
