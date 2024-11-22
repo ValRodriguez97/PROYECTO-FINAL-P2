@@ -22,6 +22,7 @@ public class Muro {
      * @param publicacion Publicación a añadir
      */
     public void añadirPublicacion(Publicacion publicacion){
+        publicacion.setIdVendedor(idVendedor);
         listPublicaciones.add(publicacion);
     }
 
@@ -69,6 +70,10 @@ public class Muro {
      */
     public void setListChat(List<Chat> listChat) {
         this.listChat = listChat;
+    }
+
+    public void eliminarPublicacion(Publicacion publicacion) {
+        listPublicaciones.remove(publicacion);
     }
 
     public String getIdVendedor() {

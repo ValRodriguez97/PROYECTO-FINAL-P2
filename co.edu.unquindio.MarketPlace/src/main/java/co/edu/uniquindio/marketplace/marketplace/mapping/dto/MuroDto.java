@@ -7,23 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MuroDto {
-    private String idVendedor;
     private List<Publicacion> listPublicaciones;
     private List<Chat> listChats;
 
-    public MuroDto(String idVendedor, List<Publicacion> listPublicaciones, List<Chat> listChats) {
-        this.idVendedor = idVendedor;
+    public MuroDto( List<Publicacion> listPublicaciones, List<Chat> listChats) {
         this.listPublicaciones = listPublicaciones;
         this.listChats = listChats;
     }
 
-    public String getIdVendedor() {
-        return idVendedor;
-    }
-
-    public void setIdVendedor(String idVendedor) {
-        this.idVendedor = idVendedor;
-    }
 
     public List<Publicacion> getListPublicaciones() {
         return listPublicaciones;

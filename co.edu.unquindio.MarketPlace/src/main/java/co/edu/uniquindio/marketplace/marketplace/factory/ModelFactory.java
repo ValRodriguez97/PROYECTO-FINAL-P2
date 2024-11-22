@@ -29,10 +29,11 @@ public  class ModelFactory implements IModelFactory {
 
     private ModelFactory() {
         mapper = new MarketPlaceMappingImplt();
-        inicializarDatos();
-        this.marketplaceFacade= new MarketplaceFacade();
-        this.vendedorController = new VendedorController();
-        usuarioProxy= new UsuarioProxy(marketPlace);
+        marketPlace = inicializarDatos();
+    }
+
+    public void inicializarProxy(){
+        this.usuarioProxy = new UsuarioProxy(marketPlace);
     }
 
     public MarketPlace getMarketPlace() {
@@ -45,15 +46,10 @@ public  class ModelFactory implements IModelFactory {
 
     //MÉTODOS DE PUBLICACIÓN
 
-    /**
-     * Método darLike
-     * @param usuarioDto
-     * @param idVendedor
-     * @param publicacionDto
-     */
-    @Override
-    public void darLike(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto) {
 
+    @Override
+    public void darLikePublicacion(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto) {
+        marketPlace.
     }
 
     /**
@@ -234,6 +230,16 @@ public  class ModelFactory implements IModelFactory {
     }
 
     @Override
+    public void darLike(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
+
+    }
+
+    @Override
+    public void getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
+
+    }
+
+    @Override
     public void aplicarDescuentos(){
     }
 
@@ -257,191 +263,78 @@ public  class ModelFactory implements IModelFactory {
         return usuarioProxy.autenticar(username,password);
     }
 
-    @Override
-    public List<VendedorDto> getVendedoresDto() {
-        return mapper.vendedoresToVendedorDto(marketPlace.getListVendedores());
-    }
-
-    @Override
-    public boolean addVendedor(VendedorDto vendedorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean updateVendedor(VendedorDto vendedorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteVendedor(String idVendedor) {
-        return false;
-    }
 
     @Override
     public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto) {
         return null;
     }
 
-    @Override
-    public List<UsuarioDto> getUsuariosDto() {
-        return List.of();
-    }
-
-    @Override
-    public List<AdministradorDto> getAdministradoresDto() {
-        return List.of();
-    }
-
-    @Override
-    public boolean addAdministrador(AdministradorDto administradorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean updateAdministrador(AdministradorDto administradorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteAdministrador(String cedula) {
-        return false;
-    }
 
     @Override
     public List<ProductoDto> getProductosPorNombre(String nombreProducto) {
         return List.of();
     }
 
-
-
-    /**
-
-
-
-
     @Override
-    public boolean updateVendedor(VendedorDto vendedorDto) {
-        if (marketPlace.verificarVendedorExistente(vendedorDto.cedula())) {
-            Vendedor vendedorActualizado = mapper.vendedorDtoToVendedor(vendedorDto);
-
-            return marketPlace.updateVendedor(vendedorActualizado.getIdVendedor(), vendedorActualizado);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteVendedor(String idVendedor) {
-        return marketPlace.deleteVendedor(idVendedor);
-    }
-
-    @Override
-    public List<UsuarioDto> getUsuariosDto() {
-        return mapper.getUsuariosDto(marketPlace.getListUsuarios());
-    }
-
-    @Override
-    public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto) {
-        if (verificarRegistro(usuarioDto)) {
-            return mapper.usuarioToUsuarioDto(marketPlace.getUsuarioVerificar(usuarioDto.usuario(), usuarioDto.contraseña()));
-        }
-        return null;
-    }
-
-    @Override
-    public boolean addUsuario(UsuarioDto usuarioDto) {
-        if (marketPlace.verificarUsuarioExistente(usuarioDto.cedula())) {
-            Usuario usuario = mapper.usuarioDtoToUsuario(usuarioDto);
-            return marketPlace.createUsuario(usuario);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateUsuario(UsuarioDto usuarioDto) {
-        if (!marketPlace.verificarUsuarioExistente(usuarioDto.cedula())) {
-            Usuario usuarioActualizado = mapper.usuarioDtoToUsuario(usuarioDto);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteUsuario(String cedula) {
-        return false;
-    }
-
-    @Override
-    public List<AdministradorDto> getAdministradoresDto() {
+    public List<VendedorDto> getListContactosDto(String id) {
         return List.of();
     }
 
     @Override
-    public boolean addAdministrador(AdministradorDto administradorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean updateAdministrador(AdministradorDto administradorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteAdministrador(String cedula) {
-        return false;
-    }
-
-    @Override
-    public boolean verificarRegistro(UsuarioDto usuarioDto) {
-        return false;
-    }
-
-    @Override
-    public boolean verificarRegistro(AdministradorDto administradorDto) {
-        return false;
-    }
-
-    @Override
-    public boolean verificarRegistro(VendedorDto vendedorDto) {
-        return false;
-    }
-
-    @Override
-    public List<PublicacionDto> getPublicacionesDto() {
+    public List<VendedorDto> getListContactos(String id) {
         return List.of();
     }
 
     @Override
-    public boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
-        return false;
+    public List<Comentario> getListComentarios(Publicacion publicacion) {
+        return List.of();
     }
 
     @Override
-    public boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
-        return false;
+    public List<ComentarioDto> getListComentariosDto(PublicacionDto publicacionDto) {
+        return List.of();
     }
 
     @Override
-    public boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto) {
-        return false;
+    public List<Vendedor> getListLike(String id, PublicacionDto publicacionDto) {
+        return List.of();
     }
 
     @Override
-    public boolean admitirUsuario(UsuarioDto usuarioDto) {
-        if (marketPlace.verificarContraseñaUsuario(usuarioDto.usuario(), usuarioDto.contraseña())) {
-            return true;
-        }
-        return false;
-    }**/
+    public List<VendedorDto> getListLikeDto(String id, PublicacionDto publicacionDto) {
+        return List.of();
+    }
+
+    @Override
+    public List<Publicacion> getListPublicaciones(String id) {
+        return List.of();
+    }
+
+    @Override
+    public List<ProductoDto> getListPublicacionesDto(String id) {
+        return List.of();
+    }
+
+    @Override
+    public List<MensajeDto> getListMensajesDto(String id) {
+        return List.of();
+    }
+
+    @Override
+    public List<Mensaje> getListMenajes(String id) {
+        return List.of();
+    }
 
 
     // Método para inicializar datos de prueba
-    public static void  inicializarDatos() {
+    public static MarketPlace  inicializarDatos() {
         MarketPlace marketPlace = new MarketPlace("Mi Marketplace");
 
         Vendedor vendedor1 = new Vendedor("123","Sofia", "Suarez", "12345", "Calle 23", "Sofi", "sofia123");
         Vendedor vendedor2 = new Vendedor("242", "Carlos", "Gomez", "67890", "Calle 45", "CarlosG", "carlos123");
 
-
+        marketPlace.createUsuario(vendedor1);
+        marketPlace.createUsuario(vendedor2);
         /**Producto producto1 = Producto.builder()
                 .nombre("Laptop")
                 .imagen("/co/edu/uniquindio/marketplace/marketplace/one-piece-title-manga-art-0k550byvor5oc6nb.jpg") // Asegúrate de que la ruta sea correcta
@@ -461,7 +354,7 @@ public  class ModelFactory implements IModelFactory {
         // Agregar productos a los vendedores
        // vendedor1.setListProductos(new ArrayList<>(List.of(producto1)));
         //vendedor2.setListProductos(new ArrayList<>(List.of(producto2)));
-
+        return marketPlace;
     }
 
 }

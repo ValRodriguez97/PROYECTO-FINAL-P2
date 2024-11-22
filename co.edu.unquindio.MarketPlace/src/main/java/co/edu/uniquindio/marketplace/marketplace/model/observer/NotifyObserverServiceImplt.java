@@ -3,6 +3,7 @@ package co.edu.uniquindio.marketplace.marketplace.model.observer;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.INotifyServiceObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
+
 //OBSERVER
 public class NotifyObserverServiceImplt implements INotifyServiceObserver {
 
@@ -18,8 +19,8 @@ public class NotifyObserverServiceImplt implements INotifyServiceObserver {
 
     @Override
     public void notifySeguidores(Vendedor vendedor, String mensaje){
-        EventoObserver evento = new EventoObserver("NOTIFICACION", mensaje, null, vendedor);
-        vendedor.notifySeguidores(evento);
+        EventoObserver eventoObserver = new EventoObserver("NOTIFICACION", mensaje, null, vendedor);
+        vendedor.notifySeguidores(eventoObserver);
     }
 
 }

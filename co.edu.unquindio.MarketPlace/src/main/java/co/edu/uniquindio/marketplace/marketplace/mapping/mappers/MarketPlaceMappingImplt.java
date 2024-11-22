@@ -204,7 +204,6 @@ public class MarketPlaceMappingImplt implements IMarketPlaceMapping {
     public MuroDto muroToMuroDto(Muro muro) {
         if(muro == null) return null;
         return new MuroDto(
-                muro.getIdVendedor(),
                 muro.getListPublicaciones(),
                 muro.getListChat()
         );

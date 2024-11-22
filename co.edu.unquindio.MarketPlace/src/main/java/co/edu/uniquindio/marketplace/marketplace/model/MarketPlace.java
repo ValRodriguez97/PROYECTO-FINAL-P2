@@ -7,6 +7,7 @@ import co.edu.uniquindio.marketplace.marketplace.service.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * La clase MarketPlace es un mercado en línea que gestiona usuarios, administrados, vendedores y publicaciones
  * Implementa las interfaces de CRUD para usuarios, administradores, vendedores y publicaciones
  */
-public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuario, ICrudAdministrador {
+public class MarketPlace implements ICrudPublicacion, ICrudUsuario,  {
     private String nombre;
     private List<Usuario> listUsuarios;
     private List<Administrador> listAdministradores;
@@ -25,6 +26,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     private MarketplaceFacade marketplaceFacade;
     private IStrategyPublicacion estrategiaPublicacion;
     private IStrategyProducto estrategiaProducto;
+    private List<EventoObserver> eventos;
 
     /**
      * Método constructor de la clase MarketPlace
@@ -32,10 +34,14 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
      */
     public MarketPlace(String nombre) {
         this.nombre = nombre;
-        this.listUsuarios = new ArrayList<Usuario>();
-        this.listAdministradores = new ArrayList<Administrador>();
+        this.listUsuarios = new ArrayList<>();
+        this.listAdministradores = new ArrayList<>();
         this.listVendedores = new ArrayList<>();
+        this.publicaciones = new ArrayList<>();
+        this.eventos = new ArrayList<>();
     }
+
+    //METODOS PARA VENDEDOR /////////////////
 
     /**
      * Método para crear un nuevo vendedor en el marketplace
@@ -58,6 +64,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
      */
     public void agregarPublicacion(Vendedor vendedor, Publicacion publicacion){
         vendedor.getMuro().añadirPublicacion(publicacion);
+        notificarEvento(vendedor, "Nueva publicacion agregada " + publicacion.getProducto().getNombre());
     }
 
     /**
@@ -102,42 +109,6 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return sugerencias;
     }
 
-
-    @Override
-    public boolean updateVendedor(String idVendedor, Vendedor vendedor){
-        Vendedor vendedorExistente = verificarVendedor(idVendedor);
-        if(vendedorExistente != null){
-            vendedorExistente.setIdVendedor(vendedor.getIdVendedor());
-            vendedorExistente.setNombre(vendedor.getNombre());
-            vendedorExistente.setApellido(vendedor.getApellido());
-            vendedorExistente.setDireccion(vendedor.getDireccion());
-            vendedorExistente.setUsername(vendedor.getUsername());
-            vendedorExistente.setContraseña(vendedor.getContraseña());
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteVendedor(String idVendedor) {
-        Vendedor vendedorExistente = verificarVendedor(idVendedor);
-        if (vendedorExistente != null) {
-            getListVendedores().remove(vendedorExistente);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public List<Vendedor> listVendedores() {
-        return new ArrayList<>(listVendedores);
-    }
-
-    @Override
-    public boolean verificarVendedorExistente(String idVendedor) {
-        return verificarVendedor(idVendedor) != null;
-    }
-
     public Vendedor verificarVendedor(String idVendedor) {
         if (idVendedor == null) {
             return null;
@@ -150,37 +121,40 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return null;
     }
 
+    //METODOS PARA PUBLICACIONES //////////
+
     @Override
     public boolean createPublicacion(Publicacion publicacion, String vendedor) {
-        if (!verificarPublicacion(publicacion)) {
-            for(Vendedor vendedor1: listVendedores){
-                if(vendedor1.getIdVendedor().equals(vendedor)){
-                    vendedor1.getMuro().añadirPublicacion(publicacion);
-                    return true;
-                }
-            }
+        Vendedor vendedor1 = verificarVendedor(vendedor);
+        if(vendedor1 != null && !verificarPublicacionExistente(publicacion)){
+            vendedor1.getMuro().añadirPublicacion(publicacion);
+            publicaciones.add(publicacion);
+            return true;
         }
         return false;
     }
 
     @Override
     public boolean updatePublicacion(Publicacion publicacion, String vendedor) {
-        /**List<Publicacion> listPublicaciones = vendedor.getMuro().getListPublicaciones();
-
-        for (Publicacion publicacionExistente : listPublicaciones) {
-            if (publicacionExistente.equals(publicacion)) {
-                publicacionExistente.setFechaPublicacion(publicacion.getFechaPublicacion());
-                publicacionExistente.setDescripcion(publicacion.getDescripcion());
-                publicacionExistente.setProducto(publicacion.getProducto());
-                return true;
-            }
-        }**/
-        return false;
+       for(Vendedor vendedor1 : listVendedores){
+           if(vendedor1.getMuro().getListPublicaciones().contains(publicacion)){
+               publicacion.setFechaPublicacion(LocalDateTime.now());
+               return true;
+           }
+       }
+       return  false;
     }
 
     @Override
     public boolean deletePublicacion(Publicacion publicacion, String vendedor) {
-       return true;
+       Vendedor vendedor1 = verificarVendedor(vendedor);
+       if(vendedor1 != null && vendedor1.getMuro().getListPublicaciones().contains(publicacion)){
+           vendedor1.getMuro().eliminarPublicacion(publicacion);
+           publicaciones.remove(publicacion);
+           notificarEvento(vendedor1, "Publiicación eliminada: " + publicacion.getProducto().getNombre());
+           return true;
+       }
+       return false;
     }
 
     @Override
@@ -189,16 +163,11 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
 
     public boolean verificarPublicacion(Publicacion publicacion) {
-        List<Publicacion> publicacions = new ArrayList<>();
+        List<Publicacion> publicaciones = new ArrayList<>();
         for(Vendedor vendedor : listVendedores){
-            publicacions.addAll(vendedor.getMuro().getListPublicaciones());
+            publicaciones.addAll(vendedor.getMuro().getListPublicaciones());
         }
-        for(Publicacion publicacion1 : publicacions){
-            if(publicacion1.getProducto() == publicacion.getProducto()){
-                return true;
-            }
-        }
-        return  false;
+        return publicaciones.stream().allMatch(p -> p.getProducto().equals(publicacion.getProducto()));
     }
 
     //CHAIN OF RESPONSABILITY
@@ -219,55 +188,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         return null;
     }
 
-    @Override
-    public boolean createAdministrador(Administrador administrador) {
-        if (!verificarAdministradorExiste(administrador.getIdAdministrador())) {
-            // El administrador ya existe
-            Administrador nuevoAdministrador = new Administrador(
-                    administrador.getIdAdministrador(),
-                    administrador.getNombre(),
-                    administrador.getApellido(),
-                    administrador.getCedula(),
-                    administrador.getDireccion(),
-                    administrador.getUsername(),
-                    administrador.getContraseña());
-            listAdministradores.add(nuevoAdministrador);
-            return true;
-        }
-        return false;
-    }
 
-    @Override
-    public boolean updateAdministrador(String idAdministrador, Administrador administrador) {
-        Administrador administradorExistente = verificarAdministrador(idAdministrador);
-
-        if (administradorExistente != null) {
-            administradorExistente.setIdAdministrador(administrador.getIdAdministrador());
-            administradorExistente.setNombre(administrador.getNombre());
-            administradorExistente.setApellido(administrador.getApellido());
-            administradorExistente.setCedula(administrador.getCedula());
-            administradorExistente.setDireccion(administrador.getDireccion());
-            administradorExistente.setUsername(administrador.getUsername());
-            administradorExistente.setContraseña(administrador.getContraseña());
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteAdministrador(String idAdministrador) {
-        Administrador administradorExistente = verificarAdministrador(idAdministrador);
-        if (administradorExistente != null) {
-            listAdministradores.remove(administradorExistente);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public List<Administrador> listAdministradores() {
-        return new ArrayList<>(listAdministradores);
-    }
 
     @Override
     public Publicacion getPublicacion(Publicacion publicacion) {
@@ -331,14 +252,7 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
 
     public Usuario getUsuarioVerificar(String usuario, String contraseña){
-        if(verificarContraseñaUsuario(usuario, contraseña)){
-            for(Usuario usuario1 : listUsuarios){
-                if(usuario1.getUsername().equals(usuario) && usuario1.getContraseña().equals(contraseña)){
-                    return usuario1;
-                }
-            }
-        }
-        return null;
+        return autenticarUsuario(usuario, contraseña) ? usuarioActual : null;
     }
 
     public boolean verificarContraseñaUsuario(String usuario, String contraseña){
@@ -380,16 +294,16 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
         StringBuilder contenido = new StringBuilder();
         List<Vendedor> vendedores = marketPlace.getListVendedores();
         for (Vendedor vendedor : vendedores) {
-            contenido.append("Vendedor:").append(vendedor.getNombre()).append("").append(vendedor.getApellido()).append("\n");
+            contenido.append("Vendedor:").append(vendedor.getNombre()).append(" ").append(vendedor.getApellido()).append("\n");
 
             long productosVendidos = vendedor.getListProductos().stream().filter(p -> p.getEstado() == Estado.VENDIDO).count();
             long productosPublicados = vendedor.getListProductos().stream().filter(p -> p.getEstado() == Estado.PUBLICADO).count();
             long productosCancelados = vendedor.getListProductos().stream().filter(p -> p.getEstado() == Estado.CANCELADO).count();
 
-            contenido.append("Total de productos:").append(vendedor.getListProductos().size()).append("\n");
-            contenido.append("Productos vendidos:").append(productosVendidos).append("\n");
-            contenido.append("Productos publicados:").append(productosPublicados).append("\n");
-            contenido.append("Productos cancelados:").append(productosCancelados).append("\n");
+            contenido.append("Total de productos: ").append(vendedor.getListProductos().size()).append("\n");
+            contenido.append("Productos vendidos: ").append(productosVendidos).append("\n");
+            contenido.append("Productos publicados: ").append(productosPublicados).append("\n");
+            contenido.append("Productos cancelados: ").append(productosCancelados).append("\n");
             contenido.append("----------\n");
         }
 
@@ -397,13 +311,13 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
 
         try (FileWriter writer = new FileWriter(ruta)){
             writer.write("<Título>" + titulo + "\n");
-            writer.write("<Fecha> Fecha:" + fecha + "\n");
-            writer.write("<Usuario> Reporte hecho por:" + usuario + "\n\n");
+            writer.write("<Fecha> Fecha: " + fecha + "\n");
+            writer.write("<Usuario> Reporte hecho por: " + usuario + "\n\n");
             writer.write("Información del reporte:\n" + contenido + "\n");
             writer.write("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
-            System.out.println("Reporte exportado existosamente en" + ruta);
+            System.out.println("Reporte exportado existosamente en " + ruta);
         } catch (IOException e){
-            System.out.println("Error al exportar el reporte:" + e.getMessage());
+            System.out.println("Error al exportar el reporte: " + e.getMessage());
         }
     }
 
@@ -469,13 +383,13 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
     }
    public void ordenarProductos(List<Producto> productos){
         if(estrategiaProducto != null){
-            estrategiaProducto.ordenarProducto(productos);
+            estrategiaProducto.ordenar(productos);
         }
    }
 
    //STRATEGY
    public void setEstrategiaPublicacion(IStrategyPublicacion estrategiaPublicacion){
-        this.estrategiaProducto = estrategiaProducto;
+        this.estrategiaPublicacion = estrategiaPublicacion;
    }
 
    public void ordenarPublicaciones(){
@@ -487,6 +401,17 @@ public class MarketPlace implements ICrudVendedor, ICrudPublicacion, ICrudUsuari
    public void notificarEvento(Vendedor vendedor, String mensaje){
        EventoObserver evento = new EventoObserver("NOTIFICACION", mensaje, null , vendedor);
        vendedor.notifySeguidores(evento);
+   }
+
+   public List<Mensaje> getMensajes(String id){
+        for(Vendedor vendedor : listVendedores){
+            for(Chat chat : vendedor.getMuro().getListChat()){
+                if(chat.getIdChat().equals(id)){
+                    return chat.getMensajes();
+                }
+            }
+        }
+        return null;
    }
 
 }

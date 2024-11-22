@@ -4,12 +4,13 @@ import co.edu.uniquindio.marketplace.marketplace.model.observer.EventoObserver;
 import co.edu.uniquindio.marketplace.marketplace.service.ILike;
 import co.edu.uniquindio.marketplace.marketplace.service.IObserver;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Publicacion implements ILike {
+    private String idVendedor;
+
     private LocalDateTime fechaPublicacion;
     private String descripcion;
     private Producto producto;
@@ -28,7 +29,7 @@ public class Publicacion implements ILike {
         this.fechaPublicacion = fechaPublicacion;
         this.descripcion = descripcion;
         this.producto = producto;
-        this.listComentarios =new ArrayList<Comentario>();
+        this.listComentarios =new ArrayList<>();
         this.listLikesVendedores = new ArrayList<>();
         this.observers = new ArrayList<>();
     }
@@ -83,7 +84,11 @@ public class Publicacion implements ILike {
      */
     @Override
     public void addLike(Vendedor vendedor){
-        añadirLike(vendedor);
+        if(!listLikesVendedores.contains(vendedor)){
+            listLikesVendedores.add(vendedor);
+            EventoObserver evento = new EventoObserver("NUEVO LIKE", "Le han dado like a tu publicación", this, vendedor);
+            notifyObserver(evento);
+        }
     }
 
     /**
@@ -174,5 +179,13 @@ public class Publicacion implements ILike {
      */
     public void setListLikesVendedores(List<Vendedor> listLikesVendedores) {
         this.listLikesVendedores = listLikesVendedores;
+    }
+
+    public String getIdVendedor() {
+        return idVendedor;
+    }
+
+    public void setIdVendedor(String idVendedor) {
+        this.idVendedor = idVendedor;
     }
 }

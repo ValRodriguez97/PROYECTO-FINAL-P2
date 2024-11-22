@@ -144,11 +144,7 @@ public class Usuario implements IObserver {
         this.contraseña = contraseña;
     }
 
-    //OBSERVER
-    @Override
-    public void update(EventoObserver evento){
-        System.out.println("Usuario " + username + " recibió una notificación: ");
-    }
+
     /**
      * Métodos para interactuar con la implementación del patrón Facade
      */
@@ -166,6 +162,11 @@ public class Usuario implements IObserver {
 
     public Vendedor buscarVendedorPorCedula(String cedula, MarketplaceFacade marketplaceFacade) {
         return marketplaceFacade.buscarVendedorPorCedula(cedula);
+    }
+
+    @Override
+    public void update(EventoObserver eventoObserver){
+        System.out.println("Usuario " + username +  " recibio una notificacion");
     }
 
 }

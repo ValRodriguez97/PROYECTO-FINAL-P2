@@ -1,5 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,7 +51,6 @@ public class LoginViewController {
     @FXML
     void OnPutYourUsername(ActionEvent event) {
         String username = txtUsername.getText();
-
         if (username.isEmpty()) {
             lblErrorMessage.setText("Debe ingresar el nombre del usuario");
         } else if (username.length() < 8){
@@ -62,15 +63,18 @@ public class LoginViewController {
 
     @FXML
     void onCreateAccount(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/RegistroView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600,400);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/createaccount.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 399,391);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Registro");
-        stage.show();
+
+        CreateAccountViewController controller = fxmlLoader.getController();
 
         Stage cerrar = (Stage) btnCreateAccount.getScene().getWindow();
         cerrar.close();
+
+        stage.show();
     }
 
     @FXML
@@ -112,18 +116,25 @@ public class LoginViewController {
 
     public void showStage2(UsuarioDto usuarioDto) throws IOException {
       if(usuarioDto instanceof VendedorDto){
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
-          Scene scene = new Scene(fxmlLoader.load(), 782, 484);
-          Stage stage = new Stage();
+          try {
+              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
+              Scene scene = new Scene(fxmlLoader.load(), 782, 484);
+              Stage stage = new Stage();
 
-          WindowPrincipalViewController menuController = fxmlLoader.getController();
-            menuController.inicializarVentana((VendedorDto)  usuarioDto);
-            stage.setScene(scene);
+              WindowPrincipalViewController menuController = fxmlLoader.getController();
+              menuController.inicializarVentana((VendedorDto) usuarioDto);
+              stage.setScene(scene);
 
-          Stage cerrar = (Stage) btnLogin.getScene().getWindow();
-          cerrar.close();
+              Stage cerrar = (Stage) btnLogin.getScene().getWindow();
+              cerrar.close();
 
-          stage.show();
+              stage.show();
+          } catch (IOException e){
+              e.printStackTrace();
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setContentText("Error de carga de la ventana");
+              alert.showAndWait();
+          }
       } else {
           System.out.println("Usuario no encontrado");
       }
@@ -156,7 +167,12 @@ public class LoginViewController {
     }
 
     private void saveUsername(String username) {
-        System.out.println("Guardando nombre de usuario: " +username);
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("usuario_guardado.txt"))){
+            writer.write(username);
+        }catch (IOException e){
+            e.printStackTrace();
+            lblErrorMessage.setText("Error al guardar el nombre del usuario");
+        }
     }
 
     private void removeSavedUsername() {

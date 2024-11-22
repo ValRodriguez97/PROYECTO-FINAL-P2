@@ -1,8 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.service;
 
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.*;
-import co.edu.uniquindio.marketplace.marketplace.model.Mensaje;
-import co.edu.uniquindio.marketplace.marketplace.model.Muro;
+import co.edu.uniquindio.marketplace.marketplace.model.*;
 
 import java.util.List;
 
@@ -12,13 +11,12 @@ import java.util.List;
 public interface IModelFactory {
   public UsuarioDto getUsuario(UsuarioDto usuarioDto);
   public boolean admitirUsuario(UsuarioDto usuarioDto);
-  public void darLike(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto);
+  public void darLikePublicacion(UsuarioDto usuarioDto, String idVendedor, PublicacionDto publicacionDto)
   public List<ProductoDto> listaProductosDisponibles(UsuarioDto usuarioDto);
 
   List<PublicacionDto> getPublicacionesDto(Muro muro);
   boolean addPublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
-
-    boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
+  boolean updatePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
   boolean deletePublicacion(PublicacionDto publicacionDto, VendedorDto vendedorDto);
 
   boolean addUsuario(VendedorDto vendedorDto);
@@ -35,22 +33,28 @@ public interface IModelFactory {
   boolean updateMensaje(MensajeDto mensajeDto);
   boolean deleteMensaje(MensajeDto mensajeDto);
 
+  void darLike(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
+  void getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
+
   public void aplicarDescuentos();
 
-   List<VendedorDto> getVendedoresDto();
-    boolean addVendedor(VendedorDto vendedorDto);
-    boolean updateVendedor(VendedorDto vendedorDto);
-    boolean deleteVendedor(String idVendedor);
-
     public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto);
-    List<UsuarioDto> getUsuariosDto();
-
-
-    List<AdministradorDto> getAdministradoresDto();
-    boolean addAdministrador(AdministradorDto administradorDto);
-    boolean updateAdministrador(AdministradorDto administradorDto);
-    boolean deleteAdministrador(String cedula);
-
 
     List<ProductoDto> getProductosPorNombre(String nombreProducto);
-}
+
+    List<VendedorDto> getListContactosDto(String id);
+    List<VendedorDto> getListContactos(String id);
+
+    List<Comentario> getListComentarios(Publicacion publicacion);
+    List<ComentarioDto> getListComentariosDto(PublicacionDto publicacionDto);
+
+    List<Vendedor> getListLike(String id, PublicacionDto publicacionDto);
+    List<VendedorDto> getListLikeDto(String id, PublicacionDto publicacionDto);
+
+    List<Publicacion> getListPublicaciones(String id);
+    List<ProductoDto> getListPublicacionesDto(String id);
+
+    List<MensajeDto> getListMensajesDto(String id);
+    List<Mensaje> getListMenajes(String id);
+    }
+

@@ -14,7 +14,9 @@ public class Vendedor extends Usuario {
     private List<Vendedor> listContactos;
     private List<Producto> productosFavoritos;
     private List<Producto> historialConsultas;
-    private List<IObserver> seguidores; //OBSERVER
+    private List<IObserver> seguidores;
+    private Publicacion publicacion;
+    //OBSERVER
 
     /**
      * Método Constructor de la clase Vendedor
@@ -32,8 +34,10 @@ public class Vendedor extends Usuario {
         this.listProductos = new ArrayList<>();
         this.listContactos = new ArrayList<>();
         this.idVendedor = idVendedor;
-        this.muro = new Muro();
+        this.muro = muro != null ? muro : new Muro();
         this.seguidores = new ArrayList<>(); //OBSERVER
+        this.productosFavoritos = new ArrayList<>();
+        this.historialConsultas = new ArrayList<>();
     }
 
 
@@ -205,10 +209,22 @@ public class Vendedor extends Usuario {
 
     //OBSERVER
     public void notifySeguidores(EventoObserver evento){
-        for (IObserver seguidor : seguidores){
+        for(IObserver seguidor : seguidores){
             seguidor.update(evento);
         }
     }
+    public Publicacion getPublicacion() {
+        return publicacion;
+    }
 
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
+    }
 
+    public void darID(){
+        muro.setIdVendedor(idVendedor);
+        for(Publicacion publicacion1: muro.getListPublicaciones()){
+            publicacion1.setIdVendedor(idVendedor);
+        }
+    }
 }
