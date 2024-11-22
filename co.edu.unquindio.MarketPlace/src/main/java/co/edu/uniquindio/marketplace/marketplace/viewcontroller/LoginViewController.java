@@ -7,12 +7,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.LoginController;
+import co.edu.uniquindio.marketplace.marketplace.controller.UsuarioController;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -63,13 +65,13 @@ public class LoginViewController {
 
     @FXML
     void onCreateAccount(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/createaccount.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 399,391);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/createaccount.fxml"));
+        Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Registro");
+        stage.setScene(new Scene(root));
 
-        CreateAccountViewController controller = fxmlLoader.getController();
+        CreateAccountViewController controller = loader.getController();
+        controller.initialize();
 
         Stage cerrar = (Stage) btnCreateAccount.getScene().getWindow();
         cerrar.close();

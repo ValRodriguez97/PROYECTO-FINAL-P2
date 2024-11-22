@@ -23,7 +23,6 @@ public class MarketPlace implements ICrudPublicacion, ICrudUsuario  {
     private List<Vendedor> listVendedores;
     private List<Publicacion> publicaciones;
     private Usuario usuarioActual;
-    private MarketplaceFacade marketplaceFacade;
     private IStrategyPublicacion estrategiaPublicacion;
     private IStrategyProducto estrategiaProducto;
     private List<EventoObserver> eventos;

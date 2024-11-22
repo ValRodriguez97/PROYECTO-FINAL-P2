@@ -1,7 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.UsuarioController;
@@ -10,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
+import javax.swing.*;
 
 public class CreateAccountViewController {
 
@@ -42,12 +43,14 @@ public class CreateAccountViewController {
 
     @FXML
     private TextField txtAddYourUsername;
+
     UsuarioController usuarioController;
 
     @FXML
     void OnCreateAccount(ActionEvent event) {
         VendedorDto vendedorDto = buildVendedorDto();
         usuarioController.createUsuario(vendedorDto);
+        JOptionPane.showMessageDialog(null,"Usuario Creado Exitosamente");
     }
 
     public VendedorDto buildVendedorDto(){
@@ -76,3 +79,4 @@ public class CreateAccountViewController {
     }
 
 }
+

@@ -30,6 +30,7 @@ ChatDto getChat(VendedorDto vendedorDto, VendedorDto vendedorDto2);
   void darLike(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
   int getLikes(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
   public void aplicarDescuentos();
+  boolean agregarComentario(ComentarioDto comentarioDto, PublicacionDto publicacionDto);
 
     public UsuarioDto getUsuarioDto(UsuarioDto usuarioDto);
 

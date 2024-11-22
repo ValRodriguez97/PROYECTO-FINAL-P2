@@ -1,7 +1,5 @@
 package co.edu.uniquindio.marketplace.marketplace.factory;
 
-import co.edu.uniquindio.marketplace.marketplace.MarketPlaceApplication;
-import co.edu.uniquindio.marketplace.marketplace.controller.VendedorController;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.*;
 import co.edu.uniquindio.marketplace.marketplace.mapping.mappers.MarketPlaceMappingImplt;
 import co.edu.uniquindio.marketplace.marketplace.model.*;
@@ -10,13 +8,11 @@ import co.edu.uniquindio.marketplace.marketplace.service.IVendedorController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public  class ModelFactory implements IModelFactory {
     private static ModelFactory instance;
     MarketPlace marketPlace;
     MarketPlaceMappingImplt mapper;
-    private MarketplaceFacade marketplaceFacade;
     private IVendedorController vendedorController;
     private UsuarioProxy usuarioProxy;
 
@@ -226,8 +222,10 @@ public  class ModelFactory implements IModelFactory {
         return usuarioProxy.autenticar(username,password);
     }
 
-
-
+    @Override
+    public boolean agregarComentario(ComentarioDto comentarioDto, PublicacionDto publicacionDto) {
+        return marketPlace.añadirComentario(mapper.comentarioDtoToComentario(comentarioDto), mapper.publicacionDtoToPublicacion(publicacionDto));
+    }
 
     // Método para inicializar datos de prueba
     public static MarketPlace  inicializarDatos() {

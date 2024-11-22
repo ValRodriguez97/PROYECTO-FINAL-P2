@@ -4,10 +4,6 @@ import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
-import co.edu.uniquindio.marketplace.marketplace.model.MarketplaceFacade;
-import co.edu.uniquindio.marketplace.marketplace.model.Producto;
-import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
-import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.service.IUsuarioService;
 
 import java.util.List;
@@ -34,7 +30,7 @@ public class UsuarioController implements IUsuarioService {
 
     @Override
     public List<VendedorDto> getListaContactos(UsuarioDto usuarioDto) {
-        return modelFactory.ge
+        return modelFactory.getListContactosDto(((VendedorDto) usuarioDto).getIdVendedor());
     }
 
     @Override

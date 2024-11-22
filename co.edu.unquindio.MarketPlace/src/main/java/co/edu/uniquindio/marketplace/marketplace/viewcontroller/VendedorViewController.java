@@ -1,6 +1,5 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
-import co.edu.uniquindio.marketplace.marketplace.controller.VendedorController;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.PublicacionDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;

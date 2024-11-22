@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="399.0" style="-fx-background-color: #cdbce5;" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.CreateAccountViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="399.0" style="-fx-background-color: #cdbce5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.CreateAccountViewController">
    <children>
       <Label layoutX="62.0" layoutY="103.0" text="Name:">
          <font>
@@ -39,7 +39,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtAddYourID" layoutX="107.0" layoutY="182.0" prefHeight="26.0" prefWidth="267.0" promptText="Add your Id" />
+      <TextField fx:id="txtAddYourCedula" layoutX="107.0" layoutY="182.0" prefHeight="26.0" prefWidth="267.0" promptText="Add your Id" />
       <Label layoutX="12.0" layoutY="186.0" text="Identification:">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -70,4 +70,4 @@
       </Label>
       <TextField fx:id="txtAddYourID" layoutX="107.0" layoutY="67.0" prefHeight="26.0" prefWidth="267.0" promptText="Add your ID" />
    </children>
-</fx:root>
+</AnchorPane>

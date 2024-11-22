@@ -145,24 +145,6 @@ public class Usuario implements IObserver {
     }
 
 
-    /**
-     * Métodos para interactuar con la implementación del patrón Facade
-     */
-    public void agregarVendedor(Vendedor vendedor, MarketplaceFacade marketplaceFacade) {
-        marketplaceFacade.agregarVendedor(vendedor);
-    }
-
-    public void agregarProducto(Vendedor vendedor, Producto producto, MarketplaceFacade marketplaceFacade) {
-        marketplaceFacade.agregarProducto(vendedor, producto);
-    }
-
-    public Producto buscarProductoPorNombre(Vendedor vendedor, String nombre, MarketplaceFacade marketplaceFacade) {
-        return marketplaceFacade.buscarProductoPorNombre(vendedor, nombre);
-    }
-
-    public Vendedor buscarVendedorPorCedula(String cedula, MarketplaceFacade marketplaceFacade) {
-        return marketplaceFacade.buscarVendedorPorCedula(cedula);
-    }
 
     @Override
     public void update(EventoObserver eventoObserver){
