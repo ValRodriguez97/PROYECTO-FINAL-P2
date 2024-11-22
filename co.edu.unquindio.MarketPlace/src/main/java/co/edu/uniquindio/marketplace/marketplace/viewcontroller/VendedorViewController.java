@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.List;
 
 public class VendedorViewController {
-    private VendedorController vendedorController;
+    /**private VendedorController vendedorController;
     private VendedorDto vendedorDto;
 
     @FXML
@@ -61,7 +61,7 @@ public class VendedorViewController {
      * Método para mostrar las publicaciones de un vendedor y sus contactos
      * @param idVendedor
      */
-    public void mostrarPublicaciones(String idVendedor) {
+   /** public void mostrarPublicaciones(String idVendedor) {
         List<PublicacionDto> publicaciones = vendedorController.obtenerPublicacionesConectados(idVendedor);
 
         listViewPublicaciones.getItems().clear();
@@ -75,7 +75,7 @@ public class VendedorViewController {
     /**
      * Método que se llama cuando se selecciona una publicación en la ListView
      */
-    @FXML
+   /** @FXML
     public void onPublicacionSeleccionada() {
         String seleccion = listViewPublicaciones.getSelectionModel().getSelectedItem();
         if (seleccion != null) {
@@ -148,5 +148,5 @@ public class VendedorViewController {
         txtDireccion.clear();
         txtUsername.clear();
         txtPassword.clear();
-    }
+    }**/
 }

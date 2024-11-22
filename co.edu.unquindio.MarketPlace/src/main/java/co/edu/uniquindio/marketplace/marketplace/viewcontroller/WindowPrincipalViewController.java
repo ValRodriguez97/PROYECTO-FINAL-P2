@@ -230,7 +230,7 @@ public class WindowPrincipalViewController{
         Stage stage = new Stage();
 
         VendedorViewController controller = fxmlLoader.getController();
-        controller.inicializarVentana(vendedorDto);
+        //controller.inicializarVentana(vendedorDto);
         stage.setScene(scene);
 
         Stage cerrar = (Stage) btnWall.getScene().getWindow();
