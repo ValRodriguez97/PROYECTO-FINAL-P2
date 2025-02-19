@@ -6,6 +6,7 @@ import co.edu.uniquindio.marketplace.marketplace.model.*;
 import co.edu.uniquindio.marketplace.marketplace.service.IModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.service.IVendedorController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -231,30 +232,44 @@ public  class ModelFactory implements IModelFactory {
     public static MarketPlace  inicializarDatos() {
         MarketPlace marketPlace = new MarketPlace("Mi Marketplace");
 
-        Vendedor vendedor1 = new Vendedor("123","Sofia", "Suarez", "12345", "Calle 23", "Sofi", "sofia123");
-        Vendedor vendedor2 = new Vendedor("242", "Carlos", "Gomez", "67890", "Calle 45", "CarlosG", "carlos123");
+        Vendedor vendedor1 = new Vendedor("Sofia","Suarez", "2332", "Calle 36", "Sofi", "sofia123", "124");
+        Vendedor vendedor2 = new Vendedor("Carlos", "Gomez", "6729", "Calle 45", "Sofi", "carlos123", "123");
 
         marketPlace.createUsuario(vendedor1);
         marketPlace.createUsuario(vendedor2);
-        /**Producto producto1 = Producto.builder()
-                .nombre("Laptop")
-                .imagen("/co/edu/uniquindio/marketplace/marketplace/one-piece-title-manga-art-0k550byvor5oc6nb.jpg") // Asegúrate de que la ruta sea correcta
-                .categoria("Electrónica")
-                .precio(1000.00)
-                .estado(Estado.PUBLICADO)
-                .build();
 
-        Producto producto2 = Producto.builder()
-                .nombre("Teléfono")
-                .imagen("/co/edu/uniquindio/marketplace/marketplace/one-piece-title-manga-art-0k550byvor5oc6nb.jpg") // Asegúrate de que la ruta sea correcta
-                .categoria("Electrónica")
-                .precio(500.00)
-                .estado(Estado.PUBLICADO)
-                .build();
-**/
-        // Agregar productos a los vendedores
-       // vendedor1.setListProductos(new ArrayList<>(List.of(producto1)));
-        //vendedor2.setListProductos(new ArrayList<>(List.of(producto2)));
+        Producto producto1 = new Producto("IPHONE ", "/co/edu/uniquindio/marketplace/marketplace/\uD83C\uDF38\uD83D\uDC9E\uD83D\uDC93\uD83D\uDC97.jpeg", "Electronica", 100000, Estado.DISPONIBLE);
+        Producto producto2 = new Producto("LAPTOP", "/co/edu/uniquindio/marketplace/marketplace/MacBook Pro 16 (2021, M1) skins - Custom _ Bottom.jpeg","Electronica", 3000, Estado.PUBLICADO);
+        Producto producto3 = new Producto("AUDIFONOS", "/co/edu/uniquindio/marketplace/marketplace/cbbbe243-b4b1-4a44-86cb-ac037270325d.jpeg", "ENTRETENIMIENTO", 300, Estado.VENDIDO);
+
+        Publicacion publicacion1 = new Publicacion(LocalDateTime.now(), "Elegante telefono celular", producto1);
+        Publicacion publicacion2 = new Publicacion(LocalDateTime.now(), "Computador", producto2);
+        Publicacion publicacion3 = new Publicacion(LocalDateTime.now(), "Audifonos", producto3);
+
+        marketPlace.createPublicacion(publicacion1, vendedor1.getIdVendedor());
+        marketPlace.createPublicacion(publicacion2, vendedor2.getIdVendedor());
+        marketPlace.createPublicacion(publicacion3, vendedor2.getIdVendedor());
+
+        Administrador administrador = new Administrador("Ad", "Admi", "12345678", "Calle 0", "Admi", "admi123", "123");
+
+        Mensaje mensaje1 = new Mensaje(vendedor1, LocalDateTime.now() ,"Hola");
+        Mensaje mensaje2 = new Mensaje(vendedor2, LocalDateTime.now() ,"Holaaaa");
+
+        Chat chat = new Chat("A");
+        chat.setVendedor1(vendedor1);
+        chat.setVendedor2(vendedor2);
+        chat.enviarMensaje(mensaje1);
+        chat.enviarMensaje(mensaje2);
+
+        Comentario comentario = new Comentario(vendedor1, LocalDateTime.now(), "Lindo", 3);
+        marketPlace.añadirComentario(comentario, publicacion1);
+
+        Muro muro = new Muro();
+
+        muro.añadirPublicacion(publicacion1);
+        muro.getListChat().add(chat);
+
+        vendedor1.añadirProducto(producto1);
         return marketPlace;
     }
 

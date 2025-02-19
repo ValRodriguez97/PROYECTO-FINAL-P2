@@ -14,6 +14,7 @@ import co.edu.uniquindio.marketplace.marketplace.model.Producto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.ObservableList;
@@ -198,20 +199,21 @@ public class WindowPrincipalViewController{
             alert.setContentText("No se ha encontrado información del usuario. Asegúrate de haber iniciado sesión correctamente");
             alert.showAndWait();
             return;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Perfil del usuario");
+            alert.setHeaderText("Información del usuario");
+
+            StringBuilder contenido = new StringBuilder();
+            contenido.append("Nombre:").append(usuario.getNombre()).append("\n");
+            contenido.append("Apellido: ").append(usuario.getApellido()).append("\n");
+            contenido.append("Cédula: ").append(usuario.getCedula()).append("\n");
+            contenido.append("Dirección: ").append(usuario.getDireccion()).append("\n");
+            contenido.append("Username: ").append(usuario.getUsername()).append("\n");
+
+            alert.setContentText(contenido.toString());
+            alert.showAndWait();
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Perfil del usuario");
-        alert.setHeaderText("Información del usuario");
-
-        StringBuilder contenido = new StringBuilder();
-        contenido.append("Nombre:").append(usuario.getNombre()).append("\n");
-        contenido.append("Apellido: ").append(usuario.getApellido()).append("\n");
-        contenido.append("Cédula: ").append(usuario.getCedula()).append("\n");
-        contenido.append("Dirección: ").append(usuario.getDireccion()).append("\n");
-        contenido.append("Username: ").append(usuario.getUsername()).append("\n");
-
-        alert.setContentText(contenido.toString());
-        alert.showAndWait();
     }
 
     @FXML
@@ -221,22 +223,22 @@ public class WindowPrincipalViewController{
 
     @FXML
     void onSearchWall(ActionEvent event) throws IOException {
-        changeWindow("Wall.fxml");
+        changeWindow();
     }
 
-    public void changeWindow(String fxmlFile) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/" + fxmlFile));
-        Scene scene = new Scene(fxmlLoader.load(), 782, 484);
+    public void changeWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/Wall.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
+
+        VendedorViewController controller = fxmlLoader.getController();
+        controller.inicializarVentana(vendedorDto);
     
-        if (fxmlFile.equals("Wall.fxml")) {
-            VendedorViewController controller = fxmlLoader.getController();
-            controller.inicializarVentana(vendedorDto); 
-        }
-    
-        stage.setScene(scene);
         Stage currentStage = (Stage) btnWall.getScene().getWindow();
-        currentStage.close(); 
+        currentStage.close();
+        stage.setScene(scene);
         stage.show();
     }
     

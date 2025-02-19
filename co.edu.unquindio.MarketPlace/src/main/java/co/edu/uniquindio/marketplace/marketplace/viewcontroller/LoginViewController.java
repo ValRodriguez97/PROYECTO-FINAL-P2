@@ -137,31 +137,6 @@ public class LoginViewController {
     
         stage.show();
     }
-    /**public void showStage2(UsuarioDto usuarioDto) throws IOException {
-      if(usuarioDto instanceof VendedorDto){
-          try {
-              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/MenuPrincipal.fxml"));
-              Scene scene = new Scene(fxmlLoader.load(), 782, 484);
-              Stage stage = new Stage();
-
-              WindowPrincipalViewController menuController = fxmlLoader.getController();
-              menuController.inicializarVentana((VendedorDto) usuarioDto);
-              stage.setScene(scene);
-
-              Stage cerrar = (Stage) btnLogin.getScene().getWindow();
-              cerrar.close();
-
-              stage.show();
-          } catch (IOException e){
-              e.printStackTrace();
-              Alert alert = new Alert(Alert.AlertType.ERROR);
-              alert.setContentText("Error de carga de la ventana");
-              alert.showAndWait();
-          }
-      } else {
-          System.out.println("Usuario no encontrado");
-      }
-    } **/
 
     @FXML
     void onPutPassword(ActionEvent event) {
